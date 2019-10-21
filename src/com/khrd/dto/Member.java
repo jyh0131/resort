@@ -13,7 +13,7 @@ public class Member {
 	private int mOut;
 	private int mAdmin;
 	
-	public Member() {
+	public Member(String id, String password, String name, String number, String email, String date, int out, int admin) {
 		super();
 		// TODO Auto-generated constructor stub
 	}
