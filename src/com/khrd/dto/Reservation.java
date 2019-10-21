@@ -3,14 +3,14 @@ package com.khrd.dto;
 import java.util.Date;
 
 public class Reservation {
-	private int rsvNo;
-	private int rsvCount;
-	private int rsvPrice;
-	private Date rsvStartDate;
-	private Date rsvEndDate;
-	private Date rsvPaymentDate;
-	private int rsvCancel;
-	// private Member member;
+	private int rsvNo; // 예약 번호
+	private int rsvCount; // 인원
+	private int rsvPrice; // 가격
+	private Date rsvStartDate; // 시작날짜
+	private Date rsvEndDate; // 종료날짜
+	private Date rsvPaymentDate; // 결제일 
+	private int rsvCancel; // 예약 취소 여부, 0=취소X, 1=취소O
+	// private Member member; 
 	// private Room room;
 	
 	public Reservation() {
