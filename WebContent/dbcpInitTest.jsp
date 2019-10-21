@@ -18,7 +18,7 @@
 				if(conn != null) {
 					out.print("커넥션 풀에 연결하였습니다.");
 				} else {
-					out.print("커넥션 풀 연결에 실패하였습니다.");
+					out.print("커넥션 풀 연결에 실패하였습니다. ");
 				}
 		} catch(Exception e) {
 			e.printStackTrace();
