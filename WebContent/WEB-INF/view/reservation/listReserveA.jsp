@@ -14,11 +14,14 @@
 		<c:forEach var="list" items="${list}">
 			<tr>
 				<td>${list.rsvNo}</td>
-				<td>${list.rsvPaymentDate}</td>
+				<fmt:formatDate var="paymentDate" value="${list.rsvPaymentDate}" pattern="yyyy-MM-dd"/>
+				<td>${paymentDate}</td>
 				<td>${list.member.mName}</td>
-				<td>${rsv.room.roomName.roomType.rtName} ${rsv.room.roomName.rnName} ${rsv.room.rRoom}</td>
+				<td>${list.room.roomName.roomType.rtName} ${list.room.roomName.rnName} ${list.room.rRoom}</td>
 				<td>${list.rsvCount}</td>
-				<td>${rsv.rsvStartDate} ~ ${rsv.rsvEndDate}</td>
+				<fmt:formatDate var="startDate" value="${list.rsvStartDate}" pattern="yyyy-MM-dd"/>
+				<fmt:formatDate var="endDate" value="${list.rsvEndDate}" pattern="yyyy-MM-dd"/>
+				<td>${startDate} ~ ${endDate}</td>
 				<td>${list.rsvCancel}</td>
 				<td><a href="${pageContext.request.contextPath}/reservation/detailA.do">보기</a></td>
 			</tr>

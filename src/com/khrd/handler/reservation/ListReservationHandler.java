@@ -19,8 +19,11 @@ public class ListReservationHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 
-		HttpSession session = request.getSession();
-		String auth = (String)session.getAttribute("Auth");
+//		HttpSession session = request.getSession();
+//		String auth = (String)session.getAttribute("Auth");
+		
+		// DB에 있는 임의의 데이터를 가져와서 테스트		
+		String auth = "abc123";
 		
 		Connection conn = null;
 		

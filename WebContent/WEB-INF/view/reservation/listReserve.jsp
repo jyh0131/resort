@@ -4,13 +4,14 @@
 <c:forEach var="rsv" items="${list}">
 	<table>
 		<tr>
-			<td>${rsv.rsvPaymentDate}</td> <!-- 결제일 -->
+		<fmt:formatDate var="paymentDate" value="${rsv.rsvPaymentDate}" pattern="yyyy-MM-dd"/>
+			<td>${paymentDate}</td> <!-- 결제일 -->
 		</tr>
 		<tr>
 			<td>예약번호</td>
 			<td>${rsv.rsvNo}</td>
-		</tr> 
-		<tr>
+		</tr>
+		<tr> 
 			<td>예약자</td>
 			<td>${rsv.member.mName}</td>
 		</tr>
@@ -24,7 +25,9 @@
 		</tr>
 		<tr>
 			<td>예약일</td>
-			<td>${rsv.rsvStartDate} ~ ${rsv.rsvEndDate}</td>
+			<fmt:formatDate var="startDate" value="${rsv.rsvStartDate}" pattern="yyyy-MM-dd"/>
+			<fmt:formatDate var="endDate" value="${rsv.rsvEndDate}" pattern="yyyy-MM-dd"/>
+			<td>${startDate} ~ ${endDate}</td>
 		</tr>
 		<tr>
 			<td>예약인원</td>
