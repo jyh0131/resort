@@ -15,7 +15,7 @@
 이메일 :<input type ="text" name = "email" ><br>
 날짜 :<input type ="date" name = "date" ><br>
 <input type ="submit" value = "변경" ><br>
-
+ 
 </form>
 
 

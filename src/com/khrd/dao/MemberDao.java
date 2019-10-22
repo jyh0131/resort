@@ -15,7 +15,7 @@ public class MemberDao {
 	private static final MemberDao dao = new MemberDao();
 	
 	public static MemberDao getInstance() {
-		
+		 
 		return dao;		
 	}
 	private MemberDao() {	

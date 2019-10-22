@@ -21,7 +21,7 @@ public class MemberUpdateHandler implements CommandHandler {
 		if(request.getMethod().equalsIgnoreCase("get")) {
 			
 			String id = request.getParameter("id");
-					
+				 	 
 			Connection conn = null;
 			
 			try {

@@ -18,7 +18,7 @@ public class MemberLoginHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		if(request.getMethod().equalsIgnoreCase("get")) {
-				
+				 
 			return "/WEB-INF/view/member/login.jsp";
 		}else if(request.getMethod().equalsIgnoreCase("post")) {
 			
@@ -29,7 +29,7 @@ public class MemberLoginHandler implements CommandHandler {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
 				Member member = dao.SelectMemberIDPW(conn, id, password);
-				
+				 
 				if(member == null){
 					request.setAttribute("login", true);
 					

@@ -16,7 +16,7 @@
 <label>전화번호 :</label> <input type = "text" name ="number"><br>
 <label>이메일 :</label> <input type = "text" name ="email"><br>
 <label>생년월일 :</label> <input type = "date" name ="date"><br>
-
+ 
 <input type = "submit" value = "회원 가입">
 
 
