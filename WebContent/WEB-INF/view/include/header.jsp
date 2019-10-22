@@ -17,7 +17,7 @@
 	
 	header{
 		width: 100%;
-		height: 400px;
+		height: 200px;
 		margin-bottom: 50px;
 	}
 	header ul{
@@ -88,7 +88,7 @@
 	
 	div#bottom_menu{
 		width: 100%;
-		height: 60px;
+		height: 50px;
 		padding: 30px 0px;
 		border: 1px solid #ccc;
 		position: relative;
@@ -103,7 +103,7 @@
 	}
 	ul#bottom_main{
 		width: 900px;
-		height: 400px;
+		height: 330px;
 		position: relative;
 		overflow: hidden;
 		margin-left: 50px;
@@ -123,7 +123,7 @@
 	}
 	ul.bottom_sub{
 		width: 840px;
-		height: 250px;
+		height: 200px;
 		display: none;
 		overflow: hidden;
 		position: absolute;
@@ -207,7 +207,7 @@
 		
 		//아래 메인 메뉴
 		$("#bottom_main>li").mouseover(function() {
-			$(this).find(".bottom_sub").stop().slideDown(700);
+			$(this).find(".bottom_sub").stop().slideDown(500);
 			$(this).find("a").eq(0).css("color", "#977F51");
 		}) 
 		$("#bottom_main>li").mouseout(function() {
