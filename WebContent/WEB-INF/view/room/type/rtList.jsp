@@ -29,8 +29,8 @@
 				<td>${rt.rtNo }</td>
 				<td>${rt.rtName }</td>
 				<td>
-					<a href = "">수정</a> | 
-					<a href = "">삭제</a>
+					<a href = "update.do?rtNo=${rt.rtNo }">수정</a> | 
+					<a href = "delete.do?rtNo=${rt.rtNo }">삭제</a>
 				</td>
 			</tr>
 		</c:forEach>

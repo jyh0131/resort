@@ -70,7 +70,7 @@ public class RoomTypeDAO {
 			pstmt.setInt(1, rtNo);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				RoomType rt = new RoomType(rs.getInt("rtNo"), rs.getString("rtName"));
+				RoomType rt = new RoomType(rs.getInt("rt_no"), rs.getString("rt_name"));
 				return rt;
 			}
 		}catch (Exception e) {
@@ -82,9 +82,42 @@ public class RoomTypeDAO {
 		return null;
 	}
 	
+	public int deleteRoomType(Connection conn, int rtNo) {
+		PreparedStatement pstmt =  null;
+		
+		try {
+			String sql = "delete from room_type where rt_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rtNo);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+		}
+		
+		
+		return -1;
+	}
 	
-	
-	
+	public int updateRoomType(Connection conn, RoomType rt) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "update room_type set rt_name = ? where rt_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setNString(1, rt.getRtName());
+			pstmt.setInt(2, rt.getRtNo());
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+		}
+		
+		
+		return -1;
+	}
 	
 	
 	

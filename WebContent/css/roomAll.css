@@ -5,6 +5,11 @@ a{
 ul{
 	list-style:none;
 }
+fieldset{
+	width: 500px;
+	text-align: center;
+	padding:10px;
+}
 label{
 	width:120px;
 	float:left;

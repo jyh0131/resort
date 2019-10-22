@@ -17,6 +17,8 @@
 	
 	header{
 		width: 100%;
+		height: 200px;
+		margin-bottom: 50px;
 	}
 	header ul{
 		overflow: hidden;
@@ -86,7 +88,7 @@
 	
 	div#bottom_menu{
 		width: 100%;
-		height: 60px;
+		height: 50px;
 		padding: 30px 0px;
 		border: 1px solid #ccc;
 		position: relative;
@@ -101,7 +103,7 @@
 	}
 	ul#bottom_main{
 		width: 900px;
-		height: 400px;
+		height: 330px;
 		position: relative;
 		overflow: hidden;
 		margin-left: 50px;
@@ -121,13 +123,14 @@
 	}
 	ul.bottom_sub{
 		width: 840px;
-		height: 300px;
+		height: 200px;
 		display: none;
 		overflow: hidden;
 		position: absolute;
 		top: 110px;
 		left: 0px;
 		padding-left: 30px;
+		background: #fff;
 	}
 	.bottom_sub>li{
 		clear: both;
@@ -175,6 +178,7 @@
 		margin-left: 10px;
 		margin-top: 10px;
 		background: url("${pageContext.request.contextPath}/images/search_btn.gif") no-repeat center;
+		cursor: pointer;
 	}
 	ul#lang{
 		width: 50px;
@@ -182,11 +186,19 @@
 		position: absolute;
 		top: 0px;
 		background: #fff;
-		border: 1px solid black;
+		border: 1px solid #ccc;
 		display: none;
 	}
 	#lang>li{
 		clear: both;
+		width: 100%;
+		height: 25px;
+		line-height: 150%;
+	}
+	#lang>li>a{
+		display: inline-block;
+		width: 100%;
+		height: 100%;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -195,7 +207,7 @@
 		
 		//아래 메인 메뉴
 		$("#bottom_main>li").mouseover(function() {
-			$(this).find(".bottom_sub").stop().slideDown(700);
+			$(this).find(".bottom_sub").stop().slideDown(500);
 			$(this).find("a").eq(0).css("color", "#977F51");
 		}) 
 		$("#bottom_main>li").mouseout(function() {
@@ -273,9 +285,9 @@
 				<li>
 					<a href="#">예약 서비스</a>
 					<ul id="rsv_menu" class="bottom_sub">
-						<li><a href="#">빠른예약</a></li>
-						<li><a href="#">예약 조회</a></li>
-						<li><a href="#">예약 취소</a></li>
+						<li><a href="${pageContext.request.contextPath}/reservation/insert.do">빠른예약</a></li>
+						<li><a href="${pageContext.request.contextPath}/reservation/list.do">예약 조회</a></li>
+						<li><a href="${pageContext.request.contextPath}/reservation/cancel.do">예약 취소</a></li>
 					</ul><!-- rsv_meun -->
 				</li>
 				<li><a href="#">객실 안내</a>
@@ -302,7 +314,15 @@
 				<li><a href="#">테마여행</a></li>
 				<li><a href="#">이벤트&amp;할인</a></li>
 				<li><a href="#">분양회원</a></li>
-				<li><a href="#">고객센터</a></li>
+				<li><a href="#">고객센터</a>
+					<ul id="service_menu" class="bottom_sub">
+						<li><a href="#">공지사항</a></li>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">Q&amp;A</a></li>
+						<li><a href="#">고객의 말씀</a></li>
+						<li><a href="#">분실물센터</a></li>
+					</ul>
+				</li>
 			</ul><!-- bottom_main -->
 		</div><!-- bottom_menu -->		
 	</header>
