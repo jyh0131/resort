@@ -249,7 +249,7 @@
 			$("#langBtn").text($(this).text());
 			$("#lang").css("display", "none");
 		})
-	})
+	}) 
 </script>
 </head>
 <body>
