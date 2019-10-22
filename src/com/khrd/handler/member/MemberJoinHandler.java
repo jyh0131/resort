@@ -1,6 +1,8 @@
 package com.khrd.handler.member;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,23 +29,20 @@ public class MemberJoinHandler implements CommandHandler {
 			String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String number = request.getParameter("number");
-			String email = request.getParameter("email");
-			
-			
+			String email = request.getParameter("email");					
 			String date = request.getParameter("date");
-			int out = Integer.parseInt("out");
-			int admin = Integer.parseInt("admin");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date regDate = sdf.parse(date);
 			
 			try {
 				conn = ConnectionProvider.getConnection();
+
 				MemberDao dao = MemberDao.getInstance();
-				Member member = new Member(id, password, name, number, email, date, out, admin);
-				
-				int result = dao.insertMember(conn, member);
-				
+				Member member = new Member(id, password, name, number, email, regDate, 0, 0);
+				int result = dao.InsertMember(conn, member);
 				request.setAttribute("result", result);
 				
-				return "WEB-INF/view/member/joinResult.jsp";
+				return "/WEB-INF/view/member/joinResult.jsp";
 				
 			}catch(Exception e) {
 				e.printStackTrace();
