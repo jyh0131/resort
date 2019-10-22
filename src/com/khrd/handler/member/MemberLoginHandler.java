@@ -39,7 +39,7 @@ public class MemberLoginHandler implements CommandHandler {
 				HttpSession session = request.getSession();
 				session.setAttribute("Auth", member.getmId());
 				
-				return "";
+				
 				
 			}catch(Exception e) {
 				e.printStackTrace();
