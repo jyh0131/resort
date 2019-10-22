@@ -1,0 +1,21 @@
+@charset "UTF-8";
+a{
+	text-decoration: none;	
+}
+ul{
+	list-style:none;
+}
+fieldset{
+	width: 500px;
+	text-align: center;
+	padding:10px;
+}
+label{
+	width:120px;
+	float:left;
+}
+span.error{
+	color:red;
+	font-size:9px;
+	display: none;
+}

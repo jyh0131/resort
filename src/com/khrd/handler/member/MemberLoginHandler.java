@@ -38,8 +38,8 @@ public class MemberLoginHandler implements CommandHandler {
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("Auth", member.getmId());
-				
-				
+	
+				return "/WEB-INF/view/member/home.jsp";
 				
 			}catch(Exception e) {
 				e.printStackTrace();
