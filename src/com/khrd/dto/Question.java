@@ -5,20 +5,26 @@ import java.util.Date;
 public class Question {
 	private int qNo; //질문 번호
 	private String qTitle; //질문 제목
+	private String qType; //질문 유형
 	private String qContent; //질문 내용
+	private String qFile; //첨부파일
 	private Date qDate; //등록 날짜
 	private String mId; //아이디
 	
 	public Question() {}
 	
-	public Question(int qNo, String qTitle, String qContent, Date qDate, String mId) {
+	public Question(int qNo, String qTitle, String qType, String qContent, String qFile, Date qDate, String mId) {
 		super();
 		this.qNo = qNo;
 		this.qTitle = qTitle;
+		this.qType = qType;
 		this.qContent = qContent;
+		this.qFile = qFile;
 		this.qDate = qDate;
 		this.mId = mId;
 	}
+
+	
 
 	public int getqNo() {
 		return qNo;
@@ -36,12 +42,28 @@ public class Question {
 		this.qTitle = qTitle;
 	}
 
+	public String getqType() {
+		return qType;
+	}
+
+	public void setqType(String qType) {
+		this.qType = qType;
+	}
+
 	public String getqContent() {
 		return qContent;
 	}
 
 	public void setqContent(String qContent) {
 		this.qContent = qContent;
+	}
+
+	public String getqFile() {
+		return qFile;
+	}
+
+	public void setqFile(String qFile) {
+		this.qFile = qFile;
 	}
 
 	public Date getqDate() {
@@ -62,7 +84,7 @@ public class Question {
 
 	@Override
 	public String toString() {
-		return "Question [qNo=" + qNo + ", qTitle=" + qTitle + ", qContent=" + qContent + ", qDate=" + qDate + ", mId="
-				+ mId + "]";
+		return "Question [qNo=" + qNo + ", qTitle=" + qTitle + ", qType=" + qType + ", qContent=" + qContent
+				+ ", qFile=" + qFile + ", qDate=" + qDate + ", mId=" + mId + "]";
 	}
 }
