@@ -3,11 +3,11 @@ package com.khrd.dto;
 import java.util.Date;
 
 public class Question {
-	private int qNo;
-	private String qTitle;
-	private String qContent;
-	private Date qDate;
-	private String mId;
+	private int qNo; //질문 번호
+	private String qTitle; //질문 제목
+	private String qContent; //질문 내용
+	private Date qDate; //등록 날짜
+	private String mId; //아이디
 	
 	public Question() {}
 	

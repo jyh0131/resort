@@ -17,6 +17,8 @@
 	
 	header{
 		width: 100%;
+		height: 400px;
+		margin-bottom: 50px;
 	}
 	header ul{
 		overflow: hidden;
@@ -121,13 +123,14 @@
 	}
 	ul.bottom_sub{
 		width: 840px;
-		height: 300px;
+		height: 250px;
 		display: none;
 		overflow: hidden;
 		position: absolute;
 		top: 110px;
 		left: 0px;
 		padding-left: 30px;
+		background: #fff;
 	}
 	.bottom_sub>li{
 		clear: both;
@@ -175,6 +178,7 @@
 		margin-left: 10px;
 		margin-top: 10px;
 		background: url("${pageContext.request.contextPath}/images/search_btn.gif") no-repeat center;
+		cursor: pointer;
 	}
 	ul#lang{
 		width: 50px;
@@ -182,11 +186,19 @@
 		position: absolute;
 		top: 0px;
 		background: #fff;
-		border: 1px solid black;
+		border: 1px solid #ccc;
 		display: none;
 	}
 	#lang>li{
 		clear: both;
+		width: 100%;
+		height: 25px;
+		line-height: 150%;
+	}
+	#lang>li>a{
+		display: inline-block;
+		width: 100%;
+		height: 100%;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -302,7 +314,15 @@
 				<li><a href="#">테마여행</a></li>
 				<li><a href="#">이벤트&amp;할인</a></li>
 				<li><a href="#">분양회원</a></li>
-				<li><a href="#">고객센터</a></li>
+				<li><a href="#">고객센터</a>
+					<ul id="service_menu" class="bottom_sub">
+						<li><a href="#">공지사항</a></li>
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">Q&amp;A</a></li>
+						<li><a href="#">고객의 말씀</a></li>
+						<li><a href="#">분실물센터</a></li>
+					</ul>
+				</li>
 			</ul><!-- bottom_main -->
 		</div><!-- bottom_menu -->		
 	</header>
