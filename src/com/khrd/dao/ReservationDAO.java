@@ -24,6 +24,43 @@ public class ReservationDAO {
 
 	}
 
+	// 모든 예약 조회
+	public ArrayList<Reservation> selectReserve(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "select * from room_type rt join room_name rn using(rt_no) join room r using (rn_no) join reservation rsv using(r_no) join member m using(m_id);";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			ArrayList<Reservation> list = new ArrayList<>();
+			while (rs.next()) {
+				Reservation rsv = new Reservation(rs.getInt("rsv_no"), rs.getInt("rsv_count"), rs.getInt("rsv_price"),
+						rs.getTimestamp("rsv_start_date"), rs.getTimestamp("rsv_end_date"),
+						rs.getTimestamp("rsv_payment_date"), rs.getInt("rsv_cancel"),
+
+						new Member(rs.getString("m_id"), rs.getString("m_password"), rs.getString("m_name"),
+								rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+								rs.getInt("m_out"), rs.getInt("m_admin")),
+
+						new Room(rs.getInt("r_no"), rs.getInt("r_room"),
+								new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"),
+										new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
+										rs.getString("rn_detail"), rs.getInt("rn_price"))));
+				list.add(rsv);
+			}
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
+		}
+
+		return null;
+	}
+
 	// 회원아이디로 예약 조회
 	// mId = 회원아이디
 	public ArrayList<Reservation> selectReserveById(Connection conn, String mId) {
@@ -104,7 +141,7 @@ public class ReservationDAO {
 
 	// 예약번호로 예약 조회
 	// rsvNo = 예약번호
-	public ArrayList<Reservation> selectReserveByName(Connection conn, int rsvNo) {
+	public Reservation selectReserveByNo(Connection conn, int rsvNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -113,8 +150,8 @@ public class ReservationDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rsvNo);
 			rs = pstmt.executeQuery();
-			ArrayList<Reservation> list = new ArrayList<>();
-			while (rs.next()) {
+
+			if (rs.next()) {
 				Reservation rsv = new Reservation(rs.getInt("rsv_no"), rs.getInt("rsv_count"), rs.getInt("rsv_price"),
 						rs.getTimestamp("rsv_start_date"), rs.getTimestamp("rsv_end_date"),
 						rs.getTimestamp("rsv_payment_date"), rs.getInt("rsv_cancel"),
@@ -127,9 +164,8 @@ public class ReservationDAO {
 								new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"),
 										new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
 										rs.getString("rn_detail"), rs.getInt("rn_price"))));
-				list.add(rsv);
+				return rsv;
 			}
-			return list;
 
 		} catch (Exception e) {
 			e.printStackTrace();

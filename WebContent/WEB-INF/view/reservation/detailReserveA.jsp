@@ -39,5 +39,4 @@
 		</tr>
 	</table>
 	<button>예약 수정</button><button>예약 취소</button>
-</body>
-</html>
+<%@ include file="../include/footer.jsp" %>
