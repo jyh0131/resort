@@ -61,30 +61,20 @@ public class MemberDao {
 			pstmt.setString(1, member.getmPassword());
 			pstmt.setString(2, member.getmPhone());
 			pstmt.setString(3, member.getmEmail());
-			pstmt.setTimestamp(4, new java.sql.Timestamp(member.getmRegdate().getTime()));
+			pstmt.setTimestamp(4, new Timestamp(member.getmRegdate().getTime()));
 			pstmt.setString(5, member.getmId());
+			return pstmt.executeUpdate();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.close(pstmt);
 		}
-		
-		
-		
-		return -1;
-	}
-	
-	public int LogIn(Connection conn){
-		
-		
-		return -1;		
-	}
-	
-	public int LogOut(Connection conn){
+				
 		
 		return -1;
 	}
+
 	
 	public List<Member> SelectMember(Connection conn){
 		
