@@ -16,7 +16,7 @@ public class MemberLoginHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		 
 		if(request.getMethod().equalsIgnoreCase("get")) {
 				 
 			return "/WEB-INF/view/member/login.jsp";

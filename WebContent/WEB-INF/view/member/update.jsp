@@ -9,7 +9,7 @@
 <body>
 
 <form action = "update.do" method ="post">
-
+ 
 패스워드 :<input type ="text" name = "password" ><br>
 폰번호 :<input type ="text" name = "number" ><br>
 이메일 :<input type ="text" name = "email" ><br>

@@ -14,7 +14,7 @@ import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
 public class MemberJoinHandler implements CommandHandler {
- 
+  
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(request.getMethod().equalsIgnoreCase("get")) {

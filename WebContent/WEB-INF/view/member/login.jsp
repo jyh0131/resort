@@ -26,7 +26,7 @@ $(function(){
 
 </head>
 <body>
-
+ 
 <form action = "login.do" method ="post">
 
 아이디 :<input type ="text" name = "id" id = "id"><br>

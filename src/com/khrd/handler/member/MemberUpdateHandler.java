@@ -19,7 +19,7 @@ public class MemberUpdateHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		if(request.getMethod().equalsIgnoreCase("get")) {
-			
+			 
 			String id = request.getParameter("id");
 				 	 
 			Connection conn = null;
