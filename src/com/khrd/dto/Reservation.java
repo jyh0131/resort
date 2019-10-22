@@ -10,14 +10,14 @@ public class Reservation {
 	private Date rsvEndDate; // 종료날짜
 	private Date rsvPaymentDate; // 결제일 
 	private int rsvCancel; // 예약 취소 여부, 0=취소X, 1=취소O
-	// private Member member; 
-	// private Room room;
+	private Member member; 
+	private Room room;
 	
 	public Reservation() {
 		
 	}
 	
-	/*public Reservation(int rsvNo, int rsvCount, int rsvPrice, Date rsvStartDate, Date rsvEndDate, Date rsvPaymentDate,
+	public Reservation(int rsvNo, int rsvCount, int rsvPrice, Date rsvStartDate, Date rsvEndDate, Date rsvPaymentDate,
 			int rsvCancel, Member member, Room room) {
 		super();
 		this.rsvNo = rsvNo;
@@ -29,7 +29,7 @@ public class Reservation {
 		this.rsvCancel = rsvCancel;
 		this.member = member;
 		this.room = room;
-	}*/
+	}
 
 	public int getRsvNo() {
 		return rsvNo;
@@ -87,7 +87,7 @@ public class Reservation {
 		this.rsvCancel = rsvCancel;
 	}
 
-	/*public Member getMember() {
+	public Member getMember() {
 		return member;
 	}
 
@@ -108,6 +108,6 @@ public class Reservation {
 		return "Reservation [rsvNo=" + rsvNo + ", rsvCount=" + rsvCount + ", rsvPrice=" + rsvPrice + ", rsvStartDate="
 				+ rsvStartDate + ", rsvEndDate=" + rsvEndDate + ", rsvPaymentDate=" + rsvPaymentDate + ", rsvCancel="
 				+ rsvCancel + "]";
-	}*/
+	}
 	
 }
