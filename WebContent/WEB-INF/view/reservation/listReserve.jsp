@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ include file="../include/header.jsp" %> --%>
+<%@ include file="../include/header.jsp" %>
 <c:forEach var="rsv" items="${list}">
 	<table>
 		<tr>
@@ -41,4 +41,4 @@
 	</table>
 	<button data-update="${rsv.rsvNo }">예약 수정</button><button data-delete="${rsv.rsvNo }">예약 취소</button>
 </c:forEach>
-<%-- <%@ include file="../include/footer.jsp" %> --%>
+<%@ include file="../include/footer.jsp" %>

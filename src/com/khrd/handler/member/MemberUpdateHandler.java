@@ -29,10 +29,10 @@ public class MemberUpdateHandler implements CommandHandler {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
 				Member member = dao.SelectMemberByID(conn,id);
-/*				request.setAttribute("password",member.getmPassword());
+				request.setAttribute("password",member.getmPassword());
 				request.setAttribute("number",member.getmPhone());
 				request.setAttribute("email",member.getmEmail());
-				request.setAttribute("date",member.getmRegdate());*/
+				request.setAttribute("date",member.getmRegdate());
 				
 				return "/WEB-INF/view/member/update.jsp";
 				
@@ -63,7 +63,7 @@ public class MemberUpdateHandler implements CommandHandler {
 				member.setmRegdate(regDate);
 				dao.UpdateMember(conn, member);
 								
-				
+				return "/WEB-INF/view/member/home.jsp";
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ include file="../include/header.jsp" %> --%>
+<%@ include file="../include/header.jsp" %>
 	<table>
 		<tr>
 			<td>${rsv.rsvPaymentDate}</td> <!-- 결제일 -->
@@ -39,4 +39,5 @@
 		</tr>
 	</table>
 	<button data-update="${rsv.rsvNo }">예약 수정</button><button data-delete="${rsv.rsvNo }">예약 취소</button>
-<%-- <%@ include file="../include/footer.jsp" %> --%>
+<%@ include file="../include/footer.jsp" %>
+
