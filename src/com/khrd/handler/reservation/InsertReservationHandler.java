@@ -52,7 +52,7 @@ public class InsertReservationHandler implements CommandHandler {
 				room.setrNo(rNo);
 				Reservation rsv = new Reservation(0, rsvCount, rsvPrice, rsv_start_date, rsv_end_date,
 													rsv_payment_date, 0, member, room);
-				dao.addReserve(conn, rsv, mId, rNo);
+				dao.insertReserve(conn, rsv, mId, rNo);
 				response.sendRedirect(request.getContextPath()+"/reservation/list.do");
 				
 			} catch(Exception e) {

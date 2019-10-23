@@ -43,6 +43,10 @@
 				<td>${rsv.rsvNo}</td>
 			</tr>
 			<tr> 
+				<td>예약 아이디</td>
+				<td>${rsv.member.mId}</td>
+			</tr>
+			<tr> 
 				<td>예약자</td>
 				<td>${rsv.member.mName}</td>
 			</tr>

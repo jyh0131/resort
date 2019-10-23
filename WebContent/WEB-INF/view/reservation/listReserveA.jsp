@@ -38,6 +38,7 @@
 			<tr>
 				<th>예약번호</th>
 				<th>결제일</th>
+				<th>예약 아이디</th>
 				<th>예약자</th>
 				<th>이용객실</th>
 				<th>예약인원</th>
@@ -50,6 +51,7 @@
 					<td>${list.rsvNo}</td>
 					<fmt:formatDate var="paymentDate" value="${list.rsvPaymentDate}" pattern="yyyy-MM-dd"/>
 					<td>${paymentDate}</td>
+					<td>${list.member.mId}</td>
 					<td>${list.member.mName}</td>
 					<td>${list.room.roomName.roomType.rtName} ${list.room.roomName.rnName} ${list.room.rRoom}호</td>
 					<td>${list.rsvCount}명</td>

@@ -198,7 +198,32 @@ public class ReservationDAO {
 	}
 
 	// 예약 등록
-	public int addReserve(Connection conn, Reservation rsv, String mId, int rNo) {
+	public int insertReserve(Connection conn, Reservation rsv, String mId, int rNo) {
+		PreparedStatement pstmt = null;
+
+		try {
+			String sql = "insert into reservation values(0, ?, ?, ?, ?, ?, 0, ?, ?),";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rsv.getRsvCount());
+			pstmt.setInt(2, rsv.getRsvPrice());
+			pstmt.setTimestamp(3, new Timestamp(rsv.getRsvStartDate().getTime()));
+			pstmt.setTimestamp(4, new Timestamp(rsv.getRsvEndDate().getTime()));
+			pstmt.setTimestamp(5, new Timestamp(rsv.getRsvPaymentDate().getTime()));
+			pstmt.setString(6, mId);
+			pstmt.setInt(7, rNo);
+			return pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+		}
+
+		return -1;
+	}
+	
+	// 예약 변경
+	public int updateReserve(Connection conn, Reservation rsv, String mId, int rNo) {
 		PreparedStatement pstmt = null;
 
 		try {
