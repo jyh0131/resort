@@ -289,7 +289,7 @@
 					<ul id="rsv_menu" class="bottom_sub">
 						<li><a href="${pageContext.request.contextPath}/reservation/insert.do">빠른예약</a></li>
 						<li><a href="${pageContext.request.contextPath}/reservation/list.do">예약 조회</a></li>
-						<li><a href="${pageContext.request.contextPath}/reservation/cancel.do">예약 취소</a></li>
+						<%-- <li><a href="${pageContext.request.contextPath}/reservation/cancel.do">예약 취소</a></li> --%>
 					</ul><!-- rsv_meun -->
 				</li>
 				<li><a href="#">객실 안내</a>

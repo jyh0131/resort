@@ -119,16 +119,4 @@ public class RoomTypeDAO {
 		return -1;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
