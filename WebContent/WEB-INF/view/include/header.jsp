@@ -11,7 +11,7 @@
 	*{
 		margin: 0px;
 		padding: 0px;
-	}
+	} 
 	
 	/* header */
 	
@@ -199,6 +199,7 @@
 		display: inline-block;
 		width: 100%;
 		height: 100%;
+		font-size: 13px;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -249,7 +250,7 @@
 			$("#langBtn").text($(this).text());
 			$("#lang").css("display", "none");
 		})
-	})
+	}) 
 </script>
 </head>
 <body>
@@ -270,8 +271,8 @@
 		<div id="bottom_menu">
 			<a id="home_btn_big" href="#"></a>
 			<ul id="bottom_right">
-				<li><a href="#">로그인</a> | </li> 
-				<li><a href="#">회원가입</a> | </li>
+				<li><a href="login.do">로그인</a> | </li> 
+				<li><a href="add.do">회원가입</a> | </li>
 				<li>
 					<span id="langBtn">KOR</span>
 					<ul id="lang">

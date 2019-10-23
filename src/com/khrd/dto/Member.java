@@ -12,7 +12,7 @@ public class Member {
 	private Date mRegdate;
 	private int mOut;
 	private int mAdmin;
-	
+	 
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
