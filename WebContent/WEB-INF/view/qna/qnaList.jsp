@@ -7,6 +7,7 @@
 	}
 	p#btns{
 		width: 700px;
+		height: 30px;
 		margin: 0 auto;
 		text-align: right;
 	}

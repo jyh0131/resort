@@ -42,7 +42,7 @@
 			
 			//제목 글자 수 제한
 			var title = $("#title").val();
-			var reg = /^[a-z가-힣]{1,50}$/i;
+			var reg = /^.{1,50}$/i;
 			if(reg.test(title) == false){
 				$(".titleError").css("display", "inline");
 				return false;

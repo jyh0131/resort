@@ -1,6 +1,7 @@
 package com.khrd.handler.qna;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +24,8 @@ public class QuestionMyquestionHandler implements CommandHandler {
 		try {
 			conn = ConnectionProvider.getConnection();
 			QuestionDAO dao = QuestionDAO.getInstance();
-			Question question = dao.selectQuestionByMId(conn, mId);
-			req.setAttribute("q", question);
+			List<Question> list = dao.selectMyQuestionListByMId(conn, mId);
+			req.setAttribute("list", list);
 			return "/WEB-INF/view/qna/question/myQuestion.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();

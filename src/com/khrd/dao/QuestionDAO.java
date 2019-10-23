@@ -77,7 +77,7 @@ public class QuestionDAO {
 		return null;
 	}//selectQuestionByQNo
 	
-	public Question selectQuestionByMId(Connection conn, String mId){
+	public List<Question> selectMyQuestionListByMId(Connection conn, String mId){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -86,7 +86,8 @@ public class QuestionDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
+			List<Question> list = new ArrayList<>();
+			while (rs.next()) {
 				Question question = new Question(
 									rs.getInt("q_no"),
 									rs.getString("q_title"),
@@ -95,8 +96,9 @@ public class QuestionDAO {
 									rs.getString("q_File"), 
 									rs.getDate("q_date"),
 									rs.getString("m_id"));
-				return question;
+				list.add(question);
 			}			
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -104,7 +106,7 @@ public class QuestionDAO {
 			JDBCUtil.close(pstmt);
 		}
 		return null;
-	}//selectQuestionByMId
+	}//selectMyQuestionListByMId
 	
 	public int insertQuestion(Connection conn, Question question) {
 		PreparedStatement pstmt = null;

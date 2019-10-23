@@ -256,7 +256,7 @@
 <body>
 	<header>
 		<div id="top_menu">
-			<a href="#" id="home_btn_small">SONO HOME</a>
+			<a href="${pageContext.request.contextPath}/home.jsp" id="home_btn_small">SONO HOME</a>
 			<ul id="top_main">
 				<li><a href="#">리조트&amp;호텔</a></li>
 				<li><a href="#">레저&amp;스포츠</a></li>
@@ -269,10 +269,10 @@
 		</div><!-- top_menu -->
 		
 		<div id="bottom_menu">
-			<a id="home_btn_big" href="#"></a>
+			<a id="home_btn_big" href="${pageContext.request.contextPath}/home.jsp"></a>
 			<ul id="bottom_right">
-				<li><a href="login.do">로그인</a> | </li> 
-				<li><a href="add.do">회원가입</a> | </li>
+				<li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a> | </li> 
+				<li><a href="${pageContext.request.contextPath}/member/add.do">회원가입</a> | </li>
 				<li>
 					<span id="langBtn">KOR</span>
 					<ul id="lang">
@@ -319,7 +319,7 @@
 					<ul id="service_menu" class="bottom_sub">
 						<li><a href="#">공지사항</a></li>
 						<li><a href="#">FAQ</a></li>
-						<li><a href="#">Q&amp;A</a></li>
+						<li><a href="${pageContext.request.contextPath}/question/list.do">Q&amp;A</a></li>
 						<li><a href="#">고객의 말씀</a></li>
 						<li><a href="#">분실물센터</a></li>
 					</ul>

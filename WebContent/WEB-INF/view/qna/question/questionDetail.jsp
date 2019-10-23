@@ -5,9 +5,15 @@
 	section{
 		width: 100%;
 	}
+	p#btns{
+		width: 700px;
+		height: 30px;
+		margin: 0 auto;
+		text-align: right;
+	}
 	table{
 		width: 700px;
-		margin: 0 auto;
+		margin: 20px auto;
 		border-collapse: collapse;
 		border-top: 2px solid #977F51;
 	}
@@ -37,6 +43,12 @@
 </style>
 <section>
 	<%@ include file="../../include/qna/front.jsp" %>
+	<p id="btns">
+		<c:if test="${Auth == q.mId}">
+		<button id="update">수정</button>
+		<button id="delete">삭제</button>
+		</c:if>
+	</p>
 	<table>
 		<tr>
 			<td colspan="4" id="title">${q.qTitle}</td> 
