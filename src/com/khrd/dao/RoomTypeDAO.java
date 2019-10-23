@@ -17,13 +17,13 @@ public class RoomTypeDAO {
 	
 	private RoomTypeDAO() {}
 	
-	public int insertRoomType(Connection conn,RoomType room) {
+	public int insertRoomType(Connection conn,RoomType rt) {
 		PreparedStatement pstmt = null;
 		
 		try {
 			String sql = "insert into room_type values(null,?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setNString(1, room.getRtName());
+			pstmt.setNString(1, rt.getRtName());
 			
 			return pstmt.executeUpdate();
 		}catch (Exception e) {
