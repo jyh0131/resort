@@ -66,4 +66,76 @@ public class RoomNameDAO {
 		
 		return null;
 	}
+	
+	public int deleteRoomName(Connection conn, int rnNo) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "delete from room_name where rn_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rnNo);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+		}
+		
+		return -1;
+	}
+	
+	public int updateRoomName(Connection conn, RoomName rn) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "update room_name set rn_name = ?, rn_detail = ?, rn_price = ? where rn_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, rn.getRnName());
+			pstmt.setString(2, rn.getRnDetail());
+			pstmt.setInt(3, rn.getRnPrice());
+			pstmt.setInt(4, rn.getRnNo());
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+		}
+		
+		
+		return -1;
+	}
+	
+	public RoomName selectRoomNameByNo(Connection conn, int rnNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs =  null;
+		try {
+			String sql = "select * from room_name left join room_type using(rt_no) where rn_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rnNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				RoomName rn = new RoomName(rs.getInt("rn_no"),
+											rs.getString("rn_name"),
+											new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
+											rs.getString("rn_detail"),
+											rs.getInt("rn_price"));
+				return rn;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
