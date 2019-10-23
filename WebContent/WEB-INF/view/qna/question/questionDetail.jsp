@@ -31,7 +31,7 @@
 		font-weight: bold;
 		color: #977F51;
 	}
-	img{
+	td>img{
 		width: 30%;
 	}
 </style>
@@ -39,7 +39,7 @@
 	<%@ include file="../../include/qna/front.jsp" %>
 	<table>
 		<tr>
-			<td colspan="4" id="title">${q.qTitle}</td>
+			<td colspan="4" id="title">${q.qTitle}</td> 
 		</tr>
 		<tr>
 			<td>작성자 | </td>
@@ -60,5 +60,6 @@
 			<td colspan="3">${q.qContent}</td>
 		</tr>
 	</table>
+	<!-- 답변 -->
 </section>
 <%@ include file="../../include/footer.jsp" %>
