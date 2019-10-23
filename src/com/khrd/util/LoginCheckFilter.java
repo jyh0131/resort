@@ -29,7 +29,7 @@ public class LoginCheckFilter implements Filter {
 		//로그인이 안된 상태  - 로그인 화면 이동		
 		if(session == null || session.getAttribute("Auth") == null) {
 			HttpServletResponse response = (HttpServletResponse) res;
-			response.sendRedirect(request.getContextPath() + "/login.do");
+			response.sendRedirect(request.getContextPath() + "/member/login.do");
 		}else {//로그인이 된 상태 - 진행
 			chain.doFilter(req, res);
 		}

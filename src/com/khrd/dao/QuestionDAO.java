@@ -48,7 +48,7 @@ public class QuestionDAO {
 		return null;
 	}//selectListQuestion
 	
-	public Question selectQuestionByNo(Connection conn, int qNo){
+	public Question selectQuestionByQNo(Connection conn, int qNo){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -75,7 +75,36 @@ public class QuestionDAO {
 			JDBCUtil.close(pstmt);
 		}
 		return null;
-	}//selectQuestionByNo
+	}//selectQuestionByQNo
+	
+	public Question selectQuestionByMId(Connection conn, String mId){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from question where m_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				Question question = new Question(
+									rs.getInt("q_no"),
+									rs.getString("q_title"),
+									rs.getString("q_type"), 
+									rs.getString("q_content"),
+									rs.getString("q_File"), 
+									rs.getDate("q_date"),
+									rs.getString("m_id"));
+				return question;
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}//selectQuestionByMId
 	
 	public int insertQuestion(Connection conn, Question question) {
 		PreparedStatement pstmt = null;

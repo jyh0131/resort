@@ -5,6 +5,7 @@ import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.QuestionDAO;
@@ -19,7 +20,7 @@ public class QuestionInsertHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
-			return "/WEB-INF/view/q&a/question/questionInsertForm.jsp";
+			return "/WEB-INF/view/qna/question/questionInsertForm.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String uploadPath = req.getRealPath("upload");
 			File dir = new File(uploadPath);
@@ -28,7 +29,7 @@ public class QuestionInsertHandler implements CommandHandler {
 			}
 			int size = 1024*1024*10;	
 			MultipartRequest multi = new MultipartRequest(req,
-														uploadPath,
+														uploadPath,  
 														size,
 														"UTF-8",
 														new DefaultFileRenamePolicy());
@@ -36,7 +37,8 @@ public class QuestionInsertHandler implements CommandHandler {
 			String qType = multi.getParameter("type");
 			String qContent= multi.getParameter("content");
 			String qFile = multi.getFilesystemName("file");
-			String mId = multi.getParameter("id"); //임시로 직접 입력 session에서 가져오는 걸로 수정하기
+			HttpSession session = req.getSession();
+			String mId = (String) session.getAttribute("Auth");
 			
 			Connection conn = null;
 			try {
@@ -54,5 +56,4 @@ public class QuestionInsertHandler implements CommandHandler {
 		}
 		return null;
 	}
-
 }
