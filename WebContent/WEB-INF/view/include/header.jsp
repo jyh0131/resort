@@ -291,26 +291,8 @@
 						<%-- <li><a href="${pageContext.request.contextPath}/reservation/cancel.do">예약 취소</a></li> --%>
 					</ul><!-- rsv_meun -->
 				</li>
-				<li><a href="#">객실 안내</a>
-					<ul id="room_menu" class="bottom_sub">
-						<li>
-							<a href="#">리조트</a>
-							<ul class="room_sub">
-								<li><a href="#">패밀리</a></li>
-								<li><a href="#">스위트</a></li>
-							</ul><!-- room_sub 리조트 -->
-						</li>
-						<li>
-							<a href="#">호텔</a>
-							<ul class="room_sub">
-								<li><a href="#">슈페리어</a></li>
-								<li><a href="#">디럭스 오션 스위트</a></li>
-								<li><a href="#">이그제큐티브 스위트</a></li>
-								<li><a href="#">오션스위트 / 실버스위트</a></li>
-								<li><a href="#">프레지덴셜 스위트 / 로얄스위트</a></li>			
-							</ul><!-- room_sub 호텔 -->
-						</li>
-					</ul><!-- room_menu -->
+				<li><a href="${pageContext.request.contextPath }/room/M/list.do">객실 안내</a>
+					
 				</li>
 				<li><a href="#">테마여행</a></li>
 				<li><a href="#">이벤트&amp;할인</a></li>
