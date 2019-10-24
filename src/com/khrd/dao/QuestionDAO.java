@@ -108,6 +108,37 @@ public class QuestionDAO {
 		return null;
 	}//selectMyQuestionListByMId
 	
+	public List<Question> selectQuestionListByQType(Connection conn, String qType){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from question where q_type=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, qType);
+			rs = pstmt.executeQuery();
+			List<Question> list = new ArrayList<>();
+			while (rs.next()) {
+				Question question = new Question(
+									rs.getInt("q_no"),
+									rs.getString("q_title"),
+									rs.getString("q_type"), 
+									rs.getString("q_content"),
+									rs.getString("q_File"), 
+									rs.getDate("q_date"),
+									rs.getString("m_id"));
+				list.add(question);
+			}			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}//selectQuestionListByQType
+	
 	public int insertQuestion(Connection conn, Question question) {
 		PreparedStatement pstmt = null;
 		try {

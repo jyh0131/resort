@@ -37,9 +37,24 @@
 		text-decoration: none;
 		color: #333;
 	}
+	#type{
+		float: left;
+	}
 </style>
 <script>
 	$(function() {
+		//질문 유형 선택
+		$("#type").val("${qType}").prop("selected", true);
+		$("#type").change(function() {
+			var type = $(this).val();
+			if(type == ""){ //선택 안 하면 기본 리스트
+				location.href = "${pageContext.request.contextPath}/question/list.do";
+				return;
+			}
+			location.href = "${pageContext.request.contextPath}/question/typeList.do?type="+type;
+		})
+		
+		//질문하기
 		$("#write").click(function() {
 			<c:if test="${Auth==null}">
 				alert("로그인 후 이용해주세요.");
@@ -49,6 +64,7 @@
 			</c:if>	
 		})
 		
+		//내 질문보기
 		$("#read").click(function() {
 			<c:if test="${Auth==null}">
 				alert("로그인 후 이용해주세요.");
@@ -62,6 +78,17 @@
 <section>
 	<%@ include file="../include/qna/front.jsp" %>
 	<p id="btns">
+		<select id="type">
+			<option value="" selected="selected">=질문 유형 선택=</option>
+			<option>객실관련</option>
+			<option>입퇴실관련</option>
+			<option>부대시설관련</option>
+			<option>식음료관련</option>
+			<option>패키지관련</option>
+			<option>셔틀버스관련</option>
+			<option>차량등록</option>
+			<option>기타</option>
+		</select>
 		<button id="write">질문하기</button>
 		<button id="read">내 질문보기</button>
 	</p>

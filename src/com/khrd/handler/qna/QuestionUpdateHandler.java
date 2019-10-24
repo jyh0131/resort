@@ -30,11 +30,10 @@ public class QuestionUpdateHandler implements CommandHandler {
 				//작성자 확인(주소로 접근 막기)
 				HttpSession session = req.getSession();
 				String mId = (String) session.getAttribute("Auth");
-				if(mId != question.getmId()){
+				if(mId.equals(question.getmId()) == false){
 					res.sendRedirect(req.getContextPath()+"/question/list.do"); //본인 아니면 리스트로 이동
 					return null;
 				}//
-				
 				req.setAttribute("q", question);
 			} catch (Exception e) {
 				e.printStackTrace();

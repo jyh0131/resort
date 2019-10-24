@@ -26,7 +26,7 @@ public class QuestionDeleteHandler implements CommandHandler {
 			Question question = dao.selectQuestionByQNo(conn, qNo);
 			HttpSession session = req.getSession();
 			String mId = (String) session.getAttribute("Auth");
-			if(mId != question.getmId()){
+			if(mId.equals(question.getmId()) == false){
 				res.sendRedirect(req.getContextPath()+"/question/list.do"); //본인 아니면 리스트로 이동
 				return null;
 			}//
