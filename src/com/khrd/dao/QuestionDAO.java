@@ -126,4 +126,53 @@ public class QuestionDAO {
 		}
 		return -1;
 	}//insertQuestion
+	
+	public int updateQuestion(Connection conn, Question question) {
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "update question set q_title=?, q_type=?, q_content=?, q_file=? where q_no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, question.getqTitle());
+			pstmt.setString(2, question.getqType());
+			pstmt.setString(3, question.getqContent());
+			pstmt.setString(4, question.getqFile());
+			pstmt.setInt(5, question.getqNo());
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//updateQuestion
+	
+	public int updateQuestionFile(Connection conn, int qNo) {
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "update question set q_file=null where q_no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qNo);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//updateQuestionFile
+	
+	public int deleteQuestion(Connection conn, int qNo) {
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "delete from question where q_no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qNo);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//deleteQuestion
 }
