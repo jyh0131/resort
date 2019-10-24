@@ -17,7 +17,7 @@
 	}
 	td > img{
 		width: 300px;
-		height: 350px;
+		height: 250px;
 	}
 </style>
 </head>
