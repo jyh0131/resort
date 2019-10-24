@@ -10,6 +10,10 @@
 		height: 30px;
 		margin: 0 auto;
 		text-align: right;
+		overflow: hidden;
+	}
+	#btns>#list{
+		float: left;
 	}
 	table{
 		width: 700px;
@@ -41,9 +45,23 @@
 		width: 30%;
 	}
 </style>
+<script>
+	$(function() {
+		$("#list").click(function() {
+			location.href="${pageContext.request.contextPath}/question/list.do";
+		})
+		$("#update").click(function() {
+			location.href="${pageContext.request.contextPath}/question/update.do?no=${q.qNo}";
+		})
+		$("#delete").click(function() {
+			location.href="${pageContext.request.contextPath}/question/delete.do?no=${q.qNo}";
+		})
+	})
+</script>
 <section>
 	<%@ include file="../../include/qna/front.jsp" %>
 	<p id="btns">
+		<button id="list">목록 가기</button>
 		<c:if test="${Auth == q.mId}">
 		<button id="update">수정</button>
 		<button id="delete">삭제</button>
@@ -62,7 +80,7 @@
 		<tr>
 			<td>첨부파일 | </td>
 			<td colspan="3">
-				<c:if test="${q.qFile} != null">
+				<c:if test="${q.qFile != null}">
 					<img src="${pageContext.request.contextPath}/upload/${q.qFile}">
 				</c:if>
 			</td>
