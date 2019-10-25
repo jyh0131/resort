@@ -21,7 +21,7 @@ public class MemberDao {
 	private MemberDao() {	
 			
 	}
-	
+	// 회원 가입
 	public int InsertMember(Connection conn, Member member){
 		
 		PreparedStatement pstmt = null;
@@ -49,7 +49,7 @@ public class MemberDao {
 			
 		return -1;
 	}
-	
+	// 회원 정보 수정
 	public int UpdateMember(Connection conn, Member member){
 		
 		PreparedStatement pstmt = null;
@@ -70,12 +70,11 @@ public class MemberDao {
 		}finally {
 			JDBCUtil.close(pstmt);
 		}
-				
-		
+						
 		return -1;
 	}
 
-	
+	// 회원 리스트 검색
 	public List<Member> SelectMember(Connection conn){
 		
 		PreparedStatement pstmt = null;
@@ -104,25 +103,24 @@ public class MemberDao {
 				
 		return null;
 	}
-	
+	// 아이디 중복체크
 	public Member SelectMemberByID(Connection conn, String mId){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
-		try {
-			String sql = "select * from member where m_id=?";			
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
 			
-			List<Member> list = new ArrayList<>();			
+		try {
+			String sql = "select * from member where m_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);		
+			rs = pstmt.executeQuery();
+				
 			while(rs.next()){				
 				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
 						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
 						rs.getInt("m_out"), rs.getInt("m_admin"));											
-				list.add(member);
+				return member;
 			}			
-			return null;
 			
 		}catch(Exception e){			
 			e.printStackTrace();
@@ -134,6 +132,7 @@ public class MemberDao {
 		return null;
 	}
 	
+	// 아이디와 패스워드로 로그인 
 	public Member SelectMemberIDPW(Connection conn, String mId, String mPassword) {
 		
 		PreparedStatement pstmt = null;		
@@ -166,17 +165,15 @@ public class MemberDao {
 		return null;
 	}
 	
-	
-	
+	// 회원 탈퇴
 	public int WithdrawMember(Connection conn, Member member) {
 		
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "update member set m_out = ? where m_id = ?";
+			String sql = "update member set m_out = '1' where m_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, member.getmOut());
-			pstmt.setString(2, member.getmId());
+			pstmt.setString(1, member.getmId());
 			
 			return pstmt.executeUpdate();
 			
