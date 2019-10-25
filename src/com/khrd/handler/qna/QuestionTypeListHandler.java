@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.khrd.controller.CommandHandler;
+import com.khrd.dao.AnswerDAO;
 import com.khrd.dao.QuestionDAO;
 import com.khrd.dto.Question;
 import com.khrd.jdbc.ConnectionProvider;
@@ -24,6 +25,12 @@ public class QuestionTypeListHandler implements CommandHandler {
 			List<Question> list = dao.selectQuestionListByQType(conn, qType);
 			req.setAttribute("list", list);
 			req.setAttribute("qType", qType);
+			
+			//답변 유무 확인
+			AnswerDAO daoA = AnswerDAO.getInstance();
+			List<Integer> qNoList = daoA.selectListQNo(conn);
+			req.setAttribute("qNoList", qNoList); //
+			
 			return "/WEB-INF/view/qna/qnaList.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -9,6 +9,10 @@
 		width: 700px;
 		margin: 0 auto;
 		text-align: right;
+		overflow: hidden;
+	}
+	button#allList{
+		float: left;
 	}
 	table{
 		width: 700px;
@@ -36,9 +40,19 @@
 		text-decoration: none;
 		color: #333;
 	}
+	span#answer{
+		background: #DFD2B3;
+		color: #fff;
+		border-radius: 5px;
+		padding: 1px 3px;
+	}
 </style>
 <script>
 	$(function() {
+		$("#allList").click(function() {
+			location.href = "${pageContext.request.contextPath}/question/list.do";
+		})
+		
 		$("#write").click(function() {
 			<c:if test="${Auth==null}">
 				alert("로그인 후 이용해주세요.");
@@ -52,6 +66,7 @@
 <section>
 	<%@ include file="../../include/qna/front.jsp" %>
 	<p id="btns">
+		<button id="allList">전체 목록</button>
 		<button id="write">질문하기</button>
 	</p>
 	<table>
@@ -69,9 +84,11 @@
 			<td id="title">
 				<a href="${pageContext.request.contextPath}/question/detail.do?no=${q.qNo}" class="detail">
 					${q.qTitle}
-					<%-- <c:if> 답변 테이블에 질문 번호를 값으로 가진 행이 있으면
-						<span id="answer"></span>
-					</c:if> --%>
+					<c:forEach var="dbQNo" items="${qNoList}">
+						<c:if test="${q.qNo == dbQNo}"> <!-- 답변이 있으면 -->
+							<span id="answer">Re</span>
+						</c:if>
+					</c:forEach>
 				</a>
 			</td>
 			<td>${q.mId}</td>

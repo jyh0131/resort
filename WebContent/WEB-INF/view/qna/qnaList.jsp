@@ -11,6 +11,9 @@
 		margin: 0 auto;
 		text-align: right;
 	}
+	#type{
+		float: left;
+	}
 	table{
 		width: 700px;
 		margin: 20px auto;
@@ -37,8 +40,11 @@
 		text-decoration: none;
 		color: #333;
 	}
-	#type{
-		float: left;
+	span#answer{
+		background: #DFD2B3;
+		color: #fff;
+		border-radius: 5px;
+		padding: 1px 3px;
 	}
 </style>
 <script>
@@ -107,9 +113,11 @@
 			<td id="title">
 				<a href="${pageContext.request.contextPath}/question/detail.do?no=${q.qNo}" class="detail">
 					${q.qTitle}
-					<%-- <c:if> 답변 테이블에 질문 번호를 값으로 가진 행이 있으면
-						<span id="answer"></span>
-					</c:if> --%>
+					<c:forEach var="dbQNo" items="${qNoList}">
+						<c:if test="${q.qNo == dbQNo}"> <!-- 답변이 있으면 -->
+							<span id="answer">Re</span>
+						</c:if>
+					</c:forEach>
 				</a>
 			</td>
 			<td>${q.mId}</td>

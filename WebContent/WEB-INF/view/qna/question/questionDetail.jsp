@@ -44,6 +44,26 @@
 	td>img{
 		width: 30%;
 	}
+	div#answer{
+		width: 660px;
+		margin: 30px auto;
+		background: rgba(223, 210, 179, 0.5);
+		border-radius: 10px;
+		padding: 20px;
+		font-size: 14px;
+	}
+	#answer>p{
+		text-align: right;
+		color: #666;
+	}
+	#answer>p>span{
+		float: left;
+		color: #977F51;
+	}
+	hr{
+		border: 1px dashed #977F51;
+		margin: 10px 0px;
+	}
 </style>
 <script>
 	$(function() {
@@ -90,6 +110,14 @@
 			<td colspan="3">${q.qContent}</td>
 		</tr>
 	</table>
-	<!-- 답변 -->
+	<!-- 답변 있을 때만 -->
+	<c:if test="${a != null}">
+		<div id="answer">
+			<p><span>RE : 대명리조트입니다.</span> 관리자 | ${a.aDate}</p>
+			<hr>
+			${a.aContent}
+		</div>
+	</c:if>
+	
 </section>
 <%@ include file="../../include/footer.jsp" %>

@@ -29,6 +29,8 @@
 		text-align: center;
 	}
 	header a{
+		width: 100%;
+		height: 100%;
 		text-decoration: none;
 		color: #000;
 	}
@@ -111,7 +113,7 @@
 	}
 	#bottom_main>li{
 		width: 150px;
-		height: 100%;
+		height: 150px; /* 100% */
 		line-height: 55px;
 		cursor: pointer;
 	}
@@ -122,7 +124,7 @@
 		font-size: 18px;
 	}
 	ul.bottom_sub{
-		width: 840px;
+		width: 900px;
 		height: 200px;
 		display: none;
 		overflow: hidden;
@@ -141,7 +143,7 @@
 	.bottom_sub>li>a{
 		margin-left: 20px;
 	}
-	ul.room_sub{
+	/* ul.room_sub{
 		display: none;
 		position: absolute;
 		top: 0px;
@@ -156,7 +158,7 @@
 	}
 	.room_sub>li>a{
 		margin-left: 20px;
-	}
+	} */
 	ul#bottom_right{
 		width: 300px;
 		height: 60px;
@@ -207,11 +209,11 @@
 	$(function() {
 		
 		//아래 메인 메뉴
-		$("#bottom_main>li").mouseover(function() {
+		$("#bottom_main>li, .bottom_sub").mouseover(function() {
 			$(this).find(".bottom_sub").stop().slideDown(500);
 			$(this).find("a").eq(0).css("color", "#977F51");
 		}) 
-		$("#bottom_main>li").mouseout(function() {
+		$("#bottom_main>li, .bottom_sub").mouseout(function() {
 			$(this).find(".bottom_sub").stop().slideUp(100);
 			$(this).find("a").eq(0).css("color", "#000");
 		})
@@ -219,17 +221,17 @@
 		
 		//아래 서브 메뉴
 		$(".bottom_sub>li").mouseover(function() {
-			$(this).find(".room_sub").css("display","block");
+			/* $(this).find(".room_sub").css("display","block"); */
 			$(this).css("background", "#977F51");
 			$(this).find("a").eq(0).css("color", "#fff");
 		})
 		$(".bottom_sub>li").mouseout(function() {
-			$(this).find(".room_sub").css("display","none");
+			/* $(this).find(".room_sub").css("display","none"); */
 			$(this).css("background", "none");
 			$(this).find("a").eq(0).css("color", "#000");
 		})
 		
-		//2단 서브 메뉴
+		/* //2단 서브 메뉴
 		$(".room_sub>li").mouseover(function() {
 			$(this).find(".room_sub").css("display","block");
 			$(this).css("background", "#DFD2B3");
@@ -239,7 +241,7 @@
 			$(this).find(".room_sub").css("display","none");
 			$(this).css("background", "none");
 			$(this).find("a").eq(0).css("color", "#000");
-		})
+		}) */
 		
 		//언어 선택 버튼
 		$("#langBtn").click(function() {
