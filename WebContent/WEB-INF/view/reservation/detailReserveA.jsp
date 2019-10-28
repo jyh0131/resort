@@ -29,7 +29,6 @@
 		font-size:16px;
 		padding:3px;
 		color:white;
-		cursor:pointer;
 	}
 </style>
 	<div id="rsv_wrapper">
@@ -48,11 +47,11 @@
 			</tr>
 			<tr> 
 				<td>예약자</td>
-				<td>${rsv.member.mName}</td>
+				<td>${rsv.rsvName}</td>
 			</tr>
 			<tr>
 				<td>전화번호</td>
-				<td>${rsv.member.mPhone}</td>
+				<td>${rsv.rsvPhone}</td>
 			</tr>
 			<tr>
 				<td>이용 객실</td>
@@ -89,22 +88,33 @@
 			<c:if test="${rsv.rsvCancel == 0}">
 				<button id="updatebtn" data-update="${rsv.rsvNo}">예약 수정</button>
 				<button id="deletebtn" data-delete="${rsv.rsvNo}">예약 취소</button>
+				<button id="listbtn">목록 보기</button>
 			</c:if>
 			<c:if test="${rsv.rsvCancel == 1}">
-				<button id="updatebtn" data-update="${rsv.rsvNo}" disabled="disabled">예약 수정</button>
-				<button id="deletebtn" data-delete="${rsv.rsvNo}" disabled="disabled">예약 취소</button>
+				<button id="updatebtn" data-update="${rsv.rsvNo}">예약 수정</button>
+				<button id="updatebtn" disabled="disabled" style="color:red; background:white; border:none;">취소된 예약입니다.</button>
+				<button id="listbtn">목록 보기</button>
 			</c:if>
 		</div>
 	</div>
 	<script>
+	$("#btnbox #listbtn").click(function() {
+		location.href = "${pageContext.request.contextPath}/reservation/listA.do";
+	});
+	
+	$("#btnbox #updatebtn").click(function() {
+		var no = $(this).attr("data-update");
+		location.href = "${pageContext.request.contextPath}/reservation/update.do?no="+no;
+	});
+	
 	$("#btnbox #deletebtn").click(function() {
-		if(confirm("정말 삭제하시겠습니까?") == true) {
+		if(confirm("정말 취소하시겠습니까?") == true) {
 			var no = $(this).attr("data-delete");
 			location.href = "${pageContext.request.contextPath}/reservation/cancel.do?no="+no;
 		} else {
 			return false;
 		}
-	});
+	});	
 </script>
 <%@ include file="../include/footer.jsp" %>
 

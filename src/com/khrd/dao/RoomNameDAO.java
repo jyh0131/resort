@@ -22,12 +22,13 @@ public class RoomNameDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "insert into room_name values(null,?,?,?,?)";
+			String sql = "insert into room_name values(null,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, rn.getRnName());
 			pstmt.setInt(2, rn.getRoomType().getRtNo());
 			pstmt.setString(3, rn.getRnDetail());
 			pstmt.setInt(4, rn.getRnPrice());
+			pstmt.setString(3, rn.getRnEngName());
 			return pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -52,7 +53,8 @@ public class RoomNameDAO {
 											rs.getString("rn_name"),
 											new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
 											rs.getString("rn_detail"),
-											rs.getInt("rn_price"));
+											rs.getInt("rn_price"),
+											rs.getString("rn_eng_name"));
 				list.add(rn);
 			}
 			return list;
@@ -88,12 +90,13 @@ public class RoomNameDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "update room_name set rn_name = ?, rn_detail = ?, rn_price = ? where rn_no = ?";
+			String sql = "update room_name set rn_name = ?, rn_detail = ?, rn_price = ?, rn_eng_name = ? where rn_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, rn.getRnName());
 			pstmt.setString(2, rn.getRnDetail());
 			pstmt.setInt(3, rn.getRnPrice());
-			pstmt.setInt(4, rn.getRnNo());
+			pstmt.setString(4, rn.getRnEngName());
+			pstmt.setInt(5, rn.getRnNo());
 			return pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -118,7 +121,8 @@ public class RoomNameDAO {
 											rs.getString("rn_name"),
 											new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
 											rs.getString("rn_detail"),
-											rs.getInt("rn_price"));
+											rs.getInt("rn_price"),
+											rs.getString("rn_eng_name"));
 				return rn;
 			}
 		}catch (Exception e) {

@@ -3,7 +3,7 @@
 <%@ include file="../include/header.jsp" %>
 <style>
 	#rsv_wrapper {
-		width:950px;
+		width:1024px;
 		margin:0 auto;
 	}
 	#rsv_wrapper table {
@@ -52,7 +52,7 @@
 					<fmt:formatDate var="paymentDate" value="${list.rsvPaymentDate}" pattern="yyyy-MM-dd"/>
 					<td>${paymentDate}</td>
 					<td>${list.member.mId}</td>
-					<td>${list.member.mName}</td>
+					<td>${list.rsvName}</td>
 					<td>${list.room.roomName.roomType.rtName} ${list.room.roomName.rnName} ${list.room.rRoom}호</td>
 					<td>${list.rsvCount}명</td>
 					<fmt:formatDate var="startDate" value="${list.rsvStartDate}" pattern="yyyy-MM-dd"/>

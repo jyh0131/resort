@@ -14,6 +14,9 @@
 	#rsv_wrapper td {
 		padding:5px;
 	}
+	#rsv_wrapper .length{
+		width:60px;
+	}
 	#rsv_wrapper td.paydate{
 		font-size:14px;
 		color:gray;
@@ -33,71 +36,80 @@
 	}
 </style>
 	<div id="rsv_wrapper">
-		<table>
-			<tr>
-			<fmt:formatDate var="paymentDate" value="${rsv.rsvPaymentDate}" pattern="yyyy-MM-dd"/>
-				<td class="paydate">결제일 ${paymentDate}</td> <!-- 결제일 -->
-			</tr>
-			<tr>
-				<td>예약번호</td>
-				<td>${rsv.rsvNo}</td>
-			</tr>
-			<tr> 
-				<td>예약 아이디</td>
-				<td><input type="text" name="id" value="${rsv.member.mId}"></td>
-			</tr>
-			<tr> 
-				<td>예약자</td>
-				<td><input type="text" name="name" value="${rsv.member.mName}"></td>
-			</tr>
-			<tr>
-				<td>전화번호</td>
-				<td><input type="text" name="phone" value="${rsv.member.mPhone}"></td>
-			</tr>
-			<tr>
-				<td>이용 객실</td>
-				<td>
-					<select name="rtNo">
-						<option value="1">리조트</option>
-						<option value="2">호텔</option>
-					</select>
-					<input type="text" name="rnName" value="${rsv.room.roomName.rnName}">
-					<input type="text" name="rRoom" value="${rsv.room.rRoom}">호
-				</td>
-			</tr>
-			<tr>
-				<td>예약일</td>
-				<td><input type="date" name="start_date" value="${rsv.rsvStartDate}"> ~
-				<input type="date" name="end_date" value="${rsv.rsvEndDate}"></td>
-			</tr>
-			<tr>
-				<td>예약인원</td>
-				<td>
-					<select name="count">
-						<c:forEach begin="1" end="5" var="num">
-							<option value="${num}">${num}</option>
-						</c:forEach>
-					</select>명
-				</td>
-			</tr>
-			<tr>
-				<td>가격</td>
-				<td><input type="text" name="price" value="${rsv.rsvPrice}">원</td>
-			</tr>
-			<tr>
-				<td>취소여부</td>
-				<td>
-					<select name="cancel">
-						<option value="0">No</option>
-						<option value="1">Yes</option>
-					</select>
-				</td>
-			</tr>
-		</table>
-		<div id="btnbox">
-			<input type="submit" value="수정완료">
-			<button id="returnbtn" data-return="${rsv.rsvNo}">돌아가기</button>
-		</div>
+		<form action="${pageContext.request.contextPath}/reservation/update.do" method="post">
+			<table>
+				<tr>
+				<fmt:formatDate var="paymentDate" value="${rsv.rsvPaymentDate}" pattern="yyyy-MM-dd"/>
+					<td class="paydate">결제일 ${paymentDate}</td> <!-- 결제일 -->
+				</tr>
+				<tr>
+					<td>예약번호</td>
+					<td>
+						${rsv.rsvNo}
+						<input type="hidden" name="rsv_no" value="${rsv.rsvNo}">
+					</td>
+				</tr>
+				<tr> 
+					<td>예약 아이디</td>
+					<td>${rsv.member.mId}</td>
+				</tr>
+				<tr> 
+					<td>예약자</td>
+					<td><input type="text" name="name" value="${rsv.rsvName}" class="length"></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td><input type="text" name="phone" value="${rsv.rsvPhone}"></td>
+				</tr>
+				<tr>
+					<td>이용 객실</td>
+					<td id="updateroom">
+						<select name="rtNo">
+							<option value="1">리조트</option>
+							<option value="2">호텔</option>
+						</select>
+						<input type="hidden" name="rNo" value="${rsv.room.rNo}">
+						<input type="hidden" name="rnNo" value="${rsv.room.roomName.rnNo}">
+						<input type="text" name="rnName" value="${rsv.room.roomName.rnName}" class="length">
+						<input type="text" name="rRoom" value="${rsv.room.rRoom}" class="length">호
+					</td>
+				</tr>
+				<tr>
+					<td>예약일</td>
+					<fmt:formatDate var="startDate" value="${rsv.rsvStartDate}" pattern="yyyy-MM-dd"/>
+					<fmt:formatDate var="endDate" value="${rsv.rsvEndDate}" pattern="yyyy-MM-dd"/>
+					<td><input type="date" name="start_date" value="${startDate}"> ~
+					<input type="date" name="end_date" value="${endDate}"></td>
+				</tr>
+				<tr>
+					<td>예약인원</td>
+					<td>
+						<select name="count">
+							<c:forEach begin="1" end="5" var="num">
+								<option value="${num}">${num}</option>
+							</c:forEach>
+						</select>명
+					</td>
+				</tr>
+				<tr>
+					<td>가격</td>
+					<td><input type="text" name="price" value="${rsv.rsvPrice}" class="length">원</td>
+				</tr>
+				<tr>
+					<td>취소여부</td>
+					<td>
+						<select name="cancel">
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<div id="btnbox">
+				<input type="submit" value="수정완료">
+				<button id="returnbtn" data-return="${rsv.rsvNo}" type="button">돌아가기</button>
+			</div>
+		</form>
 	</div>
 	<script>
 	$("#btnbox input").submit(function() {
@@ -116,7 +128,8 @@
 		} else {
 			return false;
 		}		
-	})	
+	});
+	
 </script>
 <%@ include file="../include/footer.jsp" %>
 

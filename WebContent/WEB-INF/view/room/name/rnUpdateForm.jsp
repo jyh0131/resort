@@ -51,6 +51,11 @@
 				<span class = "error">※객실 가격을 입력 하세요※</span>
 			</p>
 			<p>
+				<label>객실 영문 이름</label>
+				<input type = "text" name = "rnEngName" value = "${rn.rnEngName }">
+				<span class = "error">※객실 영문 이름을 입력 하세요※</span>
+			</p>
+			<p>
 				<input type = "submit" value = "수정">
 			</p>
 		</fieldset>

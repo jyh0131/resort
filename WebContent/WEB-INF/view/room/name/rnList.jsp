@@ -25,6 +25,7 @@
 			<th>객실 타입</th>
 			<th>객실 상세 정보</th>
 			<th>객실 가격</th>
+			<th>객실 영문 이름</th>
 			<th>수정 / 삭제 </th>
 		</tr>
 		<c:forEach var = "rn" items = "${list }">
@@ -34,6 +35,7 @@
 				<td>${rn.roomType.rtName}</td>
 				<td>${rn.rnDetail }</td>
 				<td>${rn.rnPrice }</td>
+				<td>${rn.rnEngName }</td>
 				<td>
 					<a href = "update.do?rnNo=${rn.rnNo }">수정</a> | 
 					<a href = "delete.do?rnNo=${rn.rnNo }">삭제</a>
