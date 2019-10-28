@@ -37,13 +37,13 @@ public class MemberIdCheckHandler implements CommandHandler {
 					map.put("result", "success");
 				}
 							
-				ObjectMapper om = new ObjectMapper();
-				String json = om.writeValueAsString(map);
-				
-				response.setContentType("application/json;charset=utf-8");
-				PrintWriter out = response.getWriter();
-				out.print(json);
-				out.flush();
+//				ObjectMapper om = new ObjectMapper();
+//				String json = om.writeValueAsString(map);
+//				
+//				response.setContentType("application/json;charset=utf-8");
+//				PrintWriter out = response.getWriter();
+//				out.print(json);
+//				out.flush();
 				
 				
 			}catch(Exception e) {
