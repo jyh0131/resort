@@ -22,6 +22,8 @@ public class InsertReservationHandler implements CommandHandler {
 		
 		if(request.getMethod().equalsIgnoreCase("get")) {
 			
+			
+			
 			return "/WEB-INF/view/reservation/insertReserve.jsp";
 			
 		} else if(request.getMethod().equalsIgnoreCase("post")) {

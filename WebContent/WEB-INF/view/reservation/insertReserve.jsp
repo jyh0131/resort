@@ -101,6 +101,10 @@ footer {
 		</div>
 	</div>
 	<div id="roombox">
+		<button></button>
+		<button></button>
+		<button></button>
+		<button></button>
 			<%-- <ul>
 				<li><span class="room_name">호텔 패밀리룸</span>
 					<select name="count">
