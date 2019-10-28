@@ -58,7 +58,6 @@ public class QuestionUpdateHandler implements CommandHandler {
 			String qType = multi.getParameter("type");
 			String qContent= multi.getParameter("content");
 			String qFile = multi.getFilesystemName("file");
-			System.out.println("☆☆☆새 파일☆☆☆ " + qFile);
 			
 			Connection conn = null;
 			try {
@@ -67,12 +66,10 @@ public class QuestionUpdateHandler implements CommandHandler {
 				if(qFile == null) { //새 파일 업로드 안 할 경우 기존 파일 그대로 넣기
 					Question dbQuestion = dao.selectQuestionByQNo(conn, qNo);
 					qFile = dbQuestion.getqFile();
-					System.out.println("☆☆☆기존 파일☆☆☆ " + qFile);
 				}
 				Question question = new Question(qNo, qTitle, qType, qContent, qFile, null, null);
-				int result = dao.updateQuestion(conn, question);
-				req.setAttribute("result", result);
-				res.sendRedirect(req.getContextPath()+"/question/myQ.do");
+				dao.updateQuestion(conn, question);
+				res.sendRedirect(req.getContextPath()+"/question/detail.do?no="+qNo);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

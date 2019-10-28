@@ -241,7 +241,7 @@ public class MemberDao {
 		}finally {
 			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
-		}
+		} 
 		
 		return null;
 	}

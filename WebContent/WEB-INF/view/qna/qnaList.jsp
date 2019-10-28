@@ -29,16 +29,21 @@
 	td{
 		padding: 10px;
 	}
-	td#title{
-		display: inline-block;
-		width: 300px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+	td#titleTD{
+		text-align: left;
+		padding-left: 30px;
 	}
 	a.detail{
 		text-decoration: none;
 		color: #333;
+	}
+	span#title{
+		display: inline-block;
+		width: 270px;
+		vertical-align: middle;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 	span#answer{
 		background: #DFD2B3;
@@ -110,9 +115,9 @@
 		<tr>
 			<td>${q.qNo}</td>
 			<td>${q.qType}</td>
-			<td id="title">
+			<td id="titleTD">
 				<a href="${pageContext.request.contextPath}/question/detail.do?no=${q.qNo}" class="detail">
-					${q.qTitle}
+					<span id="title">${q.qTitle}</span>
 					<c:forEach var="dbQNo" items="${qNoList}">
 						<c:if test="${q.qNo == dbQNo}"> <!-- 답변이 있으면 -->
 							<span id="answer">Re</span>

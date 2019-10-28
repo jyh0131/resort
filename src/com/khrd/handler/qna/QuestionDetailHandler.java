@@ -4,9 +4,11 @@ import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.AnswerDAO;
+import com.khrd.dao.MemberDao;
 import com.khrd.dao.QuestionDAO;
 import com.khrd.dto.Answer;
 import com.khrd.dto.Question;
@@ -23,8 +25,8 @@ public class QuestionDetailHandler implements CommandHandler{
 			conn = ConnectionProvider.getConnection();
 			
 			//질문
-			QuestionDAO dao = QuestionDAO.getInstance();
-			Question question = dao.selectQuestionByQNo(conn, qNo);
+			QuestionDAO daoQ = QuestionDAO.getInstance();
+			Question question = daoQ.selectQuestionByQNo(conn, qNo);
 			req.setAttribute("q", question);
 			
 			//답변
@@ -32,6 +34,10 @@ public class QuestionDetailHandler implements CommandHandler{
 			Answer answer = daoA.selectAnswerByQNo(conn, qNo);
 			req.setAttribute("a", answer);
 			
+			HttpSession session = req.getSession();
+			String mId = (String) session.getAttribute("Auth");
+			MemberDao daoM = MemberDao.getInstance();
+			daoM
 			return "/WEB-INF/view/qna/question/questionDetail.jsp";   
 		} catch (Exception e) {
 			e.printStackTrace();
