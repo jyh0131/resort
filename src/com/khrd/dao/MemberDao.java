@@ -137,7 +137,7 @@ public class MemberDao {
 	
 	}
 	// 아이디 중복체크
-	public Member SelectMemberByID(Connection conn,String mId){
+	public int SelectMemberByID(Connection conn, String mId){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -147,14 +147,8 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);		
 			rs = pstmt.executeQuery();
-				
-			while(rs.next()){				
-				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
-						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
-						rs.getInt("m_out"), rs.getInt("m_admin"));											
-				return member;
-			}			
-			
+
+			return rs.getInt("m_id");
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
@@ -162,7 +156,7 @@ public class MemberDao {
 			JDBCUtil.close(pstmt);
 		}
 				
-		return null;
+		return -1;
 	}
 	
 	// 아이디와 패스워드로 로그인 
@@ -204,7 +198,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "update member set m_out = 1 where m_id = ?";
+			String sql = "update member set m_out = '1' where m_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getmId());
 			
@@ -216,7 +210,7 @@ public class MemberDao {
 			JDBCUtil.close(pstmt);
 		}
 		
-		
+		 
 		return -1;
 	}
 
@@ -283,15 +277,13 @@ public class MemberDao {
 	// 관리자 아이디 체크
 	public int AdminIDCheck(Connection conn, String mId){
 		
-		PreparedStatement pstmt = null;
-		
+		PreparedStatement pstmt = null;		
 		ResultSet rs = null;
 			
 		try {
 			String sql = "select m_admin from member where m_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mId);
-			
+			pstmt.setString(1, mId);			
 			rs = pstmt.executeQuery();
 			return rs.getInt("m_admin");
 		
