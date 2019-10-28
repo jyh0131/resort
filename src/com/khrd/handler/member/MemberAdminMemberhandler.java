@@ -12,7 +12,7 @@ import com.khrd.dto.Member;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
-public class MemberListhandler implements CommandHandler {
+public class MemberAdminMemberhandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -22,17 +22,16 @@ public class MemberListhandler implements CommandHandler {
 		try {
 			conn = ConnectionProvider.getConnection();
 			MemberDao dao = MemberDao.getInstance();
-			List<Member> list = dao.SelectMember(conn);
+			List<Member> list = dao.SelectAdminList(conn);
 			
 			request.setAttribute("list", list);
-			return "/WEB-INF/view/member/list.jsp"; 
+			return "/WEB-INF/view/member/adminMember.jsp"; 
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.close(conn);
 		}
-		
 		
 		
 		
