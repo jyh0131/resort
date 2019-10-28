@@ -268,7 +268,7 @@ public class MemberDao {
 						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
 						rs.getInt("m_out"), rs.getInt("m_admin"));											
 				list.add(member);
-			}			 
+			}			  
 			return list;
 		}catch(Exception e){			
 			e.printStackTrace();
