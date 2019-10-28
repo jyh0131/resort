@@ -6,24 +6,27 @@ public class RoomName {
 	private RoomType roomType;
 	private String rnDetail;
 	private int rnPrice;
+	private String rnEngName;
 
 	public RoomName() {
 		super();
 	}
 
-	public RoomName(int rnNo, String rnName) {
+	public RoomName(int rnNo, String rnName, String rnEngName) {
 		super();
 		this.rnNo = rnNo;
 		this.rnName = rnName;
+		this.rnEngName = rnEngName;
 	}
 
-	public RoomName(int rnNo, String rnName, RoomType roomType, String rnDetail, int rnPrice) {
+	public RoomName(int rnNo, String rnName, RoomType roomType, String rnDetail, int rnPrice, String rnEngName) {
 		super();
 		this.rnNo = rnNo;
 		this.rnName = rnName;
 		this.roomType = roomType;
 		this.rnDetail = rnDetail;
 		this.rnPrice = rnPrice;
+		this.rnEngName = rnEngName;
 	}
 
 	public int getRnNo() {
@@ -66,10 +69,18 @@ public class RoomName {
 		this.rnPrice = rnPrice;
 	}
 
+	public String getRnEngName() {
+		return rnEngName;
+	}
+
+	public void setRnEngName(String rnEngName) {
+		this.rnEngName = rnEngName;
+	}
+
 	@Override
 	public String toString() {
 		return "RoomName [rnNo=" + rnNo + ", rnName=" + rnName + ", roomType=" + roomType + ", rnDetail=" + rnDetail
-				+ ", rnPrice=" + rnPrice + "]";
+				+ ", rnPrice=" + rnPrice + ", rnEngName=" + rnEngName + "]";
 	}
 
 }

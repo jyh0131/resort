@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.khrd.dto.Room;
-import com.khrd.dto.RoomImg;
 import com.khrd.dto.RoomName;
 import com.khrd.jdbc.JDBCUtil;
 
@@ -51,7 +50,8 @@ public class RoomDAO {
 			while(rs.next()) {
 				Room r = new Room(rs.getInt("r_no"),
 									rs.getInt("r_room"),
-									new RoomName(rs.getInt("rn_no"),rs.getString("rn_name")));
+									new RoomName(rs.getInt("rn_no"),rs.getString("rn_name"),
+											rs.getString("rn_eng_name")));
 				list.add(r);
 			}
 			return list;
@@ -77,7 +77,8 @@ public class RoomDAO {
 			if(rs.next()) {
 				Room r = new Room(rs.getInt("r_no"),
 									rs.getInt("r_room"),
-									new RoomName(rs.getInt("rn_no"), rs.getString("rn_name")));
+									new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"),
+											rs.getString("rn_eng_name")));
 				return r;
 			}
 		}catch (Exception e) {

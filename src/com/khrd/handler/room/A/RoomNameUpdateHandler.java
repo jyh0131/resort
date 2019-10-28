@@ -42,6 +42,7 @@ public class RoomNameUpdateHandler implements CommandHandler {
 			String rnDetail = request.getParameter("rnDetail");
 			String sNop = request.getParameter("rnPrice");
 			int rnPrice = Integer.parseInt(sNop);
+			String rnEngName = request.getParameter("rnEngName");
 			
 			Connection conn = null;
 			try {
@@ -53,7 +54,8 @@ public class RoomNameUpdateHandler implements CommandHandler {
 														rnName,
 														null,
 														rnDetail,
-														rnPrice));
+														rnPrice,
+														rnEngName));
 				conn.commit();
 				
 				response.sendRedirect(request.getContextPath() + "/roomName/list.do");

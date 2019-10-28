@@ -28,6 +28,8 @@ public class InsertReservationHandler implements CommandHandler {
 			
 			String mId = request.getParameter("mId");
 			int rNo = Integer.parseInt(request.getParameter("rNo"));
+			String rsvName = request.getParameter("rsvName");
+			String rsvPhone = request.getParameter("rsvPhone");
 			int rsvCount = Integer.parseInt(request.getParameter("count"));
 			int rsvPrice = Integer.parseInt(request.getParameter("price"));
 			
@@ -50,7 +52,7 @@ public class InsertReservationHandler implements CommandHandler {
 				member.setmId(mId);
 				Room room = new Room();
 				room.setrNo(rNo);
-				Reservation rsv = new Reservation(0, rsvCount, rsvPrice, rsv_start_date, rsv_end_date,
+				Reservation rsv = new Reservation(0, rsvName, rsvPhone, rsvCount, rsvPrice, rsv_start_date, rsv_end_date,
 													rsv_payment_date, 0, member, room);
 				dao.insertReserve(conn, rsv, mId, rNo);
 				response.sendRedirect(request.getContextPath()+"/reservation/list.do");

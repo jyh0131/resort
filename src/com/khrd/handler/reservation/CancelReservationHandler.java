@@ -24,7 +24,18 @@ public class CancelReservationHandler implements CommandHandler {
 			conn = ConnectionProvider.getConnection();
 			ReservationDAO dao = ReservationDAO.getnInstance();
 			dao.cancelReserve(conn, rsvNo);
-			response.sendRedirect(request.getContextPath()+"/reservation/list.do");
+			
+			// 세션 Auth가 admin일 경우에
+//			HttpSession session = request.getSession();
+//			String Auth = (String)session.getAttribute("Auth");
+			
+			String Auth = "admin";
+			
+			if(Auth.equals("admin")) {
+				response.sendRedirect(request.getContextPath() + "/reservation/listA.do");
+			} else {
+				response.sendRedirect(request.getContextPath() + "/reservation/list.do");
+			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();

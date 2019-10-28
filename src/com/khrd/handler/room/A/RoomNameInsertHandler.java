@@ -43,6 +43,7 @@ public class RoomNameInsertHandler implements CommandHandler {
 			String rnDetail = request.getParameter("rnDetail");
 			String sNo = request.getParameter("rnPrice");
 			int rnPrice = Integer.parseInt(sNo);
+			String rnEngName = request.getParameter("rnEngName");
 			
 			Connection conn = null;
 			
@@ -53,7 +54,7 @@ public class RoomNameInsertHandler implements CommandHandler {
 				RoomNameDAO dao = RoomNameDAO.getInstance();
 				RoomTypeDAO rtDao = RoomTypeDAO.getInstance();
 				RoomType rt = rtDao.selectRoomTypeByNo(conn, roomType);
-				RoomName rn = new RoomName(0, rnName, rt, rnDetail, rnPrice);
+				RoomName rn = new RoomName(0, rnName, rt, rnDetail, rnPrice,rnEngName);
 				
 				dao.insertRoomName(conn, rn);
 				conn.commit();

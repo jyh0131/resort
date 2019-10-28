@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.khrd.dto.Member;
 import com.khrd.dto.Reservation;
@@ -35,7 +36,7 @@ public class ReservationDAO {
 			rs = pstmt.executeQuery();
 			ArrayList<Reservation> list = new ArrayList<>();
 			while (rs.next()) {
-				Reservation rsv = new Reservation(rs.getInt("rsv_no"), rs.getInt("rsv_count"), rs.getInt("rsv_price"),
+				Reservation rsv = new Reservation(rs.getInt("rsv_no"), rs.getString("rsv_name"), rs.getString("rsv_phone"), rs.getInt("rsv_count"), rs.getInt("rsv_price"),
 						rs.getTimestamp("rsv_start_date"), rs.getTimestamp("rsv_end_date"),
 						rs.getTimestamp("rsv_payment_date"), rs.getInt("rsv_cancel"),
 
@@ -74,7 +75,7 @@ public class ReservationDAO {
 			rs = pstmt.executeQuery();
 			ArrayList<Reservation> list = new ArrayList<>();
 			while (rs.next()) {
-				Reservation rsv = new Reservation(rs.getInt("rsv_no"), rs.getInt("rsv_count"), rs.getInt("rsv_price"),
+				Reservation rsv = new Reservation(rs.getInt("rsv_no"), rs.getString("rsv_name"), rs.getString("rsv_phone"), rs.getInt("rsv_count"), rs.getInt("rsv_price"),
 						rs.getTimestamp("rsv_start_date"), rs.getTimestamp("rsv_end_date"),
 						rs.getTimestamp("rsv_payment_date"), rs.getInt("rsv_cancel"),
 
@@ -113,7 +114,7 @@ public class ReservationDAO {
 			rs = pstmt.executeQuery();
 			ArrayList<Reservation> list = new ArrayList<>();
 			while (rs.next()) {
-				Reservation rsv = new Reservation(rs.getInt("rsv_no"), rs.getInt("rsv_count"), rs.getInt("rsv_price"),
+				Reservation rsv = new Reservation(rs.getInt("rsv_no"),  rs.getString("rsv_name"), rs.getString("rsv_phone"), rs.getInt("rsv_count"), rs.getInt("rsv_price"),
 						rs.getTimestamp("rsv_start_date"), rs.getTimestamp("rsv_end_date"),
 						rs.getTimestamp("rsv_payment_date"), rs.getInt("rsv_cancel"),
 
@@ -152,7 +153,7 @@ public class ReservationDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				Reservation rsv = new Reservation(rs.getInt("rsv_no"), rs.getInt("rsv_count"), rs.getInt("rsv_price"),
+				Reservation rsv = new Reservation(rs.getInt("rsv_no"),  rs.getString("rsv_name"), rs.getString("rsv_phone"), rs.getInt("rsv_count"), rs.getInt("rsv_price"),
 						rs.getTimestamp("rsv_start_date"), rs.getTimestamp("rsv_end_date"),
 						rs.getTimestamp("rsv_payment_date"), rs.getInt("rsv_cancel"),
 
@@ -202,15 +203,17 @@ public class ReservationDAO {
 		PreparedStatement pstmt = null;
 
 		try {
-			String sql = "insert into reservation values(0, ?, ?, ?, ?, ?, 0, ?, ?),";
+			String sql = "insert into reservation values(0, ?, ?, ?, ?, ?, ?, ?, 0, ?, ?);";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, rsv.getRsvCount());
-			pstmt.setInt(2, rsv.getRsvPrice());
-			pstmt.setTimestamp(3, new Timestamp(rsv.getRsvStartDate().getTime()));
-			pstmt.setTimestamp(4, new Timestamp(rsv.getRsvEndDate().getTime()));
-			pstmt.setTimestamp(5, new Timestamp(rsv.getRsvPaymentDate().getTime()));
-			pstmt.setString(6, mId);
-			pstmt.setInt(7, rNo);
+			pstmt.setString(1, rsv.getRsvName());
+			pstmt.setString(2, rsv.getRsvPhone());
+			pstmt.setInt(3, rsv.getRsvCount());
+			pstmt.setInt(4, rsv.getRsvPrice());
+			pstmt.setTimestamp(5, new Timestamp(rsv.getRsvStartDate().getTime()));
+			pstmt.setTimestamp(6, new Timestamp(rsv.getRsvEndDate().getTime()));
+			pstmt.setTimestamp(7, new Timestamp(rsv.getRsvPaymentDate().getTime()));
+			pstmt.setString(8, mId);
+			pstmt.setInt(9, rNo);
 			return pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -222,20 +225,29 @@ public class ReservationDAO {
 		return -1;
 	}
 	
-	// 예약 변경
-	public int updateReserve(Connection conn, Reservation rsv, String mId, int rNo) {
+	// 남은 방 갯수 가져오기
+	
+	
+	// 예약 변경 (사용X)
+	public int updateReserve(Connection conn, Reservation rsv, int rtNo, String rnName, int rRoom) {
 		PreparedStatement pstmt = null;
 
 		try {
-			String sql = "insert into reservation values(0, ?, ?, ?, ?, ?, 0, ?, ?),";
+			String sql = "update room_type rt join room_name rn using(rt_no) join room r using (rn_no) join reservation rsv using(r_no) join member m using(m_id)"
+					+ " set rsv.rsv_name = ?, rsv.rsv_phone = ?, rt.rt_no = ?, rn.rn_name = ?, r.r_room = ?, rsv.rsv_start_date = ?, rsv.rsv_end_date = ?, rsv.rsv_count = ?, rsv.rsv_price = ?, rsv.rsv_cancel = ?"
+					+ " where rsv.rsv_no = ?;";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, rsv.getRsvCount());
-			pstmt.setInt(2, rsv.getRsvPrice());
-			pstmt.setTimestamp(3, new Timestamp(rsv.getRsvStartDate().getTime()));
-			pstmt.setTimestamp(4, new Timestamp(rsv.getRsvEndDate().getTime()));
-			pstmt.setTimestamp(5, new Timestamp(rsv.getRsvPaymentDate().getTime()));
-			pstmt.setString(6, mId);
-			pstmt.setInt(7, rNo);
+			pstmt.setString(1, rsv.getRsvName());
+			pstmt.setString(2, rsv.getRsvPhone());
+			pstmt.setInt(3, rtNo);
+			pstmt.setString(4, rnName);
+			pstmt.setInt(5, rRoom);
+			pstmt.setTimestamp(6, new Timestamp(rsv.getRsvStartDate().getTime()));
+			pstmt.setTimestamp(7, new Timestamp(rsv.getRsvEndDate().getTime()));
+			pstmt.setInt(8, rsv.getRsvCount());
+			pstmt.setInt(9, rsv.getRsvPrice());
+			pstmt.setInt(10, rsv.getRsvCancel());
+			pstmt.setInt(11, rsv.getRsvNo());
 			return pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -243,7 +255,7 @@ public class ReservationDAO {
 		} finally {
 			JDBCUtil.close(pstmt);
 		}
-
+		System.out.println("예약 수정 실패");
 		return -1;
 	}
 }
