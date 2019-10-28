@@ -108,13 +108,13 @@ input{
  
 <p>로그인</p>
  
-<form action = "login.do" method ="post">
+<form action = "adminLogin.do" method ="post">
 
 <div id = "con">
 
 	<fieldset>
 	<br>
-	<span>회원 로그인</span>
+	<span>관리자 로그인</span>
 		<table>
 			<tr>
 				<td><label>아이디</label></td>
@@ -131,15 +131,13 @@ input{
 		<input type ="submit" value = "로그인" id ="submit" >
 	</fieldset>
 
-	<a href = "adminLogin.do">관리자 전용 로그인</a>
-
 </div>
 
 </form>
 
 <c:if test = "${login == true }">
 <br>
-<p id = "correct">아이디와 비밀번호가 일치하지 않습니다</p>
+<p id = "correct">관리자 아이디와 비밀번호가 일치하지 않습니다</p>
 
 </c:if>
 

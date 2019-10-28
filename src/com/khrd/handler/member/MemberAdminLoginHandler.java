@@ -12,35 +12,45 @@ import com.khrd.dto.Member;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
-public class MemberWithdrawHandler implements CommandHandler {
+public class MemberAdminLoginHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		if(request.getMethod().equalsIgnoreCase("get")) {
-
-			return "/WEB-INF/view/member/update.jsp";	
-		}else if(request.getMethod().equalsIgnoreCase("post")) {
-
-			Connection conn = null;
-					
-			String Withdraw = request.getParameter("withdraw");
-			int withdraw = Integer.parseInt(Withdraw);
 			
+			return "/WEB-INF/view/member/adminLogin.jsp";
+		}else if(request.getMethod().equalsIgnoreCase("post")) {
+			
+			Connection conn = null;
+			String id = request.getParameter("id");
+			String password = request.getParameter("password");
 			try {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
-				Member member = new Member();	
-				member.setmOut(withdraw);
-				dao.WithdrawMember(conn, member);
-									
-				return "/WEB-INF/view/member/withdraw.jsp";
+				Member memberAdmin = dao.AdminMemberLogin(conn,id,password);
+				
+				if(memberAdmin == null){
+					request.setAttribute("login", true);
+					
+					return "/WEB-INF/view/member/adminLogin.jsp";
+				}	
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("Auth", memberAdmin.getmId());
+	
+				return "/WEB-INF/view/member/home.jsp";
+								
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {
 				JDBCUtil.close(conn);
-			}	
-		}	
-		return null; 
+			}
+					
+			return null;
+		}
+
+		return null;
 	}
+
 }
