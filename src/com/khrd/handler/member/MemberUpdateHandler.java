@@ -47,6 +47,8 @@ public class MemberUpdateHandler implements CommandHandler {
 				member.setmRegdate(regDate);
 				dao.UpdateMember(conn, member);
 
+				request.setAttribute("member",member);
+				
 				return "/WEB-INF/view/member/updateResult.jsp";
 			} catch (Exception e) {
 				e.printStackTrace();

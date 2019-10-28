@@ -40,7 +40,7 @@ public class MemberWithdrawHandler implements CommandHandler {
 			}finally {
 				JDBCUtil.close(conn);
 			}	
-		}	
+		}	 
 		return null; 
 	}
 }

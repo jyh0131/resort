@@ -20,7 +20,7 @@ public class MemberJoinHandler implements CommandHandler {
 		if(request.getMethod().equalsIgnoreCase("get")) {
 			
 			return "/WEB-INF/view/member/insert.jsp";
-			
+			 
 		}else if(request.getMethod().equalsIgnoreCase("post")){
 			request.setCharacterEncoding("utf-8");
 			Connection conn = null;
