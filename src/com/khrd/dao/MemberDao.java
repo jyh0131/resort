@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.khrd.dto.Member;
 import com.khrd.jdbc.JDBCUtil;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 public class MemberDao {
 
@@ -104,7 +105,7 @@ public class MemberDao {
 		return null;
 	}
 	// 아이디 중복체크
-	public Member SelectMemberByID(Connection conn, String mId){
+	public Member SelectMemberByID(Connection conn,String mId){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -219,33 +220,32 @@ public class MemberDao {
 		return null;
 	}
 	
-	
-	// 관리자 아이디 검색
-/*	public List<Member> AdminLoginMember(Connection conn) {
+	// 관리자 리스트 검색
+	public List<Member> AdminMemberList(Connection conn){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-	
-	try {
-		String sql = "select * from member where m_admin = 1";		
-		pstmt = conn.prepareStatement(sql);
-		rs = pstmt.executeQuery();	
-		ArrayList<Member> list = new ArrayList<>();
-		if(rs.next()) {
-			Member member = new Member(rs.getString("m_id"), rs.getString("m_password"), rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
-					rs.getInt("m_out"), rs.getInt("m_admin"));
-			list.add(member);
+			
+		try {
+			String sql = "select * from member where m_admin = '1' ";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			ArrayList<Member> list = new ArrayList<>();
+			while(rs.next()){				
+				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
+						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+						rs.getInt("m_out"), rs.getInt("m_admin"));											
+				list.add(member);
+			}			
+			return list;
+		}catch(Exception e){			
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
 		}
-		
-	}catch(Exception e) {
-		e.printStackTrace();
-	}finally {
-		JDBCUtil.close(pstmt);
-	}		
-	return null;
-}
-
-	*/
+				
+		return null;
+	}
 	
 }
 

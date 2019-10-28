@@ -131,6 +131,8 @@ input{
 		<input type ="submit" value = "로그인" id ="submit" >
 	</fieldset>
 
+	<a href = "adminList.do">관리자 리스트 검색하기</a>
+
 </div>
 
 </form>
