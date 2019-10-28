@@ -132,7 +132,7 @@ public class MemberDao {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
 		}
-				
+				 
 		return null;
 	
 	}
