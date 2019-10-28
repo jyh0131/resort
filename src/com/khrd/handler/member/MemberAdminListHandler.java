@@ -1,33 +1,37 @@
-package com.khrd.handler.reservation;
+package com.khrd.handler.member;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.khrd.controller.CommandHandler;
-import com.khrd.dao.ReservationDAO;
+import com.khrd.dao.MemberDao;
+import com.khrd.dto.Member;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
-public class LoadReservationHandler implements CommandHandler {
+public class MemberAdminListHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String sd = request.getParameter("start_date");
-		String ed = request.getParameter("end_date");
-		
+	
 		Connection conn = null;
-		
 		try {
 			conn = ConnectionProvider.getConnection();
-			ReservationDAO dao = ReservationDAO.getnInstance();
+			MemberDao dao = MemberDao.getInstance();
+			List<Member> list = dao.AdminMemberList(conn);
 			
-		} catch(Exception e) {
+			request.setAttribute("list", list);
+			return "/WEB-INF/view/member/adminList.jsp"; 
+			
+		}catch(Exception e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			JDBCUtil.close(conn);
 		}
+		
 		
 		return null;
 	}

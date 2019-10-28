@@ -47,7 +47,8 @@ public class ReservationDAO {
 						new Room(rs.getInt("r_no"), rs.getInt("r_room"),
 								new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"),
 										new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
-										rs.getString("rn_detail"), rs.getInt("rn_price"))));
+										rs.getString("rn_detail"), rs.getInt("rn_price"),
+			                              rs.getString("rn_eng_name"))));
 				list.add(rsv);
 			}
 			return list;
@@ -86,7 +87,8 @@ public class ReservationDAO {
 						new Room(rs.getInt("r_no"), rs.getInt("r_room"),
 								new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"),
 										new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
-										rs.getString("rn_detail"), rs.getInt("rn_price"))));
+										rs.getString("rn_detail"), rs.getInt("rn_price"),
+										rs.getString("rn_eng_name"))));
 				list.add(rsv);
 			}
 			return list;
@@ -125,7 +127,8 @@ public class ReservationDAO {
 						new Room(rs.getInt("r_no"), rs.getInt("r_room"),
 								new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"),
 										new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
-										rs.getString("rn_detail"), rs.getInt("rn_price"))));
+										rs.getString("rn_detail"), rs.getInt("rn_price"),
+										rs.getString("rn_eng_name"))));
 				list.add(rsv);
 			}
 			return list;
@@ -164,7 +167,8 @@ public class ReservationDAO {
 						new Room(rs.getInt("r_no"), rs.getInt("r_room"),
 								new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"),
 										new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
-										rs.getString("rn_detail"), rs.getInt("rn_price"))));
+										rs.getString("rn_detail"), rs.getInt("rn_price"),
+										rs.getString("rn_eng_name"))));
 				return rsv;
 			}
 
@@ -224,6 +228,31 @@ public class ReservationDAO {
 
 		return -1;
 	}
+	
+	// 모든 방 종류 가져오기
+	public ArrayList<String> getRoomType(Connection conn, int rt_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from room_type rt left join room_name rn using (rt_no) where rt.rt_no = ?;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rt_no);
+			ArrayList<String> list = new ArrayList<>();
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
+		}
+
+		return null;
+	}
+	
 	
 	// 남은 방 갯수 가져오기
 	

@@ -101,7 +101,11 @@ footer {
 		</div>
 	</div>
 	<div id="roombox">
-			<ul>
+		<button></button>
+		<button></button>
+		<button></button>
+		<button></button>
+			<%-- <ul>
 				<li><span class="room_name">호텔 패밀리룸</span>
 					<select name="count">
 						<option selected="selected">0</option>
@@ -110,7 +114,7 @@ footer {
 						</c:forEach>
 					</select>
 				</li>				
-			</ul>
+			</ul> --%>
 		</div>
 	<div id="info">
 			예약정보<br>
@@ -251,13 +255,14 @@ footer {
 			});		
 		});
 		
-		$("select[name='count']").change(function() {
+		/* 방 갯수 선택 시 변경 */
+		/* $("select[name='count']").change(function() {
 			var room = $(this).parent().find("li span").val();
 			$("#info #room").text(room);
 			
 			var value = $(this).val();
 			$("#info #count").text(value + "명");			
-		});
+		}); */
 	});
 	</script>
 		<%@ include file="../include/footer.jsp"%>
