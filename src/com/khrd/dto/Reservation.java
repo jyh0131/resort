@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Reservation {
 	private int rsvNo; // 예약 번호
+	private String rsvName; // 예약자
+	private String rsvPhone; // 전화번호
 	private int rsvCount; // 인원
 	private int rsvPrice; // 가격
 	private Date rsvStartDate; // 시작날짜
@@ -16,11 +18,13 @@ public class Reservation {
 	public Reservation() {
 		
 	}
-	
-	public Reservation(int rsvNo, int rsvCount, int rsvPrice, Date rsvStartDate, Date rsvEndDate, Date rsvPaymentDate,
-			int rsvCancel, Member member, Room room) {
+
+	public Reservation(int rsvNo, String rsvName, String rsvPhone, int rsvCount, int rsvPrice, Date rsvStartDate,
+			Date rsvEndDate, Date rsvPaymentDate, int rsvCancel, Member member, Room room) {
 		super();
 		this.rsvNo = rsvNo;
+		this.rsvName = rsvName;
+		this.rsvPhone = rsvPhone;
 		this.rsvCount = rsvCount;
 		this.rsvPrice = rsvPrice;
 		this.rsvStartDate = rsvStartDate;
@@ -37,6 +41,22 @@ public class Reservation {
 
 	public void setRsvNo(int rsvNo) {
 		this.rsvNo = rsvNo;
+	}
+
+	public String getRsvName() {
+		return rsvName;
+	}
+
+	public void setRsvName(String rsvName) {
+		this.rsvName = rsvName;
+	}
+
+	public String getRsvPhone() {
+		return rsvPhone;
+	}
+
+	public void setRsvPhone(String rsvPhone) {
+		this.rsvPhone = rsvPhone;
 	}
 
 	public int getRsvCount() {
@@ -105,9 +125,10 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [rsvNo=" + rsvNo + ", rsvCount=" + rsvCount + ", rsvPrice=" + rsvPrice + ", rsvStartDate="
-				+ rsvStartDate + ", rsvEndDate=" + rsvEndDate + ", rsvPaymentDate=" + rsvPaymentDate + ", rsvCancel="
-				+ rsvCancel + "]";
+		return "Reservation [rsvNo=" + rsvNo + ", rsvName=" + rsvName + ", rsvPhone=" + rsvPhone + ", rsvCount="
+				+ rsvCount + ", rsvPrice=" + rsvPrice + ", rsvStartDate=" + rsvStartDate + ", rsvEndDate=" + rsvEndDate
+				+ ", rsvPaymentDate=" + rsvPaymentDate + ", rsvCancel=" + rsvCancel + ", member=" + member + ", room="
+				+ room + "]";
 	}
-	
+		
 }

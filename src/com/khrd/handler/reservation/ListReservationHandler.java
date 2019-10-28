@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.ReservationDAO;
