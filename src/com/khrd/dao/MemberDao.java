@@ -131,7 +131,7 @@ public class MemberDao {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
 		}
-				
+				 
 		return null;
 	
 	}
@@ -183,7 +183,7 @@ public class MemberDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(conn);
+			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
 		}
 		
@@ -238,7 +238,7 @@ public class MemberDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(conn);
+			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
 		} 
 		
@@ -291,6 +291,7 @@ public class MemberDao {
 		}finally {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 				
 		return -1;
