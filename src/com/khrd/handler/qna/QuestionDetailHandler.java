@@ -34,10 +34,13 @@ public class QuestionDetailHandler implements CommandHandler{
 			Answer answer = daoA.selectAnswerByQNo(conn, qNo);
 			req.setAttribute("a", answer);
 			
+			//아이디 체크(관리자/사용자)
 			HttpSession session = req.getSession();
 			String mId = (String) session.getAttribute("Auth");
 			MemberDao daoM = MemberDao.getInstance();
-			daoM
+			int admin = daoM.AdminIDCheck(conn, mId);
+			req.setAttribute("admin", admin);
+			
 			return "/WEB-INF/view/qna/question/questionDetail.jsp";   
 		} catch (Exception e) {
 			e.printStackTrace();

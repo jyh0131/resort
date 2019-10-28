@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.khrd.dto.Member;
 import com.khrd.jdbc.JDBCUtil;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 public class MemberDao {
 
@@ -132,7 +131,7 @@ public class MemberDao {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
 		}
-				
+				 
 		return null;
 	
 	}
@@ -184,7 +183,7 @@ public class MemberDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(conn);
+			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
 		}
 		
@@ -239,7 +238,7 @@ public class MemberDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(conn);
+			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
 		} 
 		
@@ -263,7 +262,7 @@ public class MemberDao {
 						rs.getInt("m_out"), rs.getInt("m_admin"));											
 				list.add(member);
 			}			  
-			return list;  
+			return list;
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
@@ -290,7 +289,9 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
+			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 				
 		return -1;
