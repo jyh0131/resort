@@ -269,7 +269,7 @@ public class MemberDao {
 						rs.getInt("m_out"), rs.getInt("m_admin"));											
 				list.add(member);
 			}			  
-			return list;
+			return list;  
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
