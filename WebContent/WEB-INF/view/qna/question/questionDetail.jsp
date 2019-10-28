@@ -70,11 +70,20 @@
 		$("#list").click(function() {
 			location.href="${pageContext.request.contextPath}/question/list.do";
 		})
-		$("#update").click(function() {
+		$("#updateQ").click(function() {
 			location.href="${pageContext.request.contextPath}/question/update.do?no=${q.qNo}";
 		})
-		$("#delete").click(function() {
+		$("#deleteQ").click(function() {
 			location.href="${pageContext.request.contextPath}/question/delete.do?no=${q.qNo}";
+		})
+		$("#insertA").click(function() {
+			location.href="${pageContext.request.contextPath}/answer/add.do?no=${q.qNo}";
+		})
+		$("#updateA").click(function() {
+			location.href="${pageContext.request.contextPath}/answer/update.do?no=${q.qNo}";
+		})
+		$("#deleteA").click(function() {
+			location.href="${pageContext.request.contextPath}/answer/delete.do?no=${a.aNo}";
 		})
 	})
 </script>
@@ -82,10 +91,18 @@
 	<%@ include file="../../include/qna/front.jsp" %>
 	<p id="btns">
 		<button id="list">목록 가기</button>
+		<button id="insertA">답변 등록</button>
 		<c:if test="${Auth == q.mId}">
-		<button id="update">수정</button>
-		<button id="delete">삭제</button>
+		<button id="updateQ">수정</button>
+		<button id="deleteQ">삭제</button>
 		</c:if>
+		<!--<c:if test="${Auth == q.mId}">--><!-- 답변 없을 때 -->
+		
+		<!--</c:if>-->
+		<!--<c:if test="${Auth == q.mId}">--><!-- 답변 있을 때 -->
+		<button id="updateA">수정</button>
+		<button id="deleteA">삭제</button>
+		<!--</c:if>-->
 	</p>
 	<table>
 		<tr>

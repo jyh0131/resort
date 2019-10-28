@@ -45,8 +45,7 @@ public class QuestionInsertHandler implements CommandHandler {
 				conn = ConnectionProvider.getConnection();
 				QuestionDAO dao = QuestionDAO.getInstance();
 				Question question = new Question(0, qTitle, qType, qContent, qFile, null, mId);
-				int result = dao.insertQuestion(conn, question);
-				req.setAttribute("result", result);
+				dao.insertQuestion(conn, question);
 				res.sendRedirect(req.getContextPath()+"/question/list.do");
 			} catch (Exception e) {
 				e.printStackTrace();

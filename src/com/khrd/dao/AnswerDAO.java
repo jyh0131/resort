@@ -96,6 +96,39 @@ public class AnswerDAO {
 		return null;
 	}//selectListAnswer
 	
+	public int insertAnswer(Connection conn, Answer answer) {
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "insert into answer values(null, ?, now(), ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, answer.getaContent());
+			pstmt.setInt(2, answer.getqNo());
+			pstmt.setString(3, answer.getmId());
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//insertAnswer
+	
+	public int updateAnswer(Connection conn, Answer answer) {
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "update answer set a_content=? where a_no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, answer.getaContent());
+			pstmt.setInt(2, answer.getaNo());
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//updateAnswer
+	
 	public int deleteAnswer(Connection conn, int aNo) {
 		PreparedStatement pstmt = null;
 		try {
