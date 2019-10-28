@@ -171,7 +171,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "update member set m_out = '1' where m_id = ?";
+			String sql = "update member set m_out = 1 where m_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getmId());
 			
@@ -186,5 +186,67 @@ public class MemberDao {
 		
 		return -1;
 	}
+
+	//관리자 아이디 로그인
+	
+	public Member AdminMemberLogin(Connection conn, String mId, String mPassword) {
+		
+		PreparedStatement pstmt = null;		
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from member where m_admin = '1' and m_id = ? and m_password = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			pstmt.setString(2, mPassword);			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+			
+				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
+						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+						rs.getInt("m_out"), rs.getInt("m_admin"));	
+				return member;
+			};
+					
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(conn);
+			JDBCUtil.close(rs);
+		}
+		
+		return null;
+	}
+	
+	
+	// 관리자 아이디 검색
+/*	public List<Member> AdminLoginMember(Connection conn) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+	try {
+		String sql = "select * from member where m_admin = 1";		
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();	
+		ArrayList<Member> list = new ArrayList<>();
+		if(rs.next()) {
+			Member member = new Member(rs.getString("m_id"), rs.getString("m_password"), rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+					rs.getInt("m_out"), rs.getInt("m_admin"));
+			list.add(member);
+		}
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+	}finally {
+		JDBCUtil.close(pstmt);
+	}		
+	return null;
+}
+
+	*/
 	
 }
+
+
