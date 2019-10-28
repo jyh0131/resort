@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import com.khrd.dto.RoomImg;
 import com.khrd.dto.RoomName;
-import com.khrd.dto.RoomType;
 import com.khrd.jdbc.JDBCUtil;
 
 public class RoomImgDAO {
@@ -49,7 +48,8 @@ public class RoomImgDAO {
 			
 			while(rs.next()) {
 				RoomImg ri = new RoomImg(rs.getInt("ri_no"),
-										new RoomName(rs.getInt("rn_no"),rs.getString("rn_name")),
+										new RoomName(rs.getInt("rn_no"),rs.getString("rn_name"),
+												rs.getString("rn_eng_name")),
 										rs.getString("ri_file"));
 				list.add(ri);
 			}
@@ -75,7 +75,8 @@ public class RoomImgDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				RoomImg ri = new RoomImg(rs.getInt("ri_no"),
-									new RoomName(rs.getInt("rn_no"), rs.getString("rn_name")),
+									new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"),
+											rs.getString("rn_eng_name")),
 									rs.getString("ri_file"));
 				return ri;
 			}
