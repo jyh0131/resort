@@ -58,8 +58,8 @@ public class RoomDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		
 		
