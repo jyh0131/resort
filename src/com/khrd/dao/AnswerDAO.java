@@ -72,7 +72,7 @@ public class AnswerDAO {
 			JDBCUtil.close(pstmt);
 		}
 		return null;
-	}//selectAnswerQNo
+	}//selectAnswerByQNo
 	
 	public List<Integer> selectListQNo(Connection conn){
 		PreparedStatement pstmt = null;
@@ -94,7 +94,7 @@ public class AnswerDAO {
 			JDBCUtil.close(pstmt);
 		}
 		return null;
-	}//selectListAnswer
+	}//selectListQNo
 	
 	public int insertAnswer(Connection conn, Answer answer) {
 		PreparedStatement pstmt = null;
