@@ -91,18 +91,17 @@
 	<%@ include file="../../include/qna/front.jsp" %>
 	<p id="btns">
 		<button id="list">목록 가기</button>
-		<button id="insertA">답변 등록</button>
 		<c:if test="${Auth == q.mId}">
-		<button id="updateQ">수정</button>
-		<button id="deleteQ">삭제</button>
+			<button id="updateQ">질문 수정</button>
+			<button id="deleteQ">질문 삭제</button>
 		</c:if>
-		<!--<c:if test="${Auth == q.mId}">--><!-- 답변 없을 때 -->
-		
-		<!--</c:if>-->
-		<!--<c:if test="${Auth == q.mId}">--><!-- 답변 있을 때 -->
-		<button id="updateA">수정</button>
-		<button id="deleteA">삭제</button>
-		<!--</c:if>-->
+		<c:if test="${a == null && admin == 1}"><!-- 답변 없을 때 -->
+			<button id="insertA">답변 등록</button>
+		</c:if>
+		<c:if test="${a != null && admin == 1}"><!-- 답변 있을 때 -->
+			<button id="updateA">답변 수정</button>
+			<button id="deleteA">답변 삭제</button>
+		</c:if>
 	</p>
 	<table>
 		<tr>

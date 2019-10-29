@@ -37,8 +37,6 @@ public class RoomListHandler implements CommandHandler {
 			List<RoomName> rnList = rnDao.selectRoomNameList(conn);
 			request.setAttribute("rnList", rnList);
 			
-			
-			
 			//객실 이름에 따른 이미지 리스트
 			RoomImgDAO riDao = RoomImgDAO.getInstance();
 			List<RoomImg> riList = riDao.selectRoomImgList(conn);
