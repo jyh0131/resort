@@ -97,8 +97,8 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 				
 		return null;
@@ -128,8 +128,8 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 				
 		return null;
@@ -158,8 +158,8 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 				
 		return null;
@@ -190,8 +190,8 @@ public class MemberDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 		
 		
@@ -267,8 +267,8 @@ public class MemberDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		} 
 		
 		return null;
@@ -295,8 +295,8 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
 		}
 				
 		return null;
@@ -313,15 +313,18 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);			
 			rs = pstmt.executeQuery();
-			return rs.getInt("m_admin");
-		
+			if(rs.next()) {
+				return rs.getInt("m_admin");	
+			}			
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.close(pstmt);
+
 			JDBCUtil.close(rs);
 		}
-				  
+		
+
 		return -1;
 	}
 }
