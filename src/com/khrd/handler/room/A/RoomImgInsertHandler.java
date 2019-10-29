@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.RoomImgDAO;
 import com.khrd.dao.RoomNameDAO;
+import com.khrd.dao.RoomTypeDAO;
 import com.khrd.dto.RoomImg;
 import com.khrd.dto.RoomName;
+import com.khrd.dto.RoomType;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 import com.oreilly.servlet.MultipartRequest;
@@ -30,6 +32,11 @@ public class RoomImgInsertHandler implements CommandHandler {
 				List<RoomName> rn = dao.selectRoomNameList(conn);
 				
 				request.setAttribute("rn", rn);
+				
+				RoomTypeDAO rtDao = RoomTypeDAO.getInstance();
+				List<RoomType> rt = rtDao.selectRoomTypeList(conn);
+				
+				request.setAttribute("rt", rt);
 				
 				return "/WEB-INF/view/room/img/riInsertForm.jsp";
 			}catch (Exception e) {
@@ -56,6 +63,8 @@ public class RoomImgInsertHandler implements CommandHandler {
 			
 			String sNoRn = multi.getParameter("roomName");
 			int roomName = Integer.parseInt(sNoRn);
+			String sNoRt = multi.getParameter("roomType");
+			int roomType = Integer.parseInt(sNoRt);
 			String riFile = multi.getFilesystemName("riFile");
 			//이미지 파일 이름은 반드시 getFilesystemName으로 가져와야 한다...!@!!!!!!!!!!!!!
 			
@@ -67,6 +76,8 @@ public class RoomImgInsertHandler implements CommandHandler {
 				
 				RoomNameDAO rnDao = RoomNameDAO.getInstance();
 				RoomName rn = rnDao.selectRoomNameByNo(conn, roomName);
+				RoomTypeDAO rtDao = RoomTypeDAO.getInstance();
+				RoomType rt = rtDao.selectRoomTypeByNo(conn, roomType);
 				RoomImgDAO dao = RoomImgDAO.getInstance();
 				RoomImg ri = new RoomImg(0, rn, riFile);
 				

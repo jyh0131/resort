@@ -25,10 +25,22 @@
 		<fieldset>
 			<legend>객실 등록</legend>
 			<p>
+				<label>객실 타입</label>
+				<select name = "roomType">
+					<c:forEach var = "rt" items = "${rt }">
+						<option value = "${rt.rtNo }" >${rt.rtName }</option>
+					</c:forEach>
+				</select>
+			</p>
+			<p>
 				<label>객실 이름</label>
 				<select name = "roomName">
-					<c:forEach var = "rn" items = "${rn }">
-						<option value = "${rn.rnNo }" >${rn.rnName }</option>
+					<c:forEach var = "rt" items = "${rt }">
+						<c:forEach var = "rn" items = "${rn }">
+							<c:if test = "${rt.rtNo == rn.roomType.rtNo }">
+								<option value = "${rn.rnNo }" >${rn.rnName }</option>
+							</c:if>	
+						</c:forEach>
 					</c:forEach>
 				</select>
 			</p>
