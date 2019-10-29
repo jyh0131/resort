@@ -98,8 +98,8 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 				
 		return null;
@@ -129,10 +129,10 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
-				 
+				
 		return null;
 	
 	}
@@ -152,8 +152,8 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 				
 		return -1;
@@ -267,8 +267,8 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 				
 		return null;
