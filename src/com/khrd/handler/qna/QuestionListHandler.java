@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.AnswerDAO;
+import com.khrd.dao.MemberDao;
 import com.khrd.dao.QuestionDAO;
 import com.khrd.dto.Question;
 import com.khrd.jdbc.ConnectionProvider;
@@ -29,7 +31,6 @@ public class QuestionListHandler implements CommandHandler {
 			//답변 유무 확인
 			AnswerDAO daoA = AnswerDAO.getInstance();
 			List<Integer> qNoList = daoA.selectListQNo(conn);
-<<<<<<< HEAD
 			req.setAttribute("qNoList", qNoList);
 			
 			//아이디 체크(관리자/사용자)
@@ -44,10 +45,8 @@ public class QuestionListHandler implements CommandHandler {
 //			int pageNo = Integer.parseInt(req.getParameter("pageNo"));
 //			QuestionPage page = listService.getQuestionPage(pageNo);
 //			req.setAttribute("page", page);
-=======
-			req.setAttribute("qNoList", qNoList); //
->>>>>>> branch 'master' of https://github.com/jyh0131/resort.git
 			
+			req.setAttribute("qNoList", qNoList); 
 			return "/WEB-INF/view/qna/qnaList.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();
