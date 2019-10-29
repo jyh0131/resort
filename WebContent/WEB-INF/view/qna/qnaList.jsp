@@ -100,8 +100,10 @@
 			<option>차량등록</option>
 			<option>기타</option>
 		</select>
-		<button id="write">질문하기</button>
-		<button id="read">내 질문보기</button>
+		<c:if test="${admin != 1}">
+			<button id="write">질문하기</button>
+			<button id="read">내 질문보기</button>
+		</c:if>
 	</p>
 	<table>
 		<tr>
@@ -111,7 +113,12 @@
 			<td>작성자</td>
 			<td>작성일</td>
 		</tr>
-		<c:forEach var="q" items="${list}">
+		<c:if test="${total == 0}">
+			<tr>
+				<td colspan="5">게시글이 없습니다.</td>
+			</tr>
+		</c:if>
+		<c:forEach var="q" items="${page.qList}">
 		<tr>
 			<td>${q.qNo}</td>
 			<td>${q.qType}</td>
@@ -129,6 +136,21 @@
 			<td>${q.qDate}</td>
 		</tr>
 		</c:forEach>
+		<c:if test="${total != 0}">
+			<tr>
+				<td colspan="5">
+					<c:if test="${page.startPage > 5}">
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage-5}">[이전]</a>
+					</c:if>
+					<c:forEach var="pNo" begin="${page.startPage}" end="${page.endPage}">
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${pNo}">[${pNo}]</a>
+					</c:forEach>
+					<c:if test="${page.endPage > page.totalPages}">
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage+5}">[다음]</a>
+					</c:if>
+				</td>
+			</tr>
+		</c:if>
 	</table>
 </section>
 <%@ include file="../include/footer.jsp" %>

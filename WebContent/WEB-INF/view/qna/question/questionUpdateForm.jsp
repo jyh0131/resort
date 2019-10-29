@@ -101,7 +101,7 @@
 		</p>
 		<p>
 			<label>내용</label>
-			<textarea name="content" cols="100" rows="30">${q.qTitle}</textarea>
+			<textarea name="content" cols="100" rows="30">${q.qContent}</textarea>
 			<span class="error">내용을 입력하세요.</span>
 		</p>
 		<p>

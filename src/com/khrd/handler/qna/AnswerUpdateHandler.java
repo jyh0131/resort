@@ -22,6 +22,8 @@ public class AnswerUpdateHandler implements CommandHandler {
 				conn = ConnectionProvider.getConnection();
 				AnswerDAO dao = AnswerDAO.getInstance();
 				Answer answer = dao.selectAnswerByQNo(conn, qNo);
+				String aContent = answer.getaContent().replaceAll("<br>", "\r\n");
+				answer.setaContent(aContent);
 				req.setAttribute("qNo", qNo);
 				req.setAttribute("a", answer);
 			} catch (Exception e) {
@@ -34,6 +36,7 @@ public class AnswerUpdateHandler implements CommandHandler {
 			int qNo = Integer.parseInt(req.getParameter("qNo"));
 			int aNo = Integer.parseInt(req.getParameter("aNo"));
 			String aContent = req.getParameter("content");
+			aContent = aContent.replaceAll("\r\n", "<br>"); 
 			Connection conn = null;
 			try {
 				conn = ConnectionProvider.getConnection();

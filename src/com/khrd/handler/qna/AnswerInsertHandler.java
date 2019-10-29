@@ -23,6 +23,7 @@ public class AnswerInsertHandler implements CommandHandler {
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			int qNo = Integer.parseInt(req.getParameter("no"));
 			String aContent = req.getParameter("content");
+			aContent = aContent.replaceAll("\r\n", "<br>"); 
 			HttpSession session = req.getSession();
 			String mId = (String) session.getAttribute("Auth");
 			

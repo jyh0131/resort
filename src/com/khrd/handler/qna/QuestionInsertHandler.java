@@ -36,6 +36,7 @@ public class QuestionInsertHandler implements CommandHandler {
 			String qTitle = multi.getParameter("title");
 			String qType = multi.getParameter("type");
 			String qContent= multi.getParameter("content");
+			qContent = qContent.replaceAll("\r\n", "<br>"); 
 			String qFile = multi.getFilesystemName("file");
 			HttpSession session = req.getSession();
 			String mId = (String) session.getAttribute("Auth");

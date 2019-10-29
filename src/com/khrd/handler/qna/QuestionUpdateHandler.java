@@ -5,7 +5,6 @@ import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.QuestionDAO;
@@ -26,14 +25,9 @@ public class QuestionUpdateHandler implements CommandHandler {
 				conn = ConnectionProvider.getConnection();
 				QuestionDAO dao = QuestionDAO.getInstance();
 				Question question = dao.selectQuestionByQNo(conn, qNo);
+				String qContent = question.getqContent().replaceAll("<br>", "\r\n");
+				question.setqContent(qContent);
 				
-				//작성자 확인(주소로 접근 막기)
-				HttpSession session = req.getSession();
-				String mId = (String) session.getAttribute("Auth");
-				if(mId.equals(question.getmId()) == false){
-					res.sendRedirect(req.getContextPath()+"/question/list.do"); //본인 아니면 리스트로 이동
-					return null;
-				}//
 				req.setAttribute("q", question);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -57,6 +51,7 @@ public class QuestionUpdateHandler implements CommandHandler {
 			String qTitle = multi.getParameter("title");
 			String qType = multi.getParameter("type");
 			String qContent= multi.getParameter("content");
+			qContent = qContent.replaceAll("\r\n", "<br>");
 			String qFile = multi.getFilesystemName("file");
 			
 			Connection conn = null;
