@@ -33,7 +33,24 @@ $(function(){
 			return false;
 		}
 		
-		
+		$.ajax({
+			url:"${pageContext.request.contextPath}/member/withdrawCheck.do",
+			type:"get",
+			data:{"id":$("#id").val()},
+			dataType:"json",
+			success:function(res){
+				console.log(res)
+				
+				var idcheck = res.result;
+				
+				if(idcheck > 0){
+					$("#withdraw").css("display","inline");
+					return "/WEB-INF/member/view/login.jsp";
+				}
+					
+			}
+			
+		})
 		
 		
 		
@@ -100,6 +117,10 @@ input{
 	font-size: 17px;
 }
 
+#withdraw{
+	text-align:center;
+	display: none;
+}
 </style>
 
 
@@ -142,6 +163,12 @@ input{
 <p id = "correct">아이디와 비밀번호가 일치하지 않습니다</p>
 
 </c:if>
+
+
+<p id = "withdraw">탈퇴한 회원입니다</p>
+
+
+
 
 <%@ include file= "../include/footer.jsp" %>
 

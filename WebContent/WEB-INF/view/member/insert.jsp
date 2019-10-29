@@ -86,12 +86,10 @@ $(function(){
 				
 				var id = res.result;
 				
-				if(id == "fail"){
-					$(".input").eq(1).css("display","inline");
-					$(".input").eq(1).text("사용 가능한 아이디 입니다");
-				}else if(id == "success"){
-					$(".input").eq(1).css("display","inline");
-					$(".input").eq(1).text("이 아이디는 이미 존재합니다")
+				if(id == "success"){
+					$(".show").text("사용 가능한 아이디 입니다");
+				}else if(id == "fail"){			
+					$(".show").text("이 아이디는 이미 존재합니다")
 		
 				}			
 			}		
@@ -99,9 +97,20 @@ $(function(){
 	}) 
 
 		
-		
 })
 
+function passwordCheckFunction(){
+	
+	var password1 = $("#password").val();
+	var password2 = $("#passwordCheck").val();
+	
+	if(password1 != password2){
+		$("#pass").text("비밀번호가 일치하지 않습니다")
+		
+	}else{
+		$("#pass").text("비밀번호가 일치합니다")
+	}
+}
 
 
 
@@ -182,17 +191,17 @@ input{
 	 
 	  <tr>
 	 	<td class = "left"><label>아이디 </label></td>
-	 	<td class = "right"><input type = "text" name ="id" id ="id" placeholder= "4자 이상 13자 이하 아이디">&nbsp;&nbsp;<button id = "check">아이디 중복체크</button> &nbsp;&nbsp;<span class="input">아이디를 입력하세요.</span></td>
+	 	<td class = "right"><input type = "text" name ="id" id ="id" placeholder= "4자 이상 13자 이하 아이디">&nbsp;&nbsp;<button id = "check" type="button">아이디 중복체크</button> &nbsp;&nbsp;<span class = "show"></span><span class="input">아이디를 입력하세요.</span></td>
 	 </tr>
 	 
 	  <tr>
 	 	<td class = "left"><label>비밀번호 </label></td>
-	 	<td class = "right"><input type = "password" name ="password" id = "password" placeholder= "4자 이상 17자 이하 비밀번호">&nbsp;&nbsp;<span class="input">4자리 이상의 17자리 이하의 비밀번호를 입력하세요.</span></td>
+	 	<td class = "right"><input type = "password" name ="password" id = "password" placeholder= "4자 이상 17자 이하 비밀번호" onkeyup = "passwordCheckFunction()">&nbsp;&nbsp;<span class="input">4자리 이상의 17자리 이하의 비밀번호를 입력하세요.</span></td>
 	 </tr>
 	 
 	  <tr>
 	 	<td class = "left"><label>비밀번호 확인 </label></td>
-	 	<td class = "right"><input type = "password" name ="passwordCheck"></td>
+	 	<td class = "right"><input type = "password" name ="passwordCheck" id = "passwordCheck" onkeyup = "passwordCheckFunction()"> &nbsp; <span id ="pass"></span></td>
 	 </tr> 
 	 
 	  <tr>

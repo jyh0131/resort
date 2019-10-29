@@ -133,7 +133,7 @@ input{
 
 	<a href = "adminList.do">관리자 리스트 검색하기</a>
 	<a href = "adminMember.do">회원 리스트에서 관리자 검색하기</a>	
-	<a href = "list.do">회원 검색하기</a>
+	
 </div>
 
 </form>

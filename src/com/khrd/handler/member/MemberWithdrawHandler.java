@@ -19,21 +19,22 @@ public class MemberWithdrawHandler implements CommandHandler {
 		
 		if(request.getMethod().equalsIgnoreCase("get")) {
 
-			return "/WEB-INF/view/member/update.jsp";	
+			return "/WEB-INF/view/member/withdrawMember.jsp";	
 		}else if(request.getMethod().equalsIgnoreCase("post")) {
 
-			Connection conn = null;
-					
-			String Withdraw = request.getParameter("withdraw");
-			int withdraw = Integer.parseInt(Withdraw);
+			Connection conn = null;							
+			
+			String id = request.getParameter("id");
+			String password = request.getParameter("password");
 			
 			try {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
 				Member member = new Member();	
-				member.setmOut(withdraw);
-				dao.WithdrawMember(conn, member);
-									
+				dao.WithdrawMember(conn,id,password);
+				member.setmId(id);
+				member.setmPassword(password);
+								
 				return "/WEB-INF/view/member/withdraw.jsp";
 			}catch(Exception e) {
 				e.printStackTrace();

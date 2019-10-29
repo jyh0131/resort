@@ -136,7 +136,7 @@ public class MemberDao {
 	
 	}
 	// 아이디 중복체크
-	public int SelectMemberByID(Connection conn, String mId){
+	public Member SelectMemberByID(Connection conn, String mId){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -146,8 +146,15 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);		
 			rs = pstmt.executeQuery();
-
-			return rs.getInt("m_id");
+			
+			if(rs.next()){
+				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
+						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+						rs.getInt("m_out"), rs.getInt("m_admin"));											
+				return member;
+				
+			}
+			
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
@@ -155,7 +162,7 @@ public class MemberDao {
 			JDBCUtil.close(rs);
 		}
 				
-		return -1;
+		return null;
 	}
 	
 	// 아이디와 패스워드로 로그인 
@@ -192,15 +199,15 @@ public class MemberDao {
 	}
 	
 	// 회원 탈퇴
-	public int WithdrawMember(Connection conn, Member member) {
+	public int WithdrawMember(Connection conn, String mId, String mPassword) {
 		
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "update member set m_out = '1' where m_id = ?";
+			String sql = "update member set m_out = '1' where m_id = ? and m_password = ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getmId());
-			
+			pstmt.setString(1, mId);	
+			pstmt.setString(2, mPassword);
 			return pstmt.executeUpdate();
 			
 		}catch(Exception e) {
@@ -212,7 +219,28 @@ public class MemberDao {
 		 
 		return -1;
 	}
+// 탈퇴한 아이디 체크해서 접속 못하게 막기
+	public int withdrawCheck(Connection conn, Member member) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from member where m_out = '1' and m_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member.getmId());
+			rs = pstmt.executeQuery();
+			return rs.getInt("m_id");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+		}
 
+		return -1;
+	}
+	
+	
 	//관리자 아이디 로그인
 	
 	public Member AdminMemberLogin(Connection conn, String mId, String mPassword) {
