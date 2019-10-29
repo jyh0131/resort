@@ -54,8 +54,8 @@ public class RoomTypeDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 		
 		return null;
@@ -76,8 +76,8 @@ public class RoomTypeDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 		return null;
 	}

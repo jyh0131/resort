@@ -57,8 +57,8 @@ public class RoomImgDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 		
 		
@@ -83,8 +83,8 @@ public class RoomImgDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 		return null;
 	}

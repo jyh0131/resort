@@ -5,11 +5,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.AnswerDAO;
-import com.khrd.dao.MemberDao;
 import com.khrd.dao.QuestionDAO;
 import com.khrd.dto.Question;
 import com.khrd.jdbc.ConnectionProvider;
@@ -29,15 +27,7 @@ public class QuestionListHandler implements CommandHandler {
 			//답변 유무 확인
 			AnswerDAO daoA = AnswerDAO.getInstance();
 			List<Integer> qNoList = daoA.selectListQNo(conn);
-			req.setAttribute("qNoList", qNoList);
-			
-			//아이디 체크(관리자/사용자)
-			HttpSession session = req.getSession();
-			String mId = (String) session.getAttribute("Auth");
-			MemberDao daoM = MemberDao.getInstance();
-			int admin = daoM.AdminIDCheck(conn, mId);
-			req.setAttribute("admin", admin);
-			System.out.println("admin 값 확인 ******************** " + admin);
+			req.setAttribute("qNoList", qNoList); //
 			
 			return "/WEB-INF/view/qna/qnaList.jsp";
 		} catch (Exception e) {
