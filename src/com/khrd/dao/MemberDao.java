@@ -19,7 +19,7 @@ public class MemberDao {
 		return dao;		
 	}
 	private MemberDao() {	
-			
+			 
 	} 
 	// 회원 가입
 	public int InsertMember(Connection conn, Member member){
@@ -235,6 +235,7 @@ public class MemberDao {
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 
 		return -1;
@@ -317,7 +318,6 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
 		}
