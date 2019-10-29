@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link href="https://fonts.googleapis.com/css?family=Tienne&display=swap" rel="stylesheet">
 <%@ include file="../include/header.jsp" %>
+
 <style>
 	ul{
 		list-style:none;
@@ -15,12 +17,12 @@
 	}
 	#sideMenu{
 		float:left;
-		width: 150px;
+		width:235px;
 		height: 500px;/* 임시용 높이  */
 		border:2px solid #977F51;
 		padding:10px;
 		text-align: center;
-		margin-left:275px;
+		margin-left:220px;
 	}
 	.reSubMenu{
 		display: none;
@@ -49,6 +51,21 @@
 	.mainTitle{
 		font-size: 28px;
 		margin-bottom:20px;
+		color: #333;
+	}
+	.sideM_e_sm{
+		display: none;
+	}
+	.engTitle{
+		font-size: 46px;
+		margin-top:15px;
+		font-family: 'Tienne', serif;
+		font-style: italic;
+		color: #333;
+	}
+	.subText{
+		color: #999;
+		font-size:14px;
 	}
 </style>
 <script>
@@ -58,10 +75,14 @@
 			$(this).next().css("display","block");
 		})
 		
-		$(".sideM_sm").click(function(){
+		/* $(".sideM_sm").click(function(){
 			var t = $(this).html();
 			$(".mainTitle").html(t);
-		})
+			
+			var eng = $(this).next().html();
+			$(".engTitle").html(eng);
+			console.log(t);
+		}) */
 	})
 </script>
 	<section id = "roomResort">
@@ -69,29 +90,40 @@
 			<ul  id = "reMainMenu">
 				<c:forEach var = "rt" items = "${rtList }">
 					<li>
-					<a href="#?rnNo=1" class  = "sideM_T">${rt.rtName}</a> <!-- resort & hotel -->
-					<ul class = "reSubMenu">
-						<c:forEach var = "rn" items = "${rnList }">
-							<c:if test = "${rt.rtNo == rn.roomType.rtNo }">
-								<li>
-									<a href="#?rnNo=${rn.rnNo }" class = "sideM_sm"><!-- sub_menu -->
-										 ${rn.rnName }
-									</a>
-								</li>
-							</c:if>
-						</c:forEach>
-					</ul><!-- room_sub 리조트 -->
-				</li>
-				</c:forEach>
-			</ul><!-- room_menu -->
-		</aside><!-- side Menu -->
+						<a href="#" class  = "sideM_T">
+							${rt.rtName}
+						</a> <!-- resort & hotel -->
+						<ul class = "reSubMenu">
+							<c:forEach var = "rn" items = "${rnList }">
+								<c:if test = "${rt.rtNo == rn.roomType.rtNo }">
+									<li>
+										<a href="list.do?rnNo=${rn.rnNo }" class = "sideM_sm"><!-- sub_menu -->
+											 ${rn.rnName }
+										</a><!-- 한글이름 -->
+										<a href = "list.do?rnNo=${rn.rnNo }" class = "sideM_e_sm">
+											${rn.rnEngName }
+										</a><!-- 영문이름 -->
+									</li><!-- 객실 타입에 따른 객실 이름 -->
+								</c:if><!-- 객실 타입과 객실 정보가 일치한지 확인하는 조건문 -->
+							</c:forEach><!-- 객실 정보를 담고있는 리스트 for문 -->
+						</ul><!-- 객실 타입의 서브 메뉴의 ul -->
+					</li><!-- 객실 타입의 이름 -->
+				</c:forEach><!-- 객실 타입 리스트 for문 -->
+			</ul><!-- 객실 메뉴의  ul -->
+		</aside><!-- 객실 사이드메뉴 border -->
 		<article id = "rR_mainBody"><!-- Main body -->
-			<div id = "mb_mainTitle">
+			<div id = "mb_mainTitle"><!-- 메인 타이틀(객실 이름) -->
 				<p class = "mainTitle">
-					${rnList[0].rnName }
-				</p>
+					${rnList[selectRnNo-1].rnName }
+				</p><!-- 한글 이름 -->
 				<span class = "title_border"></span>
+				<p class = "engTitle">
+					${rnList[selectRnNo-1].rnEngName }
+				</p><!-- 영문 이름 -->
+				<p class = "subText">
+					${rnList[selectRnNo-1].rnDetail }
+				</p>
 			</div>
 		</article>
-	</section>
+	</section><!-- 객실 body -->
 <%@ include file="../include/footer.jsp" %>

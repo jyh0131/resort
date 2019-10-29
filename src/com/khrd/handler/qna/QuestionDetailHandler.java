@@ -40,7 +40,6 @@ public class QuestionDetailHandler implements CommandHandler{
 			MemberDao daoM = MemberDao.getInstance();
 			int admin = daoM.AdminIDCheck(conn, mId);
 			req.setAttribute("admin", admin);
-			System.out.println("detail admin 값 확인 ******************** " + admin);    
 			
 			return "/WEB-INF/view/qna/question/questionDetail.jsp";   
 		} catch (Exception e) {

@@ -17,7 +17,7 @@ public class MemberAdminMemberhandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
-
+ 
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();

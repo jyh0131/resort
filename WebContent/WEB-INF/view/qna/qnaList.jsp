@@ -29,7 +29,7 @@
 	td{
 		padding: 10px;
 	}
-	td.titleTD{
+	td#titleTD{
 		text-align: left;
 		padding-left: 30px;
 	}
@@ -37,7 +37,7 @@
 		text-decoration: none;
 		color: #333;
 	}
-	span.title{
+	span#title{
 		display: inline-block;
 		width: 270px;
 		vertical-align: middle;
@@ -45,7 +45,7 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
-	span.answer{
+	span#answer{
 		background: #DFD2B3;
 		color: #fff;
 		border-radius: 5px;
@@ -58,35 +58,15 @@
 		$("#type").val("${qType}").prop("selected", true);
 		$("#type").change(function() {
 			var type = $(this).val();
-			$.ajax({
-				url: "${pageContext.request.contextPath}/question/typeList.do",
-				type: "get",
-				data: {"type" : type},
-				dataType: "json",
-				success : function(res) {
-					console.log(res);
-					$(".qList").remove();
-					$(res.list).each(function(i, obj) {
-						var $tr = $("<tr>").addClass("qList");
-						var $tdNo = $("<td>").text(obj.qNo); //순번
-						var $tdType = $("<td>").text(obj.qType); //구분
-						var $tdTitle = $("<td>").addClass("titleTD");
-						var $a = $("<a>").attr("href", "${pageContext.request.contextPath}/question/detail.do?no="+obj.qNo).addClass("detail");
-						var $span = $("<span>").addClass("title").text(obj.qTitle);
-						$a.append($span)
-						$tdTitle.append($a); //제목
-						var $tdId = $("<td>").text(obj.mId); //작성자
-						var $tdDate = $("<td>").text(obj.qDate); //작성일
-						$tr.append($tdNo, $tdType, $tdTitle, $tdId, $tdDate);    
-						$("table").append($tr); 
-					})
-				}
-			})
+			if(type == ""){ //선택 안 하면 기본 리스트
+				location.href = "${pageContext.request.contextPath}/question/list.do";
+				return;
+			}
+			location.href = "${pageContext.request.contextPath}/question/typeList.do?type="+type;
 		})
 		
-		
 		//질문하기
-		$("#writeQ").click(function() {
+		$("#write").click(function() {
 			<c:if test="${Auth==null}">
 				alert("로그인 후 이용해주세요.");
 			</c:if>
@@ -96,7 +76,7 @@
 		})
 		
 		//내 질문보기
-		$("#readQ").click(function() {
+		$("#read").click(function() {
 			<c:if test="${Auth==null}">
 				alert("로그인 후 이용해주세요.");
 			</c:if>
@@ -104,11 +84,6 @@
 				location.href = "${pageContext.request.contextPath}/question/myQ.do?id=${q.mId}";
 			</c:if>	
 		})
-		
-		//내 답변보기
-		$("#readA").click(function() {
-			//location.href = "${pageContext.request.contextPath}/answer/myA.do?id=${q.mId}";
-		}) 
 	})
 </script>
 <section>
@@ -125,10 +100,8 @@
 			<option>차량등록</option>
 			<option>기타</option>
 		</select>
-		<c:if test="${admin != 1}"> <!-- 사용자/로그아웃일 때 (관리자에게 안 보이기)-->
-			<button id="writeQ">질문하기</button>
-			<button id="readQ">내 질문보기</button>
-		</c:if>
+		<button id="write">질문하기</button>
+		<button id="read">내 질문보기</button>
 	</p>
 	<table>
 		<tr>
@@ -139,15 +112,15 @@
 			<td>작성일</td>
 		</tr>
 		<c:forEach var="q" items="${list}">
-		<tr class="qList">
+		<tr>
 			<td>${q.qNo}</td>
 			<td>${q.qType}</td>
-			<td class="titleTD">
+			<td id="titleTD">
 				<a href="${pageContext.request.contextPath}/question/detail.do?no=${q.qNo}" class="detail">
-					<span class="title">${q.qTitle}</span>
+					<span id="title">${q.qTitle}</span>
 					<c:forEach var="dbQNo" items="${qNoList}">
 						<c:if test="${q.qNo == dbQNo}"> <!-- 답변이 있으면 -->
-							<span class="answer">Re</span>
+							<span id="answer">Re</span>
 						</c:if>
 					</c:forEach>
 				</a>

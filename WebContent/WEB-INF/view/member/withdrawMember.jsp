@@ -33,24 +33,7 @@ $(function(){
 			return false;
 		}
 		
-		$.ajax({
-			url:"${pageContext.request.contextPath}/member/withdrawCheck.do",
-			type:"get",
-			data:{"id":$("#id").val()},
-			dataType:"json",
-			success:function(res){
-				console.log(res)
-				
-				var idcheck = res.result;
-				
-				if(idcheck > 0){
-					$("#withdraw").css("display","inline");
-					return "/WEB-INF/member/view/login.jsp";
-				}
-					
-			}
-			
-		})
+		
 		
 		
 		
@@ -117,25 +100,21 @@ input{
 	font-size: 17px;
 }
 
-#withdraw{
-	text-align:center;
-	display: none;
-}
 </style>
 
 
 </head>
 <body>
  
-<p>로그인</p>
+<p>회원 탈퇴</p>
  
-<form action = "login.do" method ="post">
+<form action = "withdraw.do" method ="post">
 
 <div id = "con">
 
 	<fieldset>
 	<br>
-	<span>회원 로그인</span>
+	<span>회원 탈퇴 확인을 위해 아이디와 비밀번호를 입력해주세요</span>
 		<table>
 			<tr>
 				<td><label>아이디</label></td>
@@ -152,7 +131,6 @@ input{
 		<input type ="submit" value = "로그인" id ="submit" >
 	</fieldset>
 
-	<a href = "adminLogin.do">관리자 전용 로그인</a>
 
 </div>
 
@@ -163,12 +141,6 @@ input{
 <p id = "correct">아이디와 비밀번호가 일치하지 않습니다</p>
 
 </c:if>
-
-
-<p id = "withdraw">탈퇴한 회원입니다</p>
-
-
-
 
 <%@ include file= "../include/footer.jsp" %>
 

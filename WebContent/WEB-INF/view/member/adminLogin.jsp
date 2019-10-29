@@ -125,7 +125,7 @@ input{
 				<td><label>비밀번호</label></td>
 				<td><input type ="text" name = "password" ><span class = "show">비밀번호를 입력하십시오</span></td>
 			</tr>
-			
+			 
 		</table>
 		
 		<input type ="submit" value = "로그인" id ="submit" >
@@ -133,7 +133,7 @@ input{
 
 	<a href = "adminList.do">관리자 리스트 검색하기</a>
 	<a href = "adminMember.do">회원 리스트에서 관리자 검색하기</a>	
-	<a href = "list.do">회원 검색하기</a>
+	
 </div>
 
 </form>
