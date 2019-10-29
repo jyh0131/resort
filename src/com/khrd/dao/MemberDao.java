@@ -20,7 +20,7 @@ public class MemberDao {
 	}
 	private MemberDao() {	
 			
-	}
+	} 
 	// 회원 가입
 	public int InsertMember(Connection conn, Member member){
 		
