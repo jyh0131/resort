@@ -106,7 +106,7 @@ function passwordCheckFunction(){
 	
 	if(password1 != password2){
 		$("#pass").text("비밀번호가 일치하지 않습니다")
-		
+		 
 	}else{
 		$("#pass").text("비밀번호가 일치합니다")
 	}

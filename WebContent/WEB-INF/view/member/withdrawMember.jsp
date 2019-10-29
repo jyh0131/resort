@@ -106,15 +106,15 @@ input{
 </head>
 <body>
  
-<p>로그인</p>
+<p>회원 탈퇴</p>
  
-<form action = "adminLogin.do" method ="post">
+<form action = "withdraw.do" method ="post">
 
 <div id = "con">
 
 	<fieldset>
 	<br>
-	<span>관리자 로그인</span>
+	<span>회원 탈퇴 확인을 위해 아이디와 비밀번호를 입력해주세요</span>
 		<table>
 			<tr>
 				<td><label>아이디</label></td>
@@ -125,22 +125,20 @@ input{
 				<td><label>비밀번호</label></td>
 				<td><input type ="text" name = "password" ><span class = "show">비밀번호를 입력하십시오</span></td>
 			</tr>
-			 
+			
 		</table>
 		
 		<input type ="submit" value = "로그인" id ="submit" >
 	</fieldset>
 
-	<a href = "adminList.do">관리자 리스트 검색하기</a>
-	<a href = "adminMember.do">회원 리스트에서 관리자 검색하기</a>	
-	
+
 </div>
 
 </form>
 
 <c:if test = "${login == true }">
 <br>
-<p id = "correct">관리자 아이디와 비밀번호가 일치하지 않습니다</p>
+<p id = "correct">아이디와 비밀번호가 일치하지 않습니다</p>
 
 </c:if>
 

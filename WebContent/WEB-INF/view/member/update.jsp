@@ -120,7 +120,7 @@ input{
 #cancel{
 	height:27px;
 }
-
+ 
 .input{
 	display: none;
 }
