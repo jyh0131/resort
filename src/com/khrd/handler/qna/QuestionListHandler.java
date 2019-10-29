@@ -14,6 +14,8 @@ import com.khrd.dao.QuestionDAO;
 import com.khrd.dto.Question;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
+import com.khrd.service.QuestionListService;
+import com.khrd.service.QuestionPage;
 
 public class QuestionListHandler implements CommandHandler {
 
@@ -37,7 +39,12 @@ public class QuestionListHandler implements CommandHandler {
 			MemberDao daoM = MemberDao.getInstance();
 			int admin = daoM.AdminIDCheck(conn, mId);
 			req.setAttribute("admin", admin);
-			System.out.println("admin 값 확인 ******************** " + admin);
+			
+//			//리스트 페이지
+//			QuestionListService listService = new QuestionListService();
+//			int pageNo = Integer.parseInt(req.getParameter("pageNo"));
+//			QuestionPage page = listService.getQuestionPage(pageNo);
+//			req.setAttribute("page", page);
 			
 			return "/WEB-INF/view/qna/qnaList.jsp";
 		} catch (Exception e) {

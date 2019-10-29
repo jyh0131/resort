@@ -139,6 +139,60 @@ public class QuestionDAO {
 		return null;
 	}//selectQuestionListByQType
 	
+	public int selectCountQuestion(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select count(*) from question";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();		
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//selectCountQuestion
+	
+	public List<Question> selectDescListQuestion(Connection conn, int startRow, int size){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from question order by q_no desc limit ?, ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, size);
+			rs = pstmt.executeQuery();
+			List<Question> list = new ArrayList<>();
+			while (rs.next()) {
+				Question question = new Question(
+									rs.getInt("q_no"),
+									rs.getString("q_title"),
+									rs.getString("q_type"), 
+									rs.getString("q_content"),
+									rs.getString("q_File"), 
+									rs.getDate("q_date"),
+									rs.getString("m_id"));
+				list.add(question);
+			}
+			return list;			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}//selectDescListQuestion
+	
+	//--------------------- select 끝
+	
 	public int insertQuestion(Connection conn, Question question) {
 		PreparedStatement pstmt = null;
 		try {
