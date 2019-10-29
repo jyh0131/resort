@@ -47,6 +47,13 @@ public class RoomListHandler implements CommandHandler {
 			List<Room> rList = rDao.selectRoomList(conn);
 			request.setAttribute("rList", rList);
 			
+			String sNo = request.getParameter("rnNo");
+			if(sNo == null) {
+				sNo = "1";
+			}
+			
+			request.setAttribute("selectRnNo", sNo);
+			
 			
 			return "/WEB-INF/view/room/roomResort.jsp";
 		}catch(Exception e) {

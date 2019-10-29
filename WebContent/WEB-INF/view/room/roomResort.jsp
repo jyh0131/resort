@@ -75,13 +75,14 @@
 			$(this).next().css("display","block");
 		})
 		
-		$(".sideM_sm").click(function(){
+		/* $(".sideM_sm").click(function(){
 			var t = $(this).html();
 			$(".mainTitle").html(t);
 			
 			var eng = $(this).next().html();
 			$(".engTitle").html(eng);
-		})
+			console.log(t);
+		}) */
 	})
 </script>
 	<section id = "roomResort">
@@ -96,10 +97,10 @@
 							<c:forEach var = "rn" items = "${rnList }">
 								<c:if test = "${rt.rtNo == rn.roomType.rtNo }">
 									<li>
-										<a href="#?rnNo=${rn.rnNo }" class = "sideM_sm"><!-- sub_menu -->
+										<a href="list.do?rnNo=${rn.rnNo }" class = "sideM_sm"><!-- sub_menu -->
 											 ${rn.rnName }
 										</a><!-- 한글이름 -->
-										<a href = "#?rnNo=${rn.rnNo }" class = "sideM_e_sm">
+										<a href = "list.do?rnNo=${rn.rnNo }" class = "sideM_e_sm">
 											${rn.rnEngName }
 										</a><!-- 영문이름 -->
 									</li><!-- 객실 타입에 따른 객실 이름 -->
@@ -113,19 +114,14 @@
 		<article id = "rR_mainBody"><!-- Main body -->
 			<div id = "mb_mainTitle"><!-- 메인 타이틀(객실 이름) -->
 				<p class = "mainTitle">
-					${rnList[0].rnName }
+					${rnList[selectRnNo-1].rnName }
 				</p><!-- 한글 이름 -->
 				<span class = "title_border"></span>
 				<p class = "engTitle">
-					${rnList[0].rnEngName }
+					${rnList[selectRnNo-1].rnEngName }
 				</p><!-- 영문 이름 -->
 				<p class = "subText">
-					<c:if test = "${param.rnNo == null || param.rnNo == 1}">
-						${rnList[0].rnDetail }
-					</c:if>
-					<c:if test = "${param.rnNo == 2}">
-						${rnList[1].rnDetail }
-					</c:if>
+					${rnList[selectRnNo-1].rnDetail }
 				</p>
 			</div>
 		</article>
