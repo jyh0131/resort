@@ -284,16 +284,15 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);			
 			rs = pstmt.executeQuery();
-			return rs.getInt("m_admin");
-		
+			int admin = rs.getInt("m_admin");
+			System.out.println("dao에서 확인하는 admin ========= " + admin);
+			return admin;
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
-			JDBCUtil.close(rs);
-		}
-				
+		}				
 		return -1;
 	}
 }
