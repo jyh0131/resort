@@ -74,15 +74,6 @@
 			$(".reSubMenu").css("display","none");
 			$(this).next().css("display","block");
 		})
-		
-		/* $(".sideM_sm").click(function(){
-			var t = $(this).html();
-			$(".mainTitle").html(t);
-			
-			var eng = $(this).next().html();
-			$(".engTitle").html(eng);
-			console.log(t);
-		}) */
 	})
 </script>
 	<section id = "roomResort">
