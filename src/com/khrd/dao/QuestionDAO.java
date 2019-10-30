@@ -191,6 +191,39 @@ public class QuestionDAO {
 		return null;
 	}//selectDescListQuestion
 	
+	public List<Question> selectDescListQuestionByQType(Connection conn, String qType, int startRow, int size){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from question where q_type=? order by q_no desc limit ?, ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, qType);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, size);
+			rs = pstmt.executeQuery();
+			List<Question> list = new ArrayList<>();
+			while (rs.next()) {
+				Question question = new Question(
+									rs.getInt("q_no"),
+									rs.getString("q_title"),
+									rs.getString("q_type"), 
+									rs.getString("q_content"),
+									rs.getString("q_File"), 
+									rs.getDate("q_date"),
+									rs.getString("m_id"));
+				list.add(question);
+			}
+			return list;			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}//selectDescListQuestionByQType
+	
 	//--------------------- select 끝
 	
 	public int insertQuestion(Connection conn, Question question) {

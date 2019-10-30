@@ -80,12 +80,13 @@
 			$.ajax({
 				url: "${pageContext.request.contextPath}/question/typeList.do",
 				type: "get",
-				data: {"type" : type},
+				data: {"type" : type, "pageNo" : "${page.currentPage}"},
 				dataType: "json",
 				success : function(res) {
 					console.log(res);
 					$(".qList").remove();
-					$(res.list).each(function(i, obj) {
+					$(res.page.qList).each(function(i, obj) {
+						
 						var $tr = $("<tr>").addClass("qList");
 						var $tdNo = $("<td>").text(obj.qNo); //순번
 						var $tdType = $("<td>").text(obj.qType); //구분
@@ -96,14 +97,30 @@
 						$tdTitle.append($a); //제목
 						var $tdId = $("<td>").text(obj.mId); //작성자
 						var $tdDate = $("<td>").text(obj.qDate); //작성일
-						$tr.append($tdNo, $tdType, $tdTitle, $tdId, $tdDate);    
+						$tr.append($tdNo, $tdType, $tdTitle, $tdId, $tdDate);
 
-						$("#pageBtns").before($tr); 
+						/* var temp = "<tr class='qList'>
+							<td>${q.qNo}</td>
+							<td>${q.qType}</td>
+							<td class='titleTD'>
+								<a href='${pageContext.request.contextPath}/question/detail.do?no=${q.qNo}' class='detail'>
+									<span class='title'>${q.qTitle}</span>
+									<c:forEach var='dbQNo' items='${qNoList}'>
+										<c:if test='${q.qNo == dbQNo}'> <!-- 답변이 있으면 -->
+											<span class='answer'>Re</span>
+										</c:if>
+									</c:forEach>
+								</a>            
+							</td>
+							<td>${q.mId}</td>
+							<td>${q.qDate}</td>
+						</tr>"; */
+						
+						$("#pageBtns").before($tr);
 					})
 				}
 			})
 		})
-		
 		
 		//질문하기
 		$("#writeQ").click(function() {
@@ -125,12 +142,6 @@
 			</c:if>	
 		})
 		
-
-		//내 답변보기
-		$("#readA").click(function() {
-			//location.href = "${pageContext.request.contextPath}/answer/myA.do?id=${q.mId}";
-		}) 
-
 		//선택된 페이지 번호 CSS
 		$(".btnNum").eq("${page.currentPage%5-1}").css("background", "#977F51").css("color", "#fff");
 
@@ -163,25 +174,6 @@
 			<td>작성자</td>
 			<td>작성일</td>
 		</tr>
-
-		<c:forEach var="q" items="${list}">
-		<tr class="qList">
-			<td>${q.qNo}</td>
-			<td>${q.qType}</td>
-			<td class="titleTD">
-				<a href="${pageContext.request.contextPath}/question/detail.do?no=${q.qNo}" class="detail">
-					<span class="title">${q.qTitle}</span>
-					<c:forEach var="dbQNo" items="${qNoList}">
-						<c:if test="${q.qNo == dbQNo}"> <!-- 답변이 있으면 -->
-							<span class="answer">Re</span>
-						</c:if>
-					</c:forEach>
-				</a>
-			</td>
-			<td>${q.mId}</td>
-			<td>${q.qDate}</td>
-		</tr>
-
 		<c:if test="${page.total == 0}"><!-- 게시글이 0개면 -->
 			<tr>
 				<td colspan="5">게시글이 없습니다.</td>
@@ -204,7 +196,6 @@
 				<td>${q.mId}</td>
 				<td>${q.qDate}</td>
 			</tr>
-
 		</c:forEach>
 		<c:if test="${total != 0}">
 			<tr id="pageBtns">
@@ -222,5 +213,6 @@
 			</tr>
 		</c:if>
 	</table>
+	<p>현재 선택된 페이지 : ${page.currentPage}</p>
 </section>
 <%@ include file="../include/footer.jsp" %>

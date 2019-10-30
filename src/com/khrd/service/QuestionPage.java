@@ -88,8 +88,11 @@ public class QuestionPage {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "QuestionPage [total=" + total + ", currentPage=" + currentPage + ", qList=" + qList + ", totalPages="
+				+ totalPages + ", startPage=" + startPage + ", endPage=" + endPage + "]";
+	}
 	
 }

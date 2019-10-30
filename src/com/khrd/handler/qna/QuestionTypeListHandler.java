@@ -3,7 +3,6 @@ package com.khrd.handler.qna;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,37 +11,40 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.khrd.controller.CommandHandler;
-import com.khrd.dao.QuestionDAO;
-import com.khrd.dto.Question;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
-import com.khrd.service.QuestionListService;
 import com.khrd.service.QuestionPage;
+import com.khrd.service.QuestionTypeListService;
 
 public class QuestionTypeListHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String qType = req.getParameter("type");
+		System.out.println("qType Type Handler에 잘 넘어오는지 확인 !!! : " + qType); 
+		
+		if(qType == null) {
+			res.sendRedirect(req.getContextPath() + "/question/list.do");
+			return null;
+		}
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			QuestionDAO dao = QuestionDAO.getInstance();
-			List<Question> list = dao.selectQuestionListByQType(conn, qType);
-			
+
 			//페이징
-			QuestionListService listService = new QuestionListService();
+			QuestionTypeListService listService = new QuestionTypeListService();
 			String pageNoVal = req.getParameter("pageNo");
 			int pageNo = 1;
 			if(pageNoVal != null) {
 				pageNo = Integer.parseInt(pageNoVal);
 			}
-			QuestionPage page = listService.getQuestionPage(pageNo);
+			QuestionPage page = listService.getQuestionPage(qType, pageNo);
+			System.out.println("page handler에 잘 넘어오는지 확인 !!! : " + page);
 			//req.setAttribute("page", page);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("list", list);
 			map.put("page", page);
+			map.put("${qType}", qType);
 			
 			ObjectMapper om = new ObjectMapper();
 			String json = om.writeValueAsString(map);
