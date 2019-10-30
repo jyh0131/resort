@@ -74,14 +74,14 @@ public class MemberDao {
 		return -1;
 	}
 
-	// 회원 리스트
+	// 모든 회원 리스트
 	public List<Member> SelectMember(Connection conn){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select * from member";			
+			String sql = "select * from member where m_admin = '0'";			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -97,22 +97,83 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 				
 		return null;
 	}
 	
-	//회원 리스트에서 관리자 검색
+	// 탈퇴한 회원 제외 모든 회원 검색
+	public List<Member> SelectMemberWithout(Connection conn){
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from member where m_admin ='0' and m_out = '0'";			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			List<Member> list = new ArrayList<>();			
+			while(rs.next()){				
+				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
+						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+						rs.getInt("m_out"), rs.getInt("m_admin"));											
+				list.add(member);
+			}			
+			return list;
+			
+		}catch(Exception e){			
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
+		}
+				
+		return null;
+	}
 	
+	// 탈퇴한 회원 검색
+	public List<Member> SelectMemberWithdraw(Connection conn){
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from member where m_out = '1'";			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			List<Member> list = new ArrayList<>();			
+			while(rs.next()){				
+				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
+						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+						rs.getInt("m_out"), rs.getInt("m_admin"));											
+				list.add(member);
+			}			
+			return list;
+			
+		}catch(Exception e){			
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
+		}
+				
+		return null;
+	}
+	
+	
+	
+	//회원 리스트에서 관리자 검색
 	public List<Member> SelectAdminList(Connection conn){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select * from member where m_admin = 1";			
+			String sql = "select * from member where m_admin = '1'";			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -136,7 +197,7 @@ public class MemberDao {
 	
 	}
 	// 아이디 중복체크
-	public Member SelectMemberByID(Connection conn, String mId){
+	public int SelectMemberByID(Connection conn, String mId){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -147,22 +208,18 @@ public class MemberDao {
 			pstmt.setString(1, mId);		
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()){
-				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
-						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
-						rs.getInt("m_out"), rs.getInt("m_admin"));											
-				return member;
-				
+			if(rs.next()){								
+				return 1;	
 			}
 			
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 				
-		return null;
+		return -1;
 	}
 	
 	// 아이디와 패스워드로 로그인 
@@ -190,8 +247,8 @@ public class MemberDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 		
 		
@@ -220,16 +277,23 @@ public class MemberDao {
 		return -1;
 	}
 // 탈퇴한 아이디 체크해서 접속 못하게 막기
-	public int withdrawCheck(Connection conn, Member member) {
+	public List<Member> withdrawCheck(Connection conn, String mId) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			String sql = "select * from member where m_out = '1' and m_id = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, member.getmId());
+			pstmt.setString(1, mId);
 			rs = pstmt.executeQuery();
-			return rs.getInt("m_id");
+			List<Member> list = new ArrayList<>();	
+			while(rs.next()){				
+				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
+						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+						rs.getInt("m_out"), rs.getInt("m_admin"));											
+				list.add(member);
+			}			
+			return list;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -238,7 +302,7 @@ public class MemberDao {
 			JDBCUtil.close(rs);
 		}
 
-		return -1;
+		return null;
 	}
 	
 	
@@ -267,8 +331,8 @@ public class MemberDao {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		} 
 		
 		return null;
@@ -295,8 +359,8 @@ public class MemberDao {
 		}catch(Exception e){			
 			e.printStackTrace();
 		}finally {
-			JDBCUtil.close(rs);
 			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
 		}
 				
 		return null;

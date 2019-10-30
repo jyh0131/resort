@@ -30,17 +30,21 @@ public class MemberIdCheckHandler implements CommandHandler {
 			try {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
-				Member member = dao.SelectMemberByID(conn, id);
-							
-				Map<String, Object> map = new HashMap<String, Object>();				
-				map.put("member", member);
-			
-				if(member == null) {
-					map.put("result", "success");
-				}else {
-					map.put("result", "fail");
-				}
+//				Member member = new Member(id, mPassword, mName, mPhone, mEmail, mRegdate, mOut, mAdmin);
+//						
+//				dao.SelectMemberByID(conn, id);
+//										
+//				request.setAttribute("member", member);
+//				Map<String, Object> map = new HashMap<String, Object>();				
+//				map.put("member", member);
+//			
+//				if(member == null) {
+//					map.put("result", "success");
+//				}else {
+//					map.put("result", "fail");
+//				}				
 
+				return "/WEB-INF/view/member/insert.jsp";
 				
 			}catch(Exception e) {
 				e.printStackTrace();
