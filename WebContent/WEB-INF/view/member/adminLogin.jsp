@@ -133,6 +133,9 @@ input{
 
 	<a href = "adminList.do">관리자 리스트 검색하기</a>
 	<a href = "adminMember.do">회원 리스트에서 관리자 검색하기</a>	
+	<a href = "list.do">모든 회원 검색하기</a>
+	<a href = "listWithout.do">탈퇴한 회원 제외 검색하기</a>
+	<a href = "listWithdraw.do">탈퇴한 회원만 검색하기</a>
 	
 </div>
 

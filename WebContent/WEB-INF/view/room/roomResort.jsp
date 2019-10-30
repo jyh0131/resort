@@ -74,6 +74,7 @@
 			$(".reSubMenu").css("display","none");
 			$(this).next().css("display","block");
 		})
+
 	})
 </script>
 	<section id = "roomResort">
@@ -88,6 +89,7 @@
 							<c:forEach var = "rn" items = "${rnList }">
 								<c:if test = "${rt.rtNo == rn.roomType.rtNo }">
 									<li>
+
 										<a href="list.do?rnNo=${rn.rnNo }" class = "sideM_sm"><!-- sub_menu -->
 											 ${rn.rnName }
 										</a><!-- 한글이름 -->

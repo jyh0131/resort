@@ -15,9 +15,10 @@
 		padding:5px;
 	}
 	#rsv_wrapper td.paydate{
+		width:130px;
 		font-size:14px;
 		color:gray;
-		text-align: right;
+		display:inline-block;
 	}
 	#rsv_wrapper #btnbox {
 		text-align:center;

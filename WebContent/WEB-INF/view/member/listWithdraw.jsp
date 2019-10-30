@@ -21,7 +21,7 @@ table{
 	margin-top:100px;
 }
 
-#id,#out,#password,#admin{
+#id,#out,#password{
 	text-align: center;
 }
 p{
@@ -31,15 +31,15 @@ p{
 }
 
 
-
 </style>
+
 
 </head>
 <body>
 
 <div id = "con">
 
-<p>관리자 검색</p>
+<p>탈퇴한 회원 검색</p>
 <br>
 <table>
 
@@ -51,7 +51,6 @@ p{
 		<th>회원 이메일</th>
 		<th>회원 생년월일</th>
 		<th>탈퇴 여부</th>
-		<th>관리자 여부</th>
 	</tr>
 
 <c:forEach var ="member" items = "${list }">
@@ -64,7 +63,6 @@ p{
 		<td>${member.mEmail }</td>
 		<td>${member.mRegdate }</td>
 		<td id = "out">${member.mOut }</td>
-		<td id = "admin">${member.mAdmin }</td>
 	</tr>
 
 </c:forEach>

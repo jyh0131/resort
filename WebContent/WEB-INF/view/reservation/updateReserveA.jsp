@@ -25,7 +25,7 @@
 	#rsv_wrapper #btnbox {
 		text-align:center;
 	}
-	#rsv_wrapper #btnbox button, #rsv_wrapper #btn_box input{
+	#rsv_wrapper #btnbox button, #rsv_wrapper #btnbox input{
 		border:1px solid black;
 		background:#BABABA;
 		margin:10px 10px 10px 0;
@@ -64,22 +64,15 @@
 				<tr>
 					<td>이용 객실</td>
 					<td id="updateroom">
-						<select name="rtNo">
-							<option value="1">리조트</option>
-							<option value="2">호텔</option>
-						</select>
-						<input type="hidden" name="rNo" value="${rsv.room.rNo}">
-						<input type="hidden" name="rnNo" value="${rsv.room.roomName.rnNo}">
-						<input type="text" name="rnName" value="${rsv.room.roomName.rnName}" class="length">
-						<input type="text" name="rRoom" value="${rsv.room.rRoom}" class="length">호
+						${rsv.room.roomName.roomType.rtName} ${rsv.room.roomName.rnName}
+						${rsv.room.rRoom}호
 					</td>
 				</tr>
 				<tr>
 					<td>예약일</td>
 					<fmt:formatDate var="startDate" value="${rsv.rsvStartDate}" pattern="yyyy-MM-dd"/>
 					<fmt:formatDate var="endDate" value="${rsv.rsvEndDate}" pattern="yyyy-MM-dd"/>
-					<td><input type="date" name="start_date" value="${startDate}"> ~
-					<input type="date" name="end_date" value="${endDate}"></td>
+					<td>${startDate} ~ ${endDate}</td>
 				</tr>
 				<tr>
 					<td>예약인원</td>
@@ -106,16 +99,35 @@
 				</tr>
 			</table>
 			<div id="btnbox">
-				<input type="submit" value="수정완료">
+				<input type="submit" value="수정완료" id="submit">
 				<button id="returnbtn" data-return="${rsv.rsvNo}" type="button">돌아가기</button>
 			</div>
 		</form>
 	</div>
 	<script>
-	$("#btnbox input").submit(function() {
+	$("#btnbox #submit").click(function() {
 		if(confirm("정말 수정하시겠습니까?") == true) {
-			// 수정 조건
+			// 예약자 성함이 비었을 경우		
+			var name = $("input[name='name']").val();
+			if(name == "") {
+				alert("예약자 성함을 입력해주세요.");
+				return false;
+			}
 			
+			// 예약자 전화번호가 비었을 경우		
+			var phone = $("input[name='phone']").val();
+			if(phone == "") {
+				alert("예약자 전화번호를 입력해주세요.");
+				return false;
+			}
+			
+			// 가격이 비었을 경우		
+			var price = $("input[name='price']").val();
+			if(price == "") {
+				alert("가격을 입력해주세요.");
+				return false;
+			}
+			alert("수정되었습니다.");
 		} else {
 			return false;
 		}

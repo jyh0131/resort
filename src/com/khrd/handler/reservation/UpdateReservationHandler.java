@@ -1,7 +1,6 @@
 package com.khrd.handler.reservation;
 
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,19 +43,6 @@ public class UpdateReservationHandler implements CommandHandler {
 			int rsvNo = Integer.parseInt(request.getParameter("rsv_no"));
 			String name = request.getParameter("name");
 			String phone = request.getParameter("phone");
-			int rNo = Integer.parseInt(request.getParameter("rNo"));
-			int rtNo = Integer.parseInt(request.getParameter("rtNo"));
-			String rnName = request.getParameter("rnName");
-			int rRoom = Integer.parseInt(request.getParameter("rRoom"));
-
-			String Sdate = request.getParameter("start_date");
-			String Edate = request.getParameter("end_date");
-
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-			Date start_date = sdf.parse(Sdate);
-			Date end_date = sdf.parse(Edate);
-
 			int count = Integer.parseInt(request.getParameter("count"));
 			int price = Integer.parseInt(request.getParameter("price"));
 			int cancel = Integer.parseInt(request.getParameter("cancel"));
@@ -67,19 +53,16 @@ public class UpdateReservationHandler implements CommandHandler {
 				conn = ConnectionProvider.getConnection();
 				ReservationDAO dao = ReservationDAO.getnInstance();
 				
-				Room r = new Room();
-				r.setrNo(rNo);
+				Reservation rsv = new Reservation(rsvNo, name, phone, count, price, new Date(), new Date(), new Date(), cancel, new Member(), new Room());
+				dao.updateReserve(conn, rsv);
 				
-				Reservation rsv = new Reservation(rsvNo, name, phone, count, price, start_date, end_date, new Date(), cancel, new Member(), r);
-				dao.updateReserve(conn, rsv, rtNo, rnName, rRoom);
-				
-				// 세션 Auth가 admin일 경우에
+				// 세션 Auth가 admin일 경우에 --> Auth값이 아닌 관리자 여부에 따라 판단하도록,
 //				HttpSession session = request.getSession();
 //				String Auth = (String)session.getAttribute("Auth");
 				
-				String Auth = "admin";
+				int Auth = 1;
 				
-				if(Auth.equals("admin")) {
+				if(Auth == 1) {
 					response.sendRedirect(request.getContextPath() + "/reservation/listA.do");
 				} else {
 					response.sendRedirect(request.getContextPath() + "/reservation/list.do");

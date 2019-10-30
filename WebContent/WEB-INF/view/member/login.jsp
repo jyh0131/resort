@@ -41,19 +41,17 @@ $(function(){
 			success:function(res){
 				console.log(res)
 				
-				var idcheck = res.result;
+				var id = res.list
 				
-				if(idcheck > 0){
+				if(id != null){
 					$("#withdraw").css("display","inline");
-					return "/WEB-INF/member/view/login.jsp";
+					return false;
 				}
 					
 			}
 			
 		})
-		
-		
-		
+				
 	})
 })
 
@@ -165,7 +163,11 @@ input{
 </c:if>
 
 
+<c:if test = "${result > 0 }">
+
 <p id = "withdraw">탈퇴한 회원입니다</p>
+
+</c:if>
 
 
 
