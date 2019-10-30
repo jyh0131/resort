@@ -9,18 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.RoomConfigurationDAO;
 import com.khrd.dao.RoomNameDAO;
-import com.khrd.dao.RoomTypeDAO;
 import com.khrd.dto.RoomConfiguration;
 import com.khrd.dto.RoomName;
-import com.khrd.dto.RoomType;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
-public class RoomConfigurationUpdateHandler implements CommandHandler {
+public class RoomPriceUpdateHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(request.getMethod().equalsIgnoreCase("get")) {
+		/*if(request.getMethod().equalsIgnoreCase("get")) {
 			String sNo = request.getParameter("rcNo");
 			int rcNo = Integer.parseInt(sNo);
 			
@@ -44,15 +42,14 @@ public class RoomConfigurationUpdateHandler implements CommandHandler {
 				JDBCUtil.close(conn);
 			}
 		}else if(request.getMethod().equalsIgnoreCase("post")) {
-			String sNo = request.getParameter("rcNo");
-			int rcNo = Integer.parseInt(sNo);
+			String sNo = request.getParameter("rpNo");
+			int rpNo = Integer.parseInt(sNo);
 			String sNoRn = request.getParameter("roomName");
 			int roomName = Integer.parseInt(sNoRn);
-			String rcArea = request.getParameter("rcArea");
-			String rcType = request.getParameter("rcType");
-			String sNoT = request.getParameter("rcTypeCount");
-			int rcTypeCount = Integer.parseInt(sNoT);
-			String rcInterior = request.getParameter("rcInterior");
+			String rpSeason = request.getParameter("rpSeason");
+			String rpDetail = request.getParameter("rpDetail");
+			String sNoB = request.getParameter("rpBase");
+			int rpBase = Integer.parseInt(sNoB);
 			
 			Connection conn = null;
 			try {
@@ -81,7 +78,7 @@ public class RoomConfigurationUpdateHandler implements CommandHandler {
 				JDBCUtil.close(conn);
 			}
 			
-		}
+		}*/
 		return null;
 	}
 

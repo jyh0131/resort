@@ -90,7 +90,7 @@ public class RoomConfigurationDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "update room_configuration set rn_no = ? rc_area = ?, rc_type = ?, rc_type_count = ?, rc_interior = ? where rc_no = ?";
+			String sql = "update room_configuration set rn_no = ?, rc_area = ?, rc_type = ?, rc_type_count = ?, rc_interior = ? where rc_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rc.getRoomName().getRnNo());
 			pstmt.setString(2, rc.getRcArea());

@@ -17,6 +17,7 @@
 				return false;
 			}
 		})
+		
 	})
 </script>
 </head>
@@ -29,9 +30,13 @@
 				<input type = "text" readonly="readonly" name = "rcNo" value = "${rc.rcNo }">
 			</p>
 			<p>
+				<label>타입</label>
+				<input type = "text" readonly="readonly" name = "roomType" value = "${rn.roomType.rtName }">
+			</p>
+			<p>
 				<label>객실 이름 </label>
 				<select name = "roomName">
-					<c:forEach var = "rc" items = "${rc }">
+					<c:forEach var = "rc" items = "${list }">
 						<option value = "${rc.roomName.rnNo }" >${rc.roomName.rnName }</option>
 					</c:forEach>
 				</select>
