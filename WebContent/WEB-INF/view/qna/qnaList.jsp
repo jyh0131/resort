@@ -29,7 +29,7 @@
 	td{
 		padding: 10px;
 	}
-	td#titleTD{
+	td.titleTD{
 		text-align: left;
 		padding-left: 30px;
 	}
@@ -37,7 +37,7 @@
 		text-decoration: none;
 		color: #333;
 	}
-	span#title{
+	span.title{
 		display: inline-block;
 		width: 270px;
 		vertical-align: middle;
@@ -45,11 +45,30 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
-	span#answer{
+	span.answer{
 		background: #DFD2B3;
 		color: #fff;
 		border-radius: 5px;
 		padding: 1px 3px;
+	}
+	a#btnPrev, a#btnNext{
+		display: inline-block;
+		width: 40px;
+		height: 20px;
+		color: #977F51;
+		text-decoration: none;
+		border: 0.5px solid #977F51;
+		margin: 5px;
+	}
+	a.btnNum{
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		color: #977F51;
+		text-decoration: none;
+		border: 0.5px solid #977F51;
+		margin: 5px;
+		cursor: pointer;
 	}
 </style>
 <script>
@@ -58,15 +77,34 @@
 		$("#type").val("${qType}").prop("selected", true);
 		$("#type").change(function() {
 			var type = $(this).val();
-			if(type == ""){ //선택 안 하면 기본 리스트
-				location.href = "${pageContext.request.contextPath}/question/list.do";
-				return;
-			}
-			location.href = "${pageContext.request.contextPath}/question/typeList.do?type="+type;
+			$.ajax({
+				url: "${pageContext.request.contextPath}/question/typeList.do",
+				type: "get",
+				data: {"type" : type},
+				dataType: "json",
+				success : function(res) {
+					console.log(res);
+					$(".qList").remove();
+					$(res.list).each(function(i, obj) {
+						var $tr = $("<tr>").addClass("qList");
+						var $tdNo = $("<td>").text(obj.qNo); //순번
+						var $tdType = $("<td>").text(obj.qType); //구분
+						var $tdTitle = $("<td>").addClass("titleTD");
+						var $a = $("<a>").attr("href", "${pageContext.request.contextPath}/question/detail.do?no="+obj.qNo).addClass("detail");
+						var $span = $("<span>").addClass("title").text(obj.qTitle);
+						$a.append($span)
+						$tdTitle.append($a); //제목
+						var $tdId = $("<td>").text(obj.mId); //작성자
+						var $tdDate = $("<td>").text(obj.qDate); //작성일
+						$tr.append($tdNo, $tdType, $tdTitle, $tdId, $tdDate);    
+						$("#pageBtns").before($tr); 
+					})
+				}
+			})
 		})
 		
 		//질문하기
-		$("#write").click(function() {
+		$("#writeQ").click(function() {
 			<c:if test="${Auth==null}">
 				alert("로그인 후 이용해주세요.");
 			</c:if>
@@ -76,7 +114,7 @@
 		})
 		
 		//내 질문보기
-		$("#read").click(function() {
+		$("#readQ").click(function() {
 			<c:if test="${Auth==null}">
 				alert("로그인 후 이용해주세요.");
 			</c:if>
@@ -84,6 +122,9 @@
 				location.href = "${pageContext.request.contextPath}/question/myQ.do?id=${q.mId}";
 			</c:if>	
 		})
+		
+		//선택된 페이지 번호 CSS
+		$(".btnNum").eq("${page.currentPage%5-1}").css("background", "#977F51").css("color", "#fff");
 	})
 </script>
 <section>
@@ -100,9 +141,9 @@
 			<option>차량등록</option>
 			<option>기타</option>
 		</select>
-		<c:if test="${admin != 1}">
-			<button id="write">질문하기</button>
-			<button id="read">내 질문보기</button>
+		<c:if test="${admin != 1}"> <!-- 사용자/로그아웃일 때 (관리자에게 안 보이기)-->
+			<button id="writeQ">질문하기</button>
+			<button id="readQ">내 질문보기</button>
 		</c:if>
 	</p>
 	<table>
@@ -113,40 +154,40 @@
 			<td>작성자</td>
 			<td>작성일</td>
 		</tr>
-		<c:if test="${total == 0}">
+		<c:if test="${page.total == 0}"><!-- 게시글이 0개면 -->
 			<tr>
 				<td colspan="5">게시글이 없습니다.</td>
 			</tr>
 		</c:if>
 		<c:forEach var="q" items="${page.qList}">
-		<tr>
-			<td>${q.qNo}</td>
-			<td>${q.qType}</td>
-			<td id="titleTD">
-				<a href="${pageContext.request.contextPath}/question/detail.do?no=${q.qNo}" class="detail">
-					<span id="title">${q.qTitle}</span>
-					<c:forEach var="dbQNo" items="${qNoList}">
-						<c:if test="${q.qNo == dbQNo}"> <!-- 답변이 있으면 -->
-							<span id="answer">Re</span>
-						</c:if>
-					</c:forEach>
-				</a>
-			</td>
-			<td>${q.mId}</td>
-			<td>${q.qDate}</td>
-		</tr>
+			<tr class="qList">
+				<td>${q.qNo}</td>
+				<td>${q.qType}</td>
+				<td class="titleTD">
+					<a href="${pageContext.request.contextPath}/question/detail.do?no=${q.qNo}" class="detail">
+						<span class="title">${q.qTitle}</span>
+						<c:forEach var="dbQNo" items="${qNoList}">
+							<c:if test="${q.qNo == dbQNo}"> <!-- 답변이 있으면 -->
+								<span class="answer">Re</span>
+							</c:if>
+						</c:forEach>
+					</a>
+				</td>
+				<td>${q.mId}</td>
+				<td>${q.qDate}</td>
+			</tr>
 		</c:forEach>
 		<c:if test="${total != 0}">
-			<tr>
+			<tr id="pageBtns">
 				<td colspan="5">
 					<c:if test="${page.startPage > 5}">
-						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage-5}">[이전]</a>
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage-5}" id="btnPrev">이전</a>
 					</c:if>
 					<c:forEach var="pNo" begin="${page.startPage}" end="${page.endPage}">
-						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${pNo}">[${pNo}]</a>
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${pNo}" class="btnNum" data-pNo="${pNo}">${pNo}</a>
 					</c:forEach>
-					<c:if test="${page.endPage > page.totalPages}">
-						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage+5}">[다음]</a>
+					<c:if test="${page.endPage < page.totalPages && page.totalPages > 5}">
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage+5}" id="btnNext">다음</a>
 					</c:if>
 				</td>
 			</tr>

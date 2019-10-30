@@ -6,6 +6,13 @@
 		margin: 20px auto;
 		overflow: hidden;
 	}
+	#banner>h1{
+		float: left;
+		font-size: 50px;
+		margin-top: 90px;
+		margin-left: 50px;
+		color: #6283ab;
+	}
 	#banner>img{
 		float: right;
 	}
@@ -29,6 +36,7 @@
 	}
 </style>
 <div id="banner">
+	<h1>Q&amp;A</h1>
 	<img src="${pageContext.request.contextPath}/images/qna_bg.jpg">
 </div>
 <div id="explan">
