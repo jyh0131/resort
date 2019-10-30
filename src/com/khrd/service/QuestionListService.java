@@ -12,7 +12,7 @@ public class QuestionListService {
 	private QuestionDAO dao = QuestionDAO.getInstance();
 	private int size = 10; //한 페이지에 보일 게시글 수
 	
-	public QuestionPage getQuestionPage(int pageNum) {
+	public QuestionPage getQuestionPage(int pageNum) { //페이지 번호
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();

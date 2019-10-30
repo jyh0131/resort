@@ -40,18 +40,16 @@ public class QuestionListHandler implements CommandHandler {
 			int admin = daoM.AdminIDCheck(conn, mId);
 			req.setAttribute("admin", admin);
 			
-			//리스트 페이지
+			//페이징
 			QuestionListService listService = new QuestionListService();
 			String pageNoVal = req.getParameter("pageNo");
-			
 			int pageNo = 1;
 			if(pageNoVal != null) {
 				pageNo = Integer.parseInt(pageNoVal);
 			}
 			QuestionPage page = listService.getQuestionPage(pageNo);
 			req.setAttribute("page", page);
-			req.setAttribute("total", page.getTotal());
-			return "/WEB-INF/view/qna/qnaList.jsp";
+			return "/WEB-INF/view/qna/qnaList.jsp";   
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
