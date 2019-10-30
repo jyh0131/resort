@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.RoomDAO;
 import com.khrd.dao.RoomNameDAO;
+import com.khrd.dao.RoomTypeDAO;
 import com.khrd.dto.Room;
 import com.khrd.dto.RoomName;
+import com.khrd.dto.RoomType;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
@@ -27,6 +29,11 @@ public class RoomInsertHandler implements CommandHandler {
 				List<RoomName> rn = dao.selectRoomNameList(conn);
 				
 				request.setAttribute("rn", rn);
+				
+				RoomTypeDAO rtDao = RoomTypeDAO.getInstance();
+				List<RoomType> rt = rtDao.selectRoomTypeList(conn);
+				
+				request.setAttribute("rt", rt);
 				
 				return "/WEB-INF/view/room/rInsertForm.jsp";
 			}catch (Exception e) {

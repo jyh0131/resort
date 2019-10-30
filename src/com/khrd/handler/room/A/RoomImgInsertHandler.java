@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.RoomImgDAO;
 import com.khrd.dao.RoomNameDAO;
+import com.khrd.dao.RoomTypeDAO;
 import com.khrd.dto.RoomImg;
 import com.khrd.dto.RoomName;
+import com.khrd.dto.RoomType;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 import com.oreilly.servlet.MultipartRequest;
@@ -30,6 +32,7 @@ public class RoomImgInsertHandler implements CommandHandler {
 				List<RoomName> rn = dao.selectRoomNameList(conn);
 				
 				request.setAttribute("rn", rn);
+				
 				
 				return "/WEB-INF/view/room/img/riInsertForm.jsp";
 			}catch (Exception e) {

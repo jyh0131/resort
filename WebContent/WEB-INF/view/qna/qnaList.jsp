@@ -51,6 +51,25 @@
 		border-radius: 5px;
 		padding: 1px 3px;
 	}
+	a#btnPrev, a#btnNext{
+		display: inline-block;
+		width: 40px;
+		height: 20px;
+		color: #977F51;
+		text-decoration: none;
+		border: 0.5px solid #977F51;
+		margin: 5px;
+	}
+	a.btnNum{
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		color: #977F51;
+		text-decoration: none;
+		border: 0.5px solid #977F51;
+		margin: 5px;
+		cursor: pointer;
+	}
 </style>
 <script>
 	$(function() {
@@ -78,7 +97,8 @@
 						var $tdId = $("<td>").text(obj.mId); //작성자
 						var $tdDate = $("<td>").text(obj.qDate); //작성일
 						$tr.append($tdNo, $tdType, $tdTitle, $tdId, $tdDate);    
-						$("table").append($tr); 
+
+						$("#pageBtns").before($tr); 
 					})
 				}
 			})
@@ -105,10 +125,15 @@
 			</c:if>	
 		})
 		
+
 		//내 답변보기
 		$("#readA").click(function() {
 			//location.href = "${pageContext.request.contextPath}/answer/myA.do?id=${q.mId}";
 		}) 
+
+		//선택된 페이지 번호 CSS
+		$(".btnNum").eq("${page.currentPage%5-1}").css("background", "#977F51").css("color", "#fff");
+
 	})
 </script>
 <section>
@@ -138,6 +163,7 @@
 			<td>작성자</td>
 			<td>작성일</td>
 		</tr>
+
 		<c:forEach var="q" items="${list}">
 		<tr class="qList">
 			<td>${q.qNo}</td>
@@ -155,7 +181,46 @@
 			<td>${q.mId}</td>
 			<td>${q.qDate}</td>
 		</tr>
+
+		<c:if test="${page.total == 0}"><!-- 게시글이 0개면 -->
+			<tr>
+				<td colspan="5">게시글이 없습니다.</td>
+			</tr>
+		</c:if>
+		<c:forEach var="q" items="${page.qList}">
+			<tr class="qList">
+				<td>${q.qNo}</td>
+				<td>${q.qType}</td>
+				<td class="titleTD">
+					<a href="${pageContext.request.contextPath}/question/detail.do?no=${q.qNo}" class="detail">
+						<span class="title">${q.qTitle}</span>
+						<c:forEach var="dbQNo" items="${qNoList}">
+							<c:if test="${q.qNo == dbQNo}"> <!-- 답변이 있으면 -->
+								<span class="answer">Re</span>
+							</c:if>
+						</c:forEach>
+					</a>
+				</td>
+				<td>${q.mId}</td>
+				<td>${q.qDate}</td>
+			</tr>
+
 		</c:forEach>
+		<c:if test="${total != 0}">
+			<tr id="pageBtns">
+				<td colspan="5">
+					<c:if test="${page.startPage > 5}">
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage-5}" id="btnPrev">이전</a>
+					</c:if>
+					<c:forEach var="pNo" begin="${page.startPage}" end="${page.endPage}">
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${pNo}" class="btnNum" data-pNo="${pNo}">${pNo}</a>
+					</c:forEach>
+					<c:if test="${page.endPage < page.totalPages && page.totalPages > 5}">
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage+5}" id="btnNext">다음</a>
+					</c:if>
+				</td>
+			</tr>
+		</c:if>
 	</table>
 </section>
 <%@ include file="../include/footer.jsp" %>

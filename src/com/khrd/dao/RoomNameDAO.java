@@ -28,7 +28,7 @@ public class RoomNameDAO {
 			pstmt.setInt(2, rn.getRoomType().getRtNo());
 			pstmt.setString(3, rn.getRnDetail());
 			pstmt.setInt(4, rn.getRnPrice());
-			pstmt.setString(3, rn.getRnEngName());
+			pstmt.setString(5, rn.getRnEngName());
 			return pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
