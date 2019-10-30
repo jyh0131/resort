@@ -3,7 +3,7 @@
 <%@ include file="../include/header.jsp" %>
 <style>
 	#rsv_wrapper {
-		width:1024px;
+		width:1200px;
 		margin:0 auto;
 	}
 	#rsv_wrapper table {
@@ -31,6 +31,10 @@
 		padding:3px;
 		color:white;
 		text-decoration: none;
+	}
+	#findbox {
+		margin-top:10px;
+		text-align: center;
 	}
 </style>
 	<div id="rsv_wrapper">
@@ -70,5 +74,26 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<div id="findbox">
+			<form action="${pageContext.request.contextPath}/reservation/findA.do">
+				<select name="find">
+					<option value="1">예약번호</option>	
+					<option value="2">예약자 이름</option>
+					<option value="3">아이디</option>
+				</select>
+				<input type="text" name="findtext">
+				<input type="submit" value="검색">
+			</form>
+		</div>
+		<a href="${pageContext.request.contextPath}/reservation/listA.do" style="margin-left:50px;">모든 예약 보기</a>
 	</div>
+<script>
+	$("form").submit(function() {
+		var text = $("#findbox input[name='findtext']").val();
+		if(text == "") {
+			alert("검색할 단어를 입력해주세요.");
+			return false;
+		}		
+	});
+</script>
 <%@ include file="../include/footer.jsp" %>
