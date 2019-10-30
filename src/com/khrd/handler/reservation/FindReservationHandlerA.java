@@ -28,9 +28,11 @@ public class FindReservationHandlerA implements CommandHandler {
 			
 			if(type == 1) {
 				int no = Integer.parseInt(text);
+				ArrayList<Reservation> list = new ArrayList<>();
 				Reservation rsv = dao.selectReserveByNo(conn, no);
-				System.out.println(rsv);
-				request.setAttribute("list", rsv);
+				list.add(rsv);
+				System.out.println(list);
+				request.setAttribute("list", list);
 			} else if(type == 2) {
 				ArrayList<Reservation> list = dao.selectReserveByName(conn, text);
 				System.out.println(list);

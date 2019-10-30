@@ -95,7 +95,7 @@ footer {
 }
 </style>
 <div id="rsv_wrapper">
-	<form action="${pageContext.request.contextPath}/reservation/insert.do" method="post">
+	<form id="rsv_form" action="${pageContext.request.contextPath}/reservation/insert.do" method="post">
 	<div id="calendar">
 		<div id="day_title">
 			<p>날짜선택</p>
@@ -313,16 +313,16 @@ footer {
 			$("#info input[name='price']").val(price);
 			
 			var rt_no = $(this).parent().parent().find(".rt_no").text();
-			$("#info input[name='rt_no']").text(rt_no);
+			$("#info input[name='rt_no']").val(rt_no);
 			
 			var rn_no = $(this).parent().parent().find(".rn_no").text();
-			$("#info input[name='rn_no']").text(rn_no);
+			$("#info input[name='rn_no']").val(rn_no);
 			
 			$("#info input[type='submit']").css("display", "inline");
 		});
 		
 		// 예약 시
-		$("form").submit(function () {
+		$("form#rsv_form").submit(function () {
 			if(confirm("예약하시겠습니까?") == true) {
 				// 예약자 성함이 빈칸일 경우
 				var name = $("#info input[name='name']").val();

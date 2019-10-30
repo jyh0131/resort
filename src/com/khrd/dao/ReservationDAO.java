@@ -314,17 +314,20 @@ public class ReservationDAO {
 							"on (rsv.r_no = r.r_no and rsv_start_date >= ? and rsv_end_date <= ?) " + 
 							"where rn.rn_no = ? and rt.rt_no = ? and rsv_no is null order by r.r_no;";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, rn_no);
-				pstmt.setInt(2, rt_no);
-				pstmt.setTimestamp(3, new Timestamp(start_date.getTime()));
-				pstmt.setTimestamp(4, new Timestamp(end_date.getTime()));
+				pstmt.setTimestamp(1, new Timestamp(start_date.getTime()));
+				pstmt.setTimestamp(2, new Timestamp(end_date.getTime()));
+				pstmt.setInt(3, rn_no);
+				pstmt.setInt(4, rt_no);
 				
 				int rNo = -1;
+				System.out.println("하기 전");
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					rNo = rs.getInt("r_no");
 				}
+				System.out.println("한 후" + rNo);
 				return rNo;
+			
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
