@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file= "../include/header.jsp" %>
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core"%> 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -73,8 +74,8 @@ $(function(){
 		}				
 	})	
 	
-	
-	$("#check").click(function(){
+/* 
+	$("#btnCheck").click(function(){
 		
 		$.ajax({	
 			url:"${pageContext.request.contextPath}/member/idCheck.do",
@@ -84,18 +85,29 @@ $(function(){
 			success:function(res){
 				console.log(res)
 				
-				var id = res.result;
+				var id = res.member;
 				
 				if(id == "success"){
-					$(".show").text("사용 가능한 아이디 입니다");
+					$("#show").text("사용 가능한 아이디 입니다");
+								
 				}else if(id == "fail"){			
-					$(".show").text("이 아이디는 이미 존재합니다")
-		
+					$("#show").text("이 아이디는 이미 존재합니다")
+					
+					$("#join").click(function(){	
+						alert("아이디를 확인해 주세요");
+						return false;
+					})
+					
+					
 				}			
 			}		
 		})	
-	}) 
+	})  
+ */
+ 
 
+	
+	
 		
 })
 
@@ -191,7 +203,19 @@ input{
 	 
 	  <tr>
 	 	<td class = "left"><label>아이디 </label></td>
-	 	<td class = "right"><input type = "text" name ="id" id ="id" placeholder= "4자 이상 13자 이하 아이디">&nbsp;&nbsp;<button id = "check" type="button">아이디 중복체크</button> &nbsp;&nbsp;<span class = "show"></span><span class="input">아이디를 입력하세요.</span></td>
+	 	<td class = "right"><input type = "text" name ="id" id ="id" placeholder= "4자 이상 13자 이하 아이디">&nbsp;&nbsp;<button id = "btnCheck" type="button">아이디 중복체크</button> &nbsp;&nbsp;
+	 	
+	 	<c:if test = "${member == 1 } }">
+	 	존재하는 아이디입니다	 	
+	 	</c:if>
+	 	
+	 	<c:if test = "${member != 1 } }">
+	 	존재하는 아이디입니다	 	
+	 	</c:if>
+	 	
+	 	<span id = "show"></span><span class="input">아이디를 입력하세요.</span>
+
+	 	</td>
 	 </tr>
 	 
 	  <tr>

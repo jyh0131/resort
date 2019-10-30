@@ -27,11 +27,11 @@ p{
 <body>
 
 <div id = "con">
-
+  
 <p>회원 정보가 변경되었습니다.</p>
 <br><br>
 <a href = "main.do" id = "href">메인으로</a>
-
+   
 </div>
 
 <%@ include file= "../include/footer.jsp" %>
