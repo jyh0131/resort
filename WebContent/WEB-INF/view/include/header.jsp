@@ -105,7 +105,7 @@
 	}
 	ul#bottom_main{
 		width: 900px;
-		height: 330px;
+		height: 75px; /* 수정 */
 		position: relative;
 		overflow: hidden;
 		margin-left: 50px;
@@ -113,7 +113,7 @@
 	}
 	#bottom_main>li{
 		width: 150px;
-		height: 150px; /* 100% */
+		height: 75px; /* 100% */ /* 수정 */
 		line-height: 55px;
 		cursor: pointer;
 	}
@@ -129,7 +129,7 @@
 		display: none;
 		overflow: hidden;
 		position: absolute;
-		top: 110px;
+		top: 70px;
 		left: 0px;
 		padding-left: 30px;
 		background: #fff;
@@ -209,13 +209,17 @@
 	$(function() {
 		
 		//아래 메인 메뉴
-		$("#bottom_main>li, .bottom_sub").mouseover(function() {
+		$("#bottom_main>li, #bottom_main>.bottom_sub").mouseover(function() { /* 수정 */
 			$(this).find(".bottom_sub").stop().slideDown(500);
 			$(this).find("a").eq(0).css("color", "#977F51");
+			$(this).find(".bottom_sub").css("z-index", "9999"); /* 수정 */
+			$(this).parent().css("height", "350px"); /* 수정 */
 		}) 
-		$("#bottom_main>li, .bottom_sub").mouseout(function() {
+		$("#bottom_main>li, #bottom+main>.bottom_sub").mouseout(function() {
 			$(this).find(".bottom_sub").stop().slideUp(100);
 			$(this).find("a").eq(0).css("color", "#000");
+			$(this).find(".bottom_sub").css("z-index", "1"); /* 수정 */
+			$(this).parent().css("height", "50px"); /* 수정 */
 		})
 		
 		
@@ -223,12 +227,12 @@
 		$(".bottom_sub>li").mouseover(function() {
 			/* $(this).find(".room_sub").css("display","block"); */
 			$(this).css("background", "#977F51");
-			$(this).find("a").eq(0).css("color", "#fff");
+			$(this).find("a").eq(0).css("color", "white"); /* 수정 */
 		})
 		$(".bottom_sub>li").mouseout(function() {
 			/* $(this).find(".room_sub").css("display","none"); */
 			$(this).css("background", "none");
-			$(this).find("a").eq(0).css("color", "#000");
+			$(this).find("a").eq(0).css("color", "black"); /* 수정 */
 		})
 		
 		/* //2단 서브 메뉴
