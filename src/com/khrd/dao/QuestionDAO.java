@@ -191,6 +191,27 @@ public class QuestionDAO {
 		return null;
 	}//selectDescListQuestion
 	
+	public int selectCountQuestionByQType(Connection conn, String qType) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select count(*) from question where q_type=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, qType);
+			rs = pstmt.executeQuery();		
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//selectCountQuestionByQType
+	
 	public List<Question> selectDescListQuestionByQType(Connection conn, String qType, int startRow, int size){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

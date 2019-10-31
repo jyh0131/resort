@@ -40,41 +40,14 @@ public class QuestionListHandler implements CommandHandler {
 			int admin = daoM.AdminIDCheck(conn, mId);
 			req.setAttribute("admin", admin);
 			
-			//질문 유형 체크
-//			String qType = req.getParameter("type");
-//			System.out.println("qType Handler에 잘 넘어오는지 확인 !!! : " + qType); 
-			
-//			if(qType == null) {
-				//질문 유형 미선택 시
-				QuestionListService listService = new QuestionListService();
-				String pageNoVal = req.getParameter("pageNo");
-				int pageNo = 1;
-				if(pageNoVal != null) {
-					pageNo = Integer.parseInt(pageNoVal);
-				}
-				QuestionPage page = listService.getQuestionPage(pageNo);
-				req.setAttribute("page", page);
-//			}else {
-//				//유형 선택 시
-//				QuestionTypeListService listService = new QuestionTypeListService();
-//				String pageNoVal = req.getParameter("pageNo");
-//				int pageNo = 1;
-//				if(pageNoVal != null) {
-//					pageNo = Integer.parseInt(pageNoVal);
-//				}
-//				QuestionPage page = listService.getQuestionPage(qType, pageNo);
-//				System.out.println("page handler에 잘 넘어오는지 확인 !!! : " + page);
-//				
-//				Map<String, Object> map = new HashMap<String, Object>();
-//				map.put("page", page);
-//				
-//				ObjectMapper om = new ObjectMapper();
-//				String json = om.writeValueAsString(map);
-//				res.setContentType("application/json;charset=UTF-8");
-//				PrintWriter out = res.getWriter();
-//				out.print(json);
-//				out.flush();
-//			}
+			QuestionListService listService = new QuestionListService();
+			String pageNoVal = req.getParameter("pageNo");
+			int pageNo = 1;
+			if(pageNoVal != null) {
+				pageNo = Integer.parseInt(pageNoVal);
+			}
+			QuestionPage page = listService.getQuestionPage(pageNo);
+			req.setAttribute("page", page);
 			return "/WEB-INF/view/qna/qnaList.jsp";   
 		} catch (Exception e) {
 			e.printStackTrace();

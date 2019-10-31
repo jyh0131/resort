@@ -21,16 +21,10 @@ public class QuestionTypeListHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String qType = req.getParameter("type");
-		System.out.println("qType Type Handler에 잘 넘어오는지 확인 !!! : " + qType); 
-		
-		if(qType == null) {
-			res.sendRedirect(req.getContextPath() + "/question/list.do");
-			return null;
-		}
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-
+			
 			//페이징
 			QuestionTypeListService listService = new QuestionTypeListService();
 			String pageNoVal = req.getParameter("pageNo");
@@ -39,13 +33,9 @@ public class QuestionTypeListHandler implements CommandHandler {
 				pageNo = Integer.parseInt(pageNoVal);
 			}
 			QuestionPage page = listService.getQuestionPage(qType, pageNo);
-			System.out.println("page handler에 잘 넘어오는지 확인 !!! : " + page);
-			//req.setAttribute("page", page);
-			
+		
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("page", page);
-			map.put("${qType}", qType);
-			
 			ObjectMapper om = new ObjectMapper();
 			String json = om.writeValueAsString(map);
 			res.setContentType("application/json;charset=UTF-8");
