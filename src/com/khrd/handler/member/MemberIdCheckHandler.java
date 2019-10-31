@@ -21,8 +21,7 @@ public class MemberIdCheckHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		if(request.getMethod().equalsIgnoreCase("get")) {
-			
+	
 			Connection conn = null;
 			
 			String id = request.getParameter("id");
@@ -30,25 +29,26 @@ public class MemberIdCheckHandler implements CommandHandler {
 			try {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
-				int res = dao.SelectMemberByID(conn, id);
-								
-				request.setAttribute("res", res);
+				Member member = dao.SelectMemberByID(conn, id);
 				
-//				Member member = new Member(id, mPassword, mName, mPhone, mEmail, mRegdate, mOut, mAdmin);
-//						
-//				dao.SelectMemberByID(conn, id);
-//										
-//				request.setAttribute("member", member);
-//				Map<String, Object> map = new HashMap<String, Object>();				
-//				map.put("member", member);
-//			
-//				if(member == null) {
-//					map.put("result", "success");
-//				}else {
-//					map.put("result", "fail");
-//				}				
+				Map<String, Object> map = new HashMap<String, Object>();
+				
+				map.put("member", member);
+				if(member != null) {
+					map.put("result", "success");
+				} else if(member == null) {
+					map.put("result", "fail");
+				}
+				
+				ObjectMapper om = new ObjectMapper();
+				String json = om.writeValueAsString(map);
+				
+				response.setContentType("application/json;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println(json);
+				out.flush();
+				
 
-				return "/WEB-INF/view/member/insert.jsp";
 				
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -56,9 +56,6 @@ public class MemberIdCheckHandler implements CommandHandler {
 				JDBCUtil.close(conn);
 			}
 		
-			return "/WEB-INF/view/member/insert.jsp";
-				
-		}
 		return null;
 	}
 

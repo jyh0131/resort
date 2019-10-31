@@ -41,17 +41,13 @@ $(function(){
 			success:function(res){
 				console.log(res)
 				
-				var id = res.list
+				var result = res.result;
 				
-				if(id != null){
+				if(result != "success"){
 					$("#withdraw").css("display","inline");
-					return false;
 				}
-					
-			}
-			
-		})
-				
+			}			
+		})			
 	})
 })
 
@@ -142,7 +138,7 @@ input{
 			
 			<tr>
 				<td><label>비밀번호</label></td>
-				<td><input type ="text" name = "password" ><span class = "show">비밀번호를 입력하십시오</span></td>
+				<td><input type ="password" name = "password" ><span class = "show">비밀번호를 입력하십시오</span></td>
 			</tr>
 			
 		</table>
@@ -163,7 +159,7 @@ input{
 </c:if>
 
 
-<c:if test = "${result > 0 }">
+<c:if test = "${member2 != success}">
 
 <p id = "withdraw">탈퇴한 회원입니다</p>
 
