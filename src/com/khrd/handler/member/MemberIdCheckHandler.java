@@ -30,6 +30,10 @@ public class MemberIdCheckHandler implements CommandHandler {
 			try {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
+				int res = dao.SelectMemberByID(conn, id);
+								
+				request.setAttribute("res", res);
+				
 //				Member member = new Member(id, mPassword, mName, mPhone, mEmail, mRegdate, mOut, mAdmin);
 //						
 //				dao.SelectMemberByID(conn, id);
