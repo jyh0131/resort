@@ -38,10 +38,13 @@ public class DetailReservationHandlerA implements CommandHandler {
 				Reservation rsv = dao.selectReserveByNo(conn, rsvNo);
 				request.setAttribute("rsv", rsv);
 				rtn = "/WEB-INF/view/reservation/detailReserveA.jsp";
+				break;
 			case 0:
 				rtn = "/WEB-INF/view/member/login.do";
+				break;
 			default:
 				rtn = "/WEB-INF/index.jsp";
+				break;
 			}
 			conn.commit();
 						

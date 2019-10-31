@@ -34,19 +34,26 @@ public class ListReservationHandler implements CommandHandler {
 			String rtn = "";
 			ArrayList<Reservation> list = new ArrayList<>();
 			
+			System.out.println(result);
+			
 			switch(result) {
 			case 0:
 				list = dao.selectReserveById(conn, Auth);
 				request.setAttribute("list", list);
 				rtn = "/WEB-INF/view/reservation/listReserve.jsp";
+				break;
 			case 1:
 				list = dao.selectReserve(conn);
 				request.setAttribute("list", list);
 				rtn = "/WEB-INF/view/reservation/listReserveA.jsp";
+				break;
 			default:
 				rtn = request.getContextPath() + "/member/login.do";
+				break;
 			}			
 			conn.commit();
+			
+			System.out.println(rtn);
 			
 			return rtn;
 			
