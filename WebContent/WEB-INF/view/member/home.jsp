@@ -6,5 +6,6 @@
 </head>
 <body>
 
+<a href = "information.do">내 정보 보기</a>
 
 <%@ include file= "../include/footer.jsp" %>

@@ -49,6 +49,35 @@ public class MemberDao {
 			
 		return -1;
 	}
+	
+	// (로그인)상태로 개인 회원 정보 보기
+	public Member InforMationMember(Connection conn, String mId) {
+		
+		PreparedStatement pstmt =null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from member where m_id = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			rs = pstmt.executeQuery();
+				
+			while(rs.next()){				
+				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
+						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+						rs.getInt("m_out"), rs.getInt("m_admin"));											
+				return member;
+			}			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
+		}
+		
+		return null;
+	}
+
 	// 회원 정보 수정
 	public int UpdateMember(Connection conn, Member member){
 		
@@ -164,8 +193,6 @@ public class MemberDao {
 		return null;
 	}
 	
-	
-	
 	//회원 리스트에서 관리자 검색
 	public List<Member> SelectAdminList(Connection conn){
 		
@@ -194,10 +221,10 @@ public class MemberDao {
 		}
 				
 		return null;
-	
 	}
+	
 	// 아이디 중복체크
-	public int SelectMemberByID(Connection conn, String mId){
+	public Member SelectMemberByID(Connection conn, String mId){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -209,7 +236,10 @@ public class MemberDao {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()){								
-				return 1;	
+				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
+						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+						rs.getInt("m_out"), rs.getInt("m_admin"));
+				return member;
 			}
 			
 		}catch(Exception e){			
@@ -219,7 +249,7 @@ public class MemberDao {
 			JDBCUtil.close(rs);
 		}
 				
-		return -1;
+		return null;
 	}
 	
 	// 아이디와 패스워드로 로그인 
@@ -272,12 +302,11 @@ public class MemberDao {
 		}finally {
 			JDBCUtil.close(pstmt);
 		}
-		
-		 
+				 
 		return -1;
 	}
 // 탈퇴한 아이디 체크해서 접속 못하게 막기
-	public List<Member> withdrawCheck(Connection conn, String mId) {
+	public Member withdrawCheck(Connection conn, String mId) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -286,15 +315,13 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);
 			rs = pstmt.executeQuery();
-			List<Member> list = new ArrayList<>();	
-			while(rs.next()){				
+			if(rs.next()){								
 				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
 						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
-						rs.getInt("m_out"), rs.getInt("m_admin"));											
-				list.add(member);
-			}			
-			return list;
-			
+						rs.getInt("m_out"), rs.getInt("m_admin"));
+				return member;
+			}
+					
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -384,7 +411,6 @@ public class MemberDao {
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.close(pstmt);
-
 			JDBCUtil.close(rs);
 		}
 		
