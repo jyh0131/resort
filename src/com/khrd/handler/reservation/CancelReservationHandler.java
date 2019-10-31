@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.ReservationDAO;
@@ -23,22 +24,30 @@ public class CancelReservationHandler implements CommandHandler {
 		try {
 			conn = ConnectionProvider.getConnection();
 			ReservationDAO dao = ReservationDAO.getnInstance();
+			
+			conn.setAutoCommit(false);			
+			
 			dao.cancelReserve(conn, rsvNo);
 			
 			// 세션 Auth가 admin일 경우에
-//			HttpSession session = request.getSession();
-//			String Auth = (String)session.getAttribute("Auth");
+			HttpSession session = request.getSession();
+			String Auth = (String)session.getAttribute("Auth");
 			
-			String Auth = "admin";
+			int result = dao.isAdmin(conn, Auth);
 			
-			if(Auth.equals("admin")) {
+			conn.commit();
+			
+			if(result == 1) {
 				response.sendRedirect(request.getContextPath() + "/reservation/listA.do");
-			} else {
+			} else if(result == 0) {
 				response.sendRedirect(request.getContextPath() + "/reservation/list.do");
+			} else {
+				response.sendRedirect(request.getContextPath() + "/member/login.do");
 			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+			conn.rollback();
 		} finally {
 			JDBCUtil.close(conn);
 		}		

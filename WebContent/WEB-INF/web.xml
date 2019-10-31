@@ -42,7 +42,14 @@
 	  	<url-pattern>/answer/add.do</url-pattern>
 	  	<url-pattern>/answer/update.do</url-pattern>
 	  	<url-pattern>/answer/delete.do</url-pattern>
-	  	
+	  	<url-pattern>/reservation/insert.do</url-pattern>
+	  	<url-pattern>/reservation/update.do</url-pattern>
+	  	<url-pattern>/reservation/cancel.do</url-pattern>
+	  	<url-pattern>/reservation/list.do</url-pattern>
+	  	<url-pattern>/reservation/listA.do</url-pattern>
+	  	<url-pattern>/reservation/load.do</url-pattern>
+	  	<url-pattern>/reservation/detailA.do</url-pattern>
+	  	<url-pattern>/reservation/findA.do</url-pattern>
   </filter-mapping>
   
   <welcome-file-list>

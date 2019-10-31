@@ -8,10 +8,11 @@
 	margin:0 auto;
 }
 #calendar {
-	width:300px;
+	width:250px;
 	margin:0 auto;
 	position:relative;
 	float:left;
+	margin-top:50px;
 }
 #calendar #day_title{
 	position: absolute;
@@ -26,17 +27,17 @@
 #calendar td{
 	cursor: pointer;
 }
-#calendar th, td {
+#calendar th, #calendar td {
 	padding: 5px;
 	border: 1px solid black;
 	text-align:center;
 }
 
-#calendar table th:first-child, table td:first-child {
+#calendar table th:first-child, #calendar table td:first-child {
 	color: #FF1291;
 }
 
-#calendar table th:last-child, table td:last-child {
+#calendar table th:last-child, #calendar table td:last-child {
 	color: #6EE3F7;
 }
 
@@ -78,11 +79,26 @@
 	display:none;
 }
 #info {
-	margin-left:10px;
+	margin-left:30px;
 	width:300px;
 	float:left;
-	border:1px solid black;
 	padding:5px;
+}
+#info table {
+	width:400px;
+	border:1px solid black;
+}
+#info table td:first-child{
+	width:50px;
+}
+#info table td:last-child{
+	width:200px;
+}
+#info table th, #info table td{
+	padding:5px;
+}
+#info table tr:last-child td {
+	text-align:center;
 }
 #info span {
 	margin-left:5px;
@@ -98,7 +114,7 @@ footer {
 	<form id="rsv_form" action="${pageContext.request.contextPath}/reservation/insert.do" method="post">
 	<div id="calendar">
 		<div id="day_title">
-			<p>날짜선택</p>
+			<p style="font-weight:bold">날짜선택</p>
 			
 			<img src="${pageContext.request.contextPath}/images/cal_left.png" id="preMonth">
 			<p id="title"></p>
@@ -116,35 +132,55 @@ footer {
 			</tr>
 		</table>
 		<div id="datebox">
-			Check in <input type="date" name="start_date" value="2019-10-01" readonly="readonly"><br>
+			Check in <input type="date" name="start_date" value="" readonly="readonly"><br>
 			Check Out <input type="date" name="end_date" readonly="readonly">
 		</div>
 	</div>
 	<div id="roombox">
+		<p style="font-weight:bold; text-align:center;">객실 선택</p>
 	</div>
 	<div id="info">
-		예약정보<br>
-		<label>예약자명</label>
-		<input type="text" name="name" value="${member.mName}"><br>
-		<label>전화번호</label>
-		<input type="text" name="phone" value="${member.mPhone}"><br>
-		<label>이용객실<br><span id="room"></span></label><br>
-		<label>이용인원
-			<select name="count">
-				<c:forEach begin="1" end="5" var="num">
-					<option>${num}</option>
-				</c:forEach>
-			</select>
-		</label><br>
-		<label>이용일정</label><br>
-			<span id="useDate"></span><br>
-			<label>객실 요금</label>
-			<p id="price"></p>
-			<input type="hidden" name="rt_no" value="">
-			<input type="hidden" name="rn_no" value="">
-			<input type="hidden" name="price" value="">
-			<input type="submit" value="예약하기">
-		</div>
+		<p style="font-weight:bold; text-align:center; margin-bottom:5px; width:400px;">예약 정보</p>
+		<table>
+			<tr>	
+				<td>예약자명</td>
+				<td><input type="text" name="name" value="${member.mName}" style="width:50px;"></td>
+			</tr>
+			<tr>	
+				<td>전화번호</td>
+				<td><input type="text" name="phone" value="${member.mPhone}" style="width:100px;"></td>
+			</tr>
+			<tr>	
+				<td>이용객실</td>
+				<td><span id="room"></span></td>
+			</tr>
+			<tr>	
+				<td>이용인원</td>
+				<td>
+					<select name="count">
+					<c:forEach begin="1" end="5" var="num">
+						<option>${num}</option>
+					</c:forEach>
+					</select>명
+				</td>
+			</tr>
+			<tr>	
+				<td>이용일정</td>
+				<td><span id="useDate"></span></td>
+			</tr>
+			<tr>	
+				<td>객실요금</td>
+				<td><p id="price"></p>
+					<input type="hidden" name="rt_no" value="">
+					<input type="hidden" name="rn_no" value="">
+					<input type="hidden" name="price" value="">
+				</td>
+			</tr>
+			<tr>	
+				<td colspan="2"><input type="submit" value="예약하기"></td>
+			</tr>
+		</table>
+		</div> 
 	</form>
 </div>
 <script>
@@ -269,6 +305,8 @@ footer {
 			$("#useDate").text(y+"-"+m+"-"+d+" ~ "+y1+"-"+m1+"-"+d1);
 			
 			$("#roombox").empty();
+			var $room_title = $("<p>").css("font-weight","bold").css("text-align","center").css("margin-bottom","5px").text("객실 선택");
+			$("#roombox").append($room_title);
 			
 			// 객실 유무 확인
 			$.ajax({
@@ -309,6 +347,8 @@ footer {
 			$("#info #room").text(room);
 			
 			var price = $(this).parent().parent().find(".roomprice").text();
+			price = Number(price);
+			price = price.toLocaleString();
 			$("#info #price").text(price+"원");
 			$("#info input[name='price']").val(price);
 			

@@ -3,10 +3,11 @@
 <%@ include file="../include/header.jsp" %>
 <style>
 	#rsv_wrapper {
-		width:400px;
+		width:430px;
 		margin:0 auto;
 	}
 	#rsv_wrapper table {
+		width:430px;
 		background:#FAECC5;
 		border:1px solid black;
 		margin:0 auto;
@@ -15,10 +16,9 @@
 		padding:5px;
 	}
 	#rsv_wrapper td.paydate{
-		width:130px;
 		font-size:14px;
 		color:gray;
-		display:inline-block;
+		text-align: right;
 	}
 	#rsv_wrapper #btnbox {
 		text-align:center;
@@ -36,7 +36,7 @@
 		<table>
 			<tr>
 			<fmt:formatDate var="paymentDate" value="${rsv.rsvPaymentDate}" pattern="yyyy-MM-dd"/>
-				<td class="paydate">결제일 ${paymentDate}</td> <!-- 결제일 -->
+				<td class="paydate" colspan="2">결제일 ${paymentDate}</td> <!-- 결제일 -->
 			</tr>
 			<tr>
 				<td>예약번호</td>
@@ -100,7 +100,7 @@
 	</div>
 	<script>
 	$("#btnbox #listbtn").click(function() {
-		location.href = "${pageContext.request.contextPath}/reservation/listA.do";
+		location.href = "${pageContext.request.contextPath}/reservation/list.do";
 	});
 	
 	$("#btnbox #updatebtn").click(function() {
