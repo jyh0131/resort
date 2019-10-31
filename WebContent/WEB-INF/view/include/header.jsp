@@ -210,10 +210,13 @@
 		//bottom 서브 메뉴 글자효과
 		$(".bottom_sub>li").mouseover(function() {
 			$(this).css("background", "#977F51");
+			$(this).find("a").eq(0).css("color", "#fff");
 		})
 		$(".bottom_sub>li").mouseout(function() {
 			$(this).css("background", "none");
+			$(this).find("a").eq(0).css("color", "#000");
 		})
+
 		
 		//언어 선택 버튼
 		$("#langBtn").click(function() {
