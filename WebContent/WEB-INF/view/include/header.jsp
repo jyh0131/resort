@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SONO : Hotel & Resorts</title>
 <style>
 	*{
 		margin: 0px;
@@ -273,8 +273,14 @@
 		<div id="bottom_menu">
 			<a id="home_btn_big" href="${pageContext.request.contextPath}/home.jsp"></a>
 			<ul id="bottom_right">
-				<li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a> | </li> 
-				<li><a href="${pageContext.request.contextPath}/member/add.do">회원가입</a> | </li>
+				<c:if test="${Auth == null}">
+					<li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a> | </li> 
+					<li><a href="${pageContext.request.contextPath}/member/add.do">회원가입</a> | </li>
+				</c:if>
+				<c:if test="${Auth != null}">
+					<li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a> | </li> 
+					<li><a href="#">내 정보보기</a> | </li>
+				</c:if>
 				<li>
 					<span id="langBtn">KOR</span>
 					<ul id="lang">
@@ -290,7 +296,6 @@
 					<ul id="rsv_menu" class="bottom_sub">
 						<li><a href="${pageContext.request.contextPath}/reservation/insert.do">빠른예약</a></li>
 						<li><a href="${pageContext.request.contextPath}/reservation/list.do">예약 조회</a></li>
-						<%-- <li><a href="${pageContext.request.contextPath}/reservation/cancel.do">예약 취소</a></li> --%>
 					</ul><!-- rsv_meun -->
 				</li>
 				<li><a href="${pageContext.request.contextPath }/room/M/list.do">객실 안내</a>
