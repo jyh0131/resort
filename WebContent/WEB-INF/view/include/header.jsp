@@ -140,8 +140,7 @@
 		text-align: center;
 		line-height: 40px;
 	}
-	.bottom_sub>li>a{
-	}
+	
 	ul#bottom_right{
 		width: 300px;
 		height: 60px;
