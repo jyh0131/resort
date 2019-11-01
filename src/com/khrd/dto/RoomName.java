@@ -12,6 +12,12 @@ public class RoomName {
 		super();
 	}
 
+	public RoomName(int rnNo, String rnName) {
+		super();
+		this.rnNo = rnNo;
+		this.rnName = rnName;
+	}
+	
 	public RoomName(int rnNo, String rnName, String rnEngName) {
 		super();
 		this.rnNo = rnNo;

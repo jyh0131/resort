@@ -24,9 +24,7 @@
 	margin-left:15px;
 	border-collapse: collapse;
 }
-#calendar td{
-	cursor: pointer;
-}
+
 #calendar th, #calendar td {
 	padding: 5px;
 	border: 1px solid black;
@@ -39,6 +37,16 @@
 
 #calendar table th:last-child, #calendar table td:last-child {
 	color: #6EE3F7;
+}
+
+#calendar table td.pastdate{
+	color:lightgray;
+}
+
+#calendar table td.afterdate:hover{
+	cursor:pointer;
+	background:lightgray;
+	color:white;
 }
 
 #calendar #title {
@@ -185,15 +193,18 @@ footer {
 </div>
 <script>
 	$(function() {
+		// t = 오늘날짜, y = 현재 년도 , m = 현재 달
 		var t = new Date();
 		var y = t.getFullYear();
 		var m = t.getMonth();
 				
 		makeCal();
-		
+	
+	// 달력 생성 함수
 	function makeCal() {
+		// 달력의 년월 제목 생성
 		$("#calendar #title").text(y+"년"+(m+1)+"월");
-		$(".new_cal").remove();
+		$(".new_cal").remove(); // 새로 만들어진 달력의 일들 삭제
 		
 		//해당 월의 1일 날짜로 변경해서 빈칸 개수를 구해야함.
 		var t2 = new Date(y, m, 1); // 매달 1일로 설정
@@ -210,30 +221,61 @@ footer {
 		var row = Math.ceil((day + lastDay) / 7); // (빈칸 갯수 + 마지막 날짜) / 7
 			
 		var num = 1; // 달력에 찍을 일
+		var cnt = 1; // 달력의 두번째 행 부터 찍기 위해
 		
-		var tableObj = document.getElementsByTagName("table")[0];
-		var trObjs = document.getElementsByTagName("tr");
-		var cnt = 1;
+		// 오늘 날짜 생성
+		var today = new Date();
+		
+		// 오늘 날짜와 달력의 날짜를 비교하기 위해,
+		// 오늘 연, 월, 일을 하나의 숫자로 합치기 
+		var today_year = today.getFullYear() + "";
+		var today_month = today.getMonth() + "";
+		if(today_month.length == 1) {
+			today_month = "0" + today_month;
+		}
+
+		var today_date = today.getDate() + "";
+		if(today_date.length == 1) {
+			today_date = "0" + today_date;
+		}
+		var now = today_year + today_month + today_date;
+		now = Number(now);
+		
+		// 달력의 날짜 연, 월, 일을 하나의 숫자로 합치기
+		var cal_now = "";
+		var m_two = m + "";
+		if(m_two.length == 1) {
+			m_two = "0" + m;
+		}
 		
 		for(var i=1; i<=row; i++) { // 행
-			// tableObj.innerHTML += "<tr>";
 			$("#calendar table").append("<tr class='new_cal'>");
 			for(var j=1; j<=7; j++) { // 열
 				if(i==1 && j<=day || num > lastDay) {
-					// trObjs[cnt].innerHTML += "<td></td>";
 					$("#calendar table tr").eq(cnt).append("<td></td>");
 				} else {
-					// trObjs[cnt].innerHTML += "<td>"+num+"</td>";
-					$("#calendar table tr").eq(cnt).append("<td>"+num+"</td>");
+					// 달력에 찍을 일, num의 값을 가져와서 달력의 날짜 cal_now에 숫자로 합하기
+					var d_two = num + "";
+					if(d_two.length == 1) {
+						d_two = "0" + num; 
+					}
+					cal_now = y + "" + m_two + "" + d_two + "";
+					cal_now = Number(cal_now);
+					
+					// 오늘 날짜와 달력의 날짜를 비교하여 오늘보다 전의 날짜는 선택 불가능하게 하기
+					if(cal_now < now) {
+						$("#calendar table tr").eq(cnt).append("<td class='pastdate'>"+num+"</td>");
+					} else {
+						$("#calendar table tr").eq(cnt).append("<td class='afterdate'>"+num+"</td>");					
+					}
 					num++;
 				}
 			}
 			$("#calendar table").append("</tr>");
-			cnt++;
+			cnt++; // 한 주를 다 채우고, 다음 주를 채우기 위해
 		}		
-		// divObj.innerHTML += "</table>";
 	}
-		
+		// 이전 달로 이동
 		$("#calendar #preMonth").click(function() {
 			m--;
 			if(m == -1) {
@@ -243,6 +285,7 @@ footer {
 			makeCal();		
 		});
 
+		// 다음 달로 이동
 		$("#calendar #nextMonth").click(function() {
 			m++;
 			if(m == 12){
@@ -253,7 +296,7 @@ footer {
 		});
 		
 		// 달력의 날짜 클릭 시
-		$(document).on("click", "#calendar td", function() {
+		$(document).on("click", "#calendar td.afterdate", function() {
 			// 원래 있던 데이터 값 지우기
 			$("#info #room").text("");
 			$("#info #useDate").text("");
@@ -347,10 +390,10 @@ footer {
 			$("#info #room").text(room);
 			
 			var price = $(this).parent().parent().find(".roomprice").text();
+			$("#info input[name='price']").val(price);
 			price = Number(price);
 			price = price.toLocaleString();
-			$("#info #price").text(price+"원");
-			$("#info input[name='price']").val(price);
+			$("#info #price").text(price+"원");			
 			
 			var rt_no = $(this).parent().parent().find(".rt_no").text();
 			$("#info input[name='rt_no']").val(rt_no);
@@ -384,7 +427,6 @@ footer {
 					alert("방을 선택해주세요.");
 					return false;
 				}
-				
 			} else {
 				return false;
 			}

@@ -40,7 +40,7 @@ public class CancelReservationHandler implements CommandHandler {
 			if(result == 1) {
 				response.sendRedirect(request.getContextPath() + "/reservation/listA.do");
 			} else {
-				response.sendRedirect(request.getContextPath() + "/member/login.do");
+				response.sendRedirect(request.getContextPath() + "/reservation/list.do");
 			}
 			
 		} catch(Exception e) {

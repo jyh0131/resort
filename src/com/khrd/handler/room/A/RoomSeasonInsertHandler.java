@@ -7,16 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.khrd.controller.CommandHandler;
-import com.khrd.dao.RoomConfigurationDAO;
 import com.khrd.dao.RoomNameDAO;
-import com.khrd.dao.RoomPriceDAO;
-import com.khrd.dto.RoomConfiguration;
+import com.khrd.dao.RoomSeasonDAO;
+import com.khrd.dao.RoomTypeDAO;
 import com.khrd.dto.RoomName;
-import com.khrd.dto.RoomPrice;
+import com.khrd.dto.RoomSeason;
+import com.khrd.dto.RoomType;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
-public class RoomPriceInsertHandler implements CommandHandler {
+public class RoomSeasonInsertHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -28,9 +28,14 @@ public class RoomPriceInsertHandler implements CommandHandler {
 				RoomNameDAO dao = RoomNameDAO.getInstance();
 				List<RoomName> rn = dao.selectRoomNameList(conn);
 				
+				RoomTypeDAO rtDao = RoomTypeDAO.getInstance();
+				List<RoomType> rt = rtDao.selectRoomTypeList(conn);
+				
+				request.setAttribute("rt", rt);
+				
 				request.setAttribute("rn", rn);
 				
-				return "/WEB-INF/view/room/price/rpInsertForm.jsp";
+				return "/WEB-INF/view/room/season/rsInsertForm.jsp";
 			}catch (Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -41,10 +46,8 @@ public class RoomPriceInsertHandler implements CommandHandler {
 		}else if(request.getMethod().equalsIgnoreCase("post")) {
 			String sNoRn = request.getParameter("roomName");
 			int roomName = Integer.parseInt(sNoRn);
-			String rpSeason = request.getParameter("rpSeason");
-			String rpDetail = request.getParameter("rpDetail");
-			String sNoB = request.getParameter("rpBase");
-			int rpBase = Integer.parseInt(sNoB);
+			String rsSeason = request.getParameter("rsSeason");
+			String rsDetail = request.getParameter("rsDetail");
 			
 			Connection conn = null;
 			
@@ -55,13 +58,13 @@ public class RoomPriceInsertHandler implements CommandHandler {
 				RoomNameDAO rnDao = RoomNameDAO.getInstance();
 				RoomName rn = rnDao.selectRoomNameByNo(conn, roomName);
 				
-				RoomPriceDAO dao = RoomPriceDAO.getInstance();
-				RoomPrice rp = new RoomPrice(0, rn, rpSeason, rpBase, rpDetail);
+				RoomSeasonDAO dao = RoomSeasonDAO.getInstance();
+				RoomSeason rs = new RoomSeason(0, rn, rsSeason, rsDetail);
 				
-				dao.insertRoomPrice(conn, rp);
+				dao.insertRoomSeason(conn, rs);
 				conn.commit();
 				
-				response.sendRedirect(request.getContextPath() + "/roomPrice/list.do");
+				response.sendRedirect(request.getContextPath() + "/roomSeason/list.do");
 				return null;
 			}catch (Exception e) {
 				e.printStackTrace();

@@ -11,8 +11,8 @@
 <script src = "${pageContext.request.contextPath }/js/room.js"></script>
 <script>
 	$(function(){
-		$("#rnUpdateForm").submit(function(i,obj){
-			var result = checkInputEmpty($("input[name],textarea"));
+		$("#rsUpdateForm").submit(function(i,obj){
+			var result = checkInputEmpty($("input[name],select,textarea"));
 			if(result == false){
 				return false;
 			}
@@ -42,12 +42,12 @@
 </script>
 </head>
 <body>
-	<form action = "update.do" method = "post" id = "rnUpdateForm">
+	<form action = "update.do" method = "post" id = "rsUpdateForm">
 		<fieldset>
-			<legend>객실 정보 수정</legend>
+			<legend>객실 가격 정보 수정</legend>
 			<p>
-				<label>객실 번호</label>
-				<input type = "text" readonly="readonly" name = "rnNo" value = "${rn.rnNo }">
+				<label>번호</label>
+				<input type = "text" readonly="readonly" name = "rsNo" value = "${rs.rsNo }">
 			</p>
 			<p>
 				<label>객실 타입 </label>
@@ -58,29 +58,22 @@
 				</select>
 			</p>
 			<p>
-				<label>객실 이름</label>
+				<label>객실 이름 </label>
 				<select name = "roomName">
-					
+					<c:forEach var = "rn" items = "${rn }">
+						<option value = "${rn.rnNo }" >${rn.rnName }</option>
+					</c:forEach>
 				</select>
 			</p>
 			<p>
-				<label>객실 상세 정보 </label>
-				<br>
-				<br>
-				<textarea rows="10" cols="60" name = "rnDetail">${rn.rnDetail }</textarea>
-				<br>
-				<br>
-				<span class = "error">※객실 상세 정보를 입력 하세요※</span>
+				<label>시즌</label>
+				<input type = "text" name = "rsSeason" value = "${rs.rsSeason }">
+				<span class = "error">※시즌 정보를 입력 하세요※</span>
 			</p>
 			<p>
-				<label>객실 가격</label>
-				<input type = "text" name = "rnPrice" value = "${rn.rnPrice }">
-				<span class = "error">※객실 가격을 입력 하세요※</span>
-			</p>
-			<p>
-				<label>객실 영문 이름</label>
-				<input type = "text" name = "rnEngName" value = "${rn.rnEngName }">
-				<span class = "error">※객실 영문 이름을 입력 하세요※</span>
+				<label>시즌 설명</label>
+				<textarea rows="10" cols="60" name = "rsDetail">${rs.rsDetail }</textarea>
+				<span class = "error">※시즌 설명에 대하여 입력 하세요※</span>
 			</p>
 			<p>
 				<input type = "submit" value = "수정">
