@@ -96,6 +96,13 @@ $(function(){
 	display: none;
 	color:red;
 }
+.show2{
+	color:red;
+	text-align: center;
+	
+}
+
+
 #con #correct{
 	text-align: center;
 	color:black;
@@ -141,9 +148,12 @@ $(function(){
 		</table>
 		
 		<input type ="submit" value = "로그인" id ="submit" >
+		<br>
+		<a href = "adminLogin.do" id="admin_login">관리자 전용 로그인</a>
+		<br>
 	</fieldset>
 
-	<a href = "adminLogin.do" id="admin_login">관리자 전용 로그인</a>
+	
 
 </div>
 
@@ -151,13 +161,13 @@ $(function(){
  
 <c:if test = "${login == true }">
 <br>
-<p id = "correct">아이디와 비밀번호가 일치하지 않습니다</p>
+<p class = "show2">아이디와 비밀번호가 일치하지 않습니다</p>
 
 </c:if>
 
 <c:if test = "${withdraw == true}">
 
-<p id = "withdraw" >탈퇴한 회원입니다</p>
+<p class = "show2" >탈퇴한 회원입니다</p>
 
 </c:if>
 

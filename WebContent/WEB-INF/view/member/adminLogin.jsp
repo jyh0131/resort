@@ -101,6 +101,11 @@ $(function(){
 	text-align:center;
 	display: none;
 }
+#people{
+	margin-left:130px;
+	text-decoration: none;
+	font-size: bold;
+}
 
 
 </style>
@@ -137,6 +142,8 @@ $(function(){
 	<br>
 	</c:if>
 
+	<a href= "login.do" id = "people">일반 회원 로그인</a>
+	
 
 	</fieldset>
 
