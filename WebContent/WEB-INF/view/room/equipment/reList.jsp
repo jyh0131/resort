@@ -14,6 +14,7 @@
 	th,td{
 		padding:5px;
 		text-align: center;
+		font-size: 13px;
 	}
 </style>
 </head>
