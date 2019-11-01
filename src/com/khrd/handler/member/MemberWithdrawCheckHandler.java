@@ -24,7 +24,7 @@ public class MemberWithdrawCheckHandler implements CommandHandler {
 			
 			Connection conn = null;			
 			String id = request.getParameter("id");
-
+ 
 			try {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();

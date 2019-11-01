@@ -54,7 +54,7 @@ public class MemberLoginHandler implements CommandHandler {
 					request.setAttribute("withdraw", true);
 					return "/WEB-INF/view/member/login.jsp";
 				}			
-				
+				 
 				HttpSession session = request.getSession();
 				session.setAttribute("Auth", member.getmId());
 	

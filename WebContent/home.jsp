@@ -18,6 +18,7 @@ $(function(){
 		  captions: false,
 		  pager: true,
 		  pause:6000,
+		  speed:700,
 		  slideWidth: 1920
 		});
 	});
@@ -33,6 +34,9 @@ $(function(){
 		<div>
 			<img src="${pageContext.request.contextPath}/images/main_bg3.jpg" title="main_bg3">
 		</div>
+	</div>
+	<div>
+		<img src="${pageContext.request.contextPath}/images/main_bg3.jpg" title="main_bg3">
 	</div>
 </div>
 <%@ include file="WEB-INF/view/include/footer.jsp" %>

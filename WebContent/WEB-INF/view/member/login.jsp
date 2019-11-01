@@ -148,7 +148,7 @@ $(function(){
 </div>
 
 </form>
-
+ 
 <c:if test = "${login == true }">
 <br>
 <p id = "correct">아이디와 비밀번호가 일치하지 않습니다</p>
