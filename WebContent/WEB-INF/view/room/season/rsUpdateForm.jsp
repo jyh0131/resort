@@ -17,7 +17,27 @@
 				return false;
 			}
 		})
-		
+		$("select[name='roomType']").change(function(){
+			var rt = $(this).val();
+			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/room/select.do",
+				type:"get",
+				data:{"roomType":$("select[name='roomType'] option:selected").val()},
+				dataType:"json",
+				success:function(res){
+					console.log(res);
+					$("select[name='roomName']").empty();
+					$(res.rtList).each(function(i,obj){
+						var $option = $("<option>").html(this.rnName).val(this.rnNo);
+						
+						$("select[name='roomName']").append($option);
+					})
+					
+				}
+			})
+		})
+		$("select[name='roomType']").change();
 	})
 </script>
 </head>
@@ -30,6 +50,14 @@
 				<input type = "text" readonly="readonly" name = "rsNo" value = "${rs.rsNo }">
 			</p>
 			<p>
+				<label>객실 타입 </label>
+				<select name = "roomType">
+					<c:forEach var = "rt" items = "${rt }">
+						<option value = "${rt.rtNo }" >${rt.rtName }</option>
+					</c:forEach>
+				</select>
+			</p>
+			<p>
 				<label>객실 이름 </label>
 				<select name = "roomName">
 					<c:forEach var = "rn" items = "${rn }">
@@ -39,7 +67,7 @@
 			</p>
 			<p>
 				<label>시즌</label>
-				<input type = "text" name = "rpSeason" value = "${rs.rsSeason }">
+				<input type = "text" name = "rsSeason" value = "${rs.rsSeason }">
 				<span class = "error">※시즌 정보를 입력 하세요※</span>
 			</p>
 			<p>

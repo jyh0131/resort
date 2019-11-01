@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,27 @@
 				return false;
 			}
 		})
+		$("select[name='roomType']").change(function(){
+			var rt = $(this).val();
+			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/room/select.do",
+				type:"get",
+				data:{"roomType":$("select[name='roomType'] option:selected").val()},
+				dataType:"json",
+				success:function(res){
+					console.log(res);
+					$("select[name='roomName']").empty();
+					$(res.rtList).each(function(i,obj){
+						var $option = $("<option>").html(this.rnName).val(this.rnNo);
+						
+						$("select[name='roomName']").append($option);
+					})
+					
+				}
+			})
+		})
+		$("select[name='roomType']").change();
 	})
 </script>
 </head>
@@ -28,13 +50,18 @@
 				<input type = "text" readonly="readonly" name = "rnNo" value = "${rn.rnNo }">
 			</p>
 			<p>
-				<label>객실 이름 </label>
-				<input type = "text" name = "rnName" value = "${rn.rnName }">
-				<span class = "error">※객실 이름을 입력 하세요※</span>
+				<label>객실 타입 </label>
+				<select name = "roomType">
+					<c:forEach var = "rt" items = "${rt }">
+						<option value = "${rt.rtNo }" >${rt.rtName }</option>
+					</c:forEach>
+				</select>
 			</p>
 			<p>
-				<label>객실 타입</label>
-				<input type = "text" readonly="readonly" name = "roomType" value = "${rn.roomType.rtName}">
+				<label>객실 이름</label>
+				<select name = "roomName">
+					
+				</select>
 			</p>
 			<p>
 				<label>객실 상세 정보 </label>
