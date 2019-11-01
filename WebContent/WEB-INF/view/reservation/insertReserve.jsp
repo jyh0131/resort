@@ -390,10 +390,10 @@ footer {
 			$("#info #room").text(room);
 			
 			var price = $(this).parent().parent().find(".roomprice").text();
+			$("#info input[name='price']").val(price);
 			price = Number(price);
 			price = price.toLocaleString();
-			$("#info #price").text(price+"원");
-			$("#info input[name='price']").val(price);
+			$("#info #price").text(price+"원");			
 			
 			var rt_no = $(this).parent().parent().find(".rt_no").text();
 			$("#info input[name='rt_no']").val(rt_no);
