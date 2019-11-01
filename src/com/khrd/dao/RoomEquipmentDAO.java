@@ -96,8 +96,7 @@ private static final RoomEquipmentDAO dao = new RoomEquipmentDAO();
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "update room_equipment set rn_no = ?, re_furniture = ?, re_home_appliances = ?,"
-					+ " re_tableware = ?, re_wash = ? re_bedding = ?, re_other = ?, re_amenity = ? where re_no = ?";
+			String sql = "update room_equipment set rn_no = ?, re_furniture = ?, re_home_appliances = ?, re_tableware = ?, re_wash = ?, re_bedding = ?, re_other = ?, re_amenity = ? where re_no = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, re.getRoomName().getRnNo());
 			pstmt.setString(2, re.getReFurniture());

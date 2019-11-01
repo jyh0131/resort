@@ -16,34 +16,39 @@ import com.khrd.dto.RoomType;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
-public class RoomEquipmentInsertHandler implements CommandHandler {
+public class RoomEquipmentUpdateHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if(request.getMethod().equalsIgnoreCase("get")) {
-			Connection conn = null;
+			String sNo = request.getParameter("reNo");
+			int reNo = Integer.parseInt(sNo);
 			
+			Connection conn = null;
 			try {
 				conn = ConnectionProvider.getConnection();
-				RoomNameDAO dao = RoomNameDAO.getInstance();
-				List<RoomName> rn = dao.selectRoomNameList(conn);
+				RoomEquipmentDAO dao = RoomEquipmentDAO.getInstance();
+				RoomEquipment re = dao.selectRoomEquipmentByNo(conn, reNo);
 				
 				RoomTypeDAO rtDao = RoomTypeDAO.getInstance();
 				List<RoomType> rt = rtDao.selectRoomTypeList(conn);
 				
 				request.setAttribute("rt", rt);
 				
+				RoomNameDAO rnDao = RoomNameDAO.getInstance();
+				List<RoomName> rn = rnDao.selectRoomNameList(conn);
+								
+				request.setAttribute("re", re);
 				request.setAttribute("rn", rn);
-				
-				return "/WEB-INF/view/room/equipment/reInsertForm.jsp";
+				return "/WEB-INF/view/room/equipment/reUpdateForm.jsp";
 			}catch (Exception e) {
 				e.printStackTrace();
 			}finally {
 				JDBCUtil.close(conn);
 			}
-			
-			
 		}else if(request.getMethod().equalsIgnoreCase("post")) {
+			String sNo = request.getParameter("reNo");
+			int reNo = Integer.parseInt(sNo);
 			String sNoRn = request.getParameter("roomName");
 			int roomName = Integer.parseInt(sNoRn);
 			String reFurniture = request.getParameter("reFurniture");
@@ -55,7 +60,6 @@ public class RoomEquipmentInsertHandler implements CommandHandler {
 			String reAmenity = request.getParameter("reAmenity");
 			
 			Connection conn = null;
-			
 			try {
 				conn = ConnectionProvider.getConnection();
 				conn.setAutoCommit(false);
@@ -64,27 +68,29 @@ public class RoomEquipmentInsertHandler implements CommandHandler {
 				RoomName rn = rnDao.selectRoomNameByNo(conn, roomName);
 				
 				RoomEquipmentDAO dao = RoomEquipmentDAO.getInstance();
-				RoomEquipment re = new RoomEquipment(0,
-						rn,
-						reFurniture,
-						reHomeAppliances,
-						reTableWare,
-						reWash,
-						reBedding,
-						reOther,
-						reAmenity);
+				RoomEquipment re = new RoomEquipment(reNo,
+														rn,
+														reFurniture,
+														reHomeAppliances,
+														reTableWare,
+														reWash,
+														reBedding,
+														reOther,
+														reAmenity);
 				
-				dao.insertRoomEquipment(conn, re);
+				
+				dao.updateRoomEquipment(conn, re);
+				
 				conn.commit();
 				
 				response.sendRedirect(request.getContextPath() + "/roomEquipment/list.do");
 				return null;
 			}catch (Exception e) {
 				e.printStackTrace();
-				conn.rollback();
 			}finally {
 				JDBCUtil.close(conn);
 			}
+			
 		}
 		return null;
 	}

@@ -27,6 +27,7 @@ public class MemberLoginHandler implements CommandHandler {
 			Connection conn = null;
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
+			
 			try{
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
@@ -54,7 +55,7 @@ public class MemberLoginHandler implements CommandHandler {
 					request.setAttribute("withdraw", true);
 					return "/WEB-INF/view/member/login.jsp";
 				}			
-				
+				 
 				HttpSession session = request.getSession();
 				session.setAttribute("Auth", member.getmId());
 	
@@ -62,9 +63,8 @@ public class MemberLoginHandler implements CommandHandler {
 					HttpServletResponse response2 = (HttpServletResponse)response;
 				}
 				
-				return "/WEB-INF/view/member/home.jsp";
-					
-				
+				return "/home.jsp";
+		
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {
