@@ -59,13 +59,11 @@ public class MemberLoginHandler implements CommandHandler {
 				session.setAttribute("Auth", member.getmId());
 	
 				if(session == null || session.getAttribute("Auth") == null) {
-					HttpServletResponse response2 = (HttpServletResponse)res;
+					HttpServletResponse response2 = (HttpServletResponse)response;
 				}
 				
 				return "/WEB-INF/view/member/home.jsp";
-				
-				
-				
+					
 				
 			}catch(Exception e) {
 				e.printStackTrace();
