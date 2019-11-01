@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.khrd.dto.Member;
 import com.khrd.dto.Reservation;
@@ -389,5 +390,30 @@ public class ReservationDAO {
 			return -1;
 		}
 
-	
+	//예약된 날짜, 가격, 객실 이름 리스트 가져오기(월별 매출 그래프용)
+		public List<Reservation> selectSalesInfo(Connection conn) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				String sql = "select rsv_payment_date, rsv_price, room.* from reservation left join room using(r_no)";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				List<Reservation> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					Reservation reservation = new Reservation(rs.getInt("rsv_price"), rs.getTimestamp("rsv_payment_date"),
+							new Room(rs.getInt("r_no"), rs.getInt("r_room"),
+									new RoomName(rs.getInt("rn_no"), null)));
+					list.add(reservation);
+				}
+				return list;				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				JDBCUtil.close(pstmt);
+				JDBCUtil.close(rs);
+			}
+			
+			return null;
+		}
 }

@@ -53,6 +53,14 @@ public class Reservation {
 		this.cnt = cnt;
 	}
 	
+	// 월별 매출 그래프용 생성자
+	public Reservation(int rsvPrice, Date rsvPaymentDate, Room room) {
+		super();
+		this.rsvPrice = rsvPrice;
+		this.rsvPaymentDate = rsvPaymentDate;
+		this.room = room;
+	} //
+
 	public int getCnt() {
 		return cnt;
 	}
@@ -151,7 +159,7 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [rsvNo=" + rsvNo + ", rsvName=" + rsvName + ", rsvPhone=" + rsvPhone + ", rsvCount="
+		return "\nReservation [rsvNo=" + rsvNo + ", rsvName=" + rsvName + ", rsvPhone=" + rsvPhone + ", rsvCount="
 				+ rsvCount + ", rsvPrice=" + rsvPrice + ", rsvStartDate=" + rsvStartDate + ", rsvEndDate=" + rsvEndDate
 				+ ", rsvPaymentDate=" + rsvPaymentDate + ", rsvCancel=" + rsvCancel + ", member=" + member + ", room="
 				+ room + ", cnt=" + cnt + "]";
