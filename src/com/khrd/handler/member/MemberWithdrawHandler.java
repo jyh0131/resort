@@ -24,17 +24,15 @@ public class MemberWithdrawHandler implements CommandHandler {
 
 			Connection conn = null;							
 			
-			String id = request.getParameter("id");
+			HttpSession session = request.getSession();
+			String Auth = (String)session.getAttribute("Auth");
 			String password = request.getParameter("password");
 			
 			try {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
-				Member member = new Member();	
-				dao.WithdrawMember(conn,id,password);
-				member.setmId(id);
-				member.setmPassword(password);
-								
+				dao.WithdrawMember(conn,Auth,password);
+
 				return "/WEB-INF/view/member/withdraw.jsp";
 			}catch(Exception e) {
 				e.printStackTrace();

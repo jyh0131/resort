@@ -88,7 +88,7 @@ $(function(){
 #con #correct{
 	text-align: center;
 	color:black;
-	font-size: 17px;
+	font-size: 14px;
 }
 #con a.admin_list {
 	text-decoration: none;
@@ -101,6 +101,8 @@ $(function(){
 	text-align:center;
 	display: none;
 }
+
+
 </style>
 </head>
 <body>
@@ -128,6 +130,14 @@ $(function(){
 		</table>
 		
 		<input type ="submit" value = "로그인" id ="submit" >
+		<br>
+		<c:if test = "${login == true }">
+	<br>
+	<p id = "correct">관리자 아이디와 비밀번호가 일치하지 않습니다</p>
+	<br>
+	</c:if>
+
+
 	</fieldset>
 
 	<a href = "adminList.do" class="admin_list">관리자 리스트 검색하기</a>
@@ -140,11 +150,7 @@ $(function(){
 
 </form>
 
-<c:if test = "${login == true }">
-<br>
-<p id = "correct">관리자 아이디와 비밀번호가 일치하지 않습니다</p>
 
-</c:if>
 
 <%@ include file= "../include/footer.jsp" %>
 
