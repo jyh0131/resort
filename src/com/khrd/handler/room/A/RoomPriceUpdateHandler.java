@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.RoomConfigurationDAO;
 import com.khrd.dao.RoomNameDAO;
+import com.khrd.dao.RoomPriceDAO;
 import com.khrd.dto.RoomConfiguration;
 import com.khrd.dto.RoomName;
+import com.khrd.dto.RoomPrice;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
@@ -18,24 +20,24 @@ public class RoomPriceUpdateHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		/*if(request.getMethod().equalsIgnoreCase("get")) {
-			String sNo = request.getParameter("rcNo");
-			int rcNo = Integer.parseInt(sNo);
+		if(request.getMethod().equalsIgnoreCase("get")) {
+			String sNo = request.getParameter("rpNo");
+			int rpNo = Integer.parseInt(sNo);
 			
 			Connection conn = null;
 			try {
 				conn = ConnectionProvider.getConnection();
-				RoomConfigurationDAO dao = RoomConfigurationDAO.getInstance();
-				RoomConfiguration rc = dao.selectRoomConfigurationByNo(conn, rcNo);
-				List<RoomConfiguration> list = dao.selectRoomConfigurationList(conn);
+				RoomPriceDAO dao = RoomPriceDAO.getInstance();
+				RoomPrice rp = dao.selectRoomPriceByNo(conn, rpNo);
+				List<RoomPrice> list = dao.selectRoomPriceList(conn);
 				
 				RoomNameDAO rnDao = RoomNameDAO.getInstance();
-				RoomName rn = rnDao.selectRoomNameByNo(conn, rc.getRoomName().getRnNo());
+				RoomName rn = rnDao.selectRoomNameByNo(conn, rp.getRoomName().getRnNo());
 								
-				request.setAttribute("rc", rc);
+				request.setAttribute("rp", rp);
 				request.setAttribute("list", list);
 				request.setAttribute("rn", rn);
-				return "/WEB-INF/view/room/configuration/rcUpdateForm.jsp";
+				return "/WEB-INF/view/room/price/rpUpdateForm.jsp";
 			}catch (Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -78,7 +80,7 @@ public class RoomPriceUpdateHandler implements CommandHandler {
 				JDBCUtil.close(conn);
 			}
 			
-		}*/
+		}
 		return null;
 	}
 
