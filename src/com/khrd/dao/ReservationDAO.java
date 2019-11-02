@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.khrd.dto.Member;
 import com.khrd.dto.Reservation;
@@ -31,7 +32,7 @@ public class ReservationDAO {
 		ResultSet rs = null;
 
 		try {
-			String sql = "select * from room_type rt join room_name rn using(rt_no) join room r using (rn_no) join reservation rsv using(r_no) join member m using(m_id);";
+			String sql = "select * from room_type rt join room_name rn using(rt_no) join room r using (rn_no) join reservation rsv using(r_no) join member m using(m_id) order by rsv.rsv_no;";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			ArrayList<Reservation> list = new ArrayList<>();
@@ -364,58 +365,55 @@ public class ReservationDAO {
 			return null;
 		}
 		
-	// 선택한 타입의 방 가져오기
-	/*public ArrayList<RoomName> getRoomType(Connection conn, int rt_no) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-			String sql = "select * from room_type rt left join room_name rn using (rt_no) where rt.rt_no = ?;";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, rt_no);
-			ArrayList<RoomName> list = new ArrayList<>();
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				RoomName rn = new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"), 
-							new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
-								rs.getString("rn_detail"), rs.getInt("rn_price"),rs.getString("rn_eng_name"));
-				list.add(rn);
+	// 관리자 여부 알아오기
+		public int isAdmin(Connection conn, String m_id) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				String sql = "select m_admin from member where m_id = ?;";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, m_id);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					int result = rs.getInt("m_admin");
+					return result;
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				JDBCUtil.close(pstmt);
+				JDBCUtil.close(rs);
 			}
-			return list;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			JDBCUtil.close(pstmt);
-			JDBCUtil.close(rs);
-		}
-
-		return null;
-	}*/
-
-	// 남은 방 갯수 가져오기
-	/*public int remainRoomCnt(Connection conn, Date start_date, Date end_date, int rn_no) {
-		PreparedStatement pstmt = null;
-		
-		try {
-			String sql = "select count(r_no) - "
-					+ "(select count(r.r_no) from room r left join reservation rsv using(r_no)"
-					+ "where rsv.rsv_start_date >= ? and rsv.rsv_end_date <= ? and rn_no = ?) as num"
-					+ "from room where rn_no = ?;";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setTimestamp(1, new Timestamp(start_date.getTime()));
-			pstmt.setTimestamp(2, new Timestamp(end_date.getTime()));
-			pstmt.setInt(3, rn_no);
-			pstmt.setInt(4, rn_no);
 			
-			return pstmt.executeUpdate();			
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			JDBCUtil.close(pstmt);
+			return -1;
 		}
-		return -1;
-	}*/
 
-	
+	//예약된 날짜, 가격, 객실 이름 리스트 가져오기(월별 매출 그래프용)
+		public List<Reservation> selectSalesInfo(Connection conn) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				String sql = "select rsv_payment_date, rsv_price, room.* from reservation left join room using(r_no)";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				List<Reservation> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					Reservation reservation = new Reservation(rs.getInt("rsv_price"), rs.getTimestamp("rsv_payment_date"),
+							new Room(rs.getInt("r_no"), rs.getInt("r_room"),
+									new RoomName(rs.getInt("rn_no"), null)));
+					list.add(reservation);
+				}
+				return list;				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				JDBCUtil.close(pstmt);
+				JDBCUtil.close(rs);
+			}
+			
+			return null;
+		}
 }

@@ -85,7 +85,7 @@
 				<input type="submit" value="검색">
 			</form>
 		</div>
-		<a href="${pageContext.request.contextPath}/reservation/listA.do" style="margin-left:50px;">모든 예약 보기</a>
+		<a href="${pageContext.request.contextPath}/reservation/list.do" style="margin-left:50px;">모든 예약 보기</a>
 	</div>
 <script>
 	$("form").submit(function() {
@@ -94,6 +94,15 @@
 			alert("검색할 단어를 입력해주세요.");
 			return false;
 		}		
+		
+		var select = $("select[name='find']").val();
+		if(select == 1) {
+			var textreg = /^[0-9]$/;
+			if(textreg.test(text) == false) {
+				alert("예약번호는 숫자만 입력해주세요.");
+				return false;
+			}
+		}
 	});
 </script>
 <%@ include file="../include/footer.jsp" %>

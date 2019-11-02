@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>SONO : Hotel & Resorts</title>
 <style>
 	*{
 		margin: 0px;
@@ -99,22 +99,23 @@
 		display: inline-block;
 		width: 155px;
 		height: 60px;
-		margin-left: 270px;
+		margin-left: 150px;
 		background: url("${pageContext.request.contextPath}/images/logo.jpg") no-repeat center;
 		float: left;
 	}
 	ul#bottom_main{
-		width: 900px;
-		height: 330px;
-		position: relative;
+		width: 1000px;
+		height: 100%;
 		overflow: hidden;
 		margin-left: 50px;
 		display: inline-block;
+		background: #fff;
 	}
 	#bottom_main>li{
-		width: 150px;
-		height: 150px; /* 100% */
+		width: 166px;
+		height: 100%;
 		line-height: 55px;
+		position: relative;
 		cursor: pointer;
 	}
 	#bottom_main>li>a{
@@ -124,41 +125,22 @@
 		font-size: 18px;
 	}
 	ul.bottom_sub{
-		width: 900px;
+		width: 100%;
 		height: 200px;
 		display: none;
 		overflow: hidden;
 		position: absolute;
-		top: 110px;
+		top: 79px;
 		left: 0px;
-		padding-left: 30px;
-		background: #fff;
+		border-top: 3px solid #977F51;
 	}
 	.bottom_sub>li{
+		width: 166px;
 		clear: both;
-		width: 270px;
-		text-align: left;
+		text-align: center;
 		line-height: 40px;
 	}
-	.bottom_sub>li>a{
-		margin-left: 20px;
-	}
-	/* ul.room_sub{
-		display: none;
-		position: absolute;
-		top: 0px;
-		left: 300px;
-		z-index: 500;
-	}
-	.room_sub>li{
-		clear: both;
-		text-align: left;
-		width: 270px;
-		line-height: 40px;
-	}
-	.room_sub>li>a{
-		margin-left: 20px;
-	} */
+	
 	ul#bottom_right{
 		width: 300px;
 		height: 60px;
@@ -207,41 +189,34 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(function() {
-		
-		//아래 메인 메뉴
+		//서브 메뉴 보이기/숨기기
 		$("#bottom_main>li, .bottom_sub").mouseover(function() {
+			$("#bottom_main").stop().animate({height: "330px"});
 			$(this).find(".bottom_sub").stop().slideDown(500);
-			$(this).find("a").eq(0).css("color", "#977F51");
 		}) 
 		$("#bottom_main>li, .bottom_sub").mouseout(function() {
+			$("#bottom_main").stop().animate({height: "100%"});
 			$(this).find(".bottom_sub").stop().slideUp(100);
+		})		
+		
+		//bottom 메인 메뉴 글자효과
+		$("#bottom_main>li").mouseover(function() {
+			$(this).find("a").eq(0).css("color", "#977F51");
+		})
+		$("#bottom_main>li").mouseout(function() {
 			$(this).find("a").eq(0).css("color", "#000");
 		})
 		
-		
-		//아래 서브 메뉴
+		//bottom 서브 메뉴 글자효과
 		$(".bottom_sub>li").mouseover(function() {
-			/* $(this).find(".room_sub").css("display","block"); */
 			$(this).css("background", "#977F51");
 			$(this).find("a").eq(0).css("color", "#fff");
 		})
 		$(".bottom_sub>li").mouseout(function() {
-			/* $(this).find(".room_sub").css("display","none"); */
 			$(this).css("background", "none");
 			$(this).find("a").eq(0).css("color", "#000");
 		})
-		
-		/* //2단 서브 메뉴
-		$(".room_sub>li").mouseover(function() {
-			$(this).find(".room_sub").css("display","block");
-			$(this).css("background", "#DFD2B3");
-			$(this).find("a").eq(0).css("color", "#fff");
-		})
-		$(".room_sub>li").mouseout(function() {
-			$(this).find(".room_sub").css("display","none");
-			$(this).css("background", "none");
-			$(this).find("a").eq(0).css("color", "#000");
-		}) */
+
 		
 		//언어 선택 버튼
 		$("#langBtn").click(function() {
@@ -273,8 +248,14 @@
 		<div id="bottom_menu">
 			<a id="home_btn_big" href="${pageContext.request.contextPath}/home.jsp"></a>
 			<ul id="bottom_right">
-				<li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a> | </li> 
-				<li><a href="${pageContext.request.contextPath}/member/add.do">회원가입</a> | </li>
+				<c:if test="${Auth == null}">
+					<li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a> | </li> 
+					<li><a href="${pageContext.request.contextPath}/member/add.do">회원가입</a> | </li>
+				</c:if>
+				<c:if test="${Auth != null}">
+					<li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a> | </li> 
+					<li><a href="#">내 정보보기</a> | </li>
+				</c:if>
 				<li>
 					<span id="langBtn">KOR</span>
 					<ul id="lang">
@@ -290,15 +271,29 @@
 					<ul id="rsv_menu" class="bottom_sub">
 						<li><a href="${pageContext.request.contextPath}/reservation/insert.do">빠른예약</a></li>
 						<li><a href="${pageContext.request.contextPath}/reservation/list.do">예약 조회</a></li>
-						<%-- <li><a href="${pageContext.request.contextPath}/reservation/cancel.do">예약 취소</a></li> --%>
 					</ul><!-- rsv_meun -->
 				</li>
 				<li><a href="${pageContext.request.contextPath }/room/M/list.do">객실 안내</a>
-					
+					<ul id="#" class="bottom_sub">
+					</ul>
 				</li>
-				<li><a href="#">테마여행</a></li>
-				<li><a href="#">이벤트&amp;할인</a></li>
-				<li><a href="#">분양회원</a></li>
+				<li><a href="#">테마여행</a>
+					<ul id="#" class="bottom_sub">
+					</ul>
+				</li>
+				<li><a href="#">이벤트&amp;할인</a>
+					<ul id="event_menu" class="bottom_sub">
+						<li><a href="#">리조트이벤트</a></li>
+						<li><a href="#">호텔이벤트</a></li>
+						<li><a href="#">당첨자발표</a></li>
+						<li><a href="#">이벤트캘린더</a></li>
+						<li><a href="#">워터파크 할인 안내</a></li>
+					</ul>
+				</li>
+				<li><a href="#">분양회원</a>
+					<ul id="#" class="bottom_sub">
+					</ul>
+				</li>
 				<li><a href="#">고객센터</a>
 					<ul id="service_menu" class="bottom_sub">
 						<li><a href="#">공지사항</a></li>

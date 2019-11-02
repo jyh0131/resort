@@ -191,6 +191,27 @@ public class QuestionDAO {
 		return null;
 	}//selectDescListQuestion
 	
+	public int selectCountQuestionByQType(Connection conn, String qType) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select count(*) from question where q_type=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, qType);
+			rs = pstmt.executeQuery();		
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//selectCountQuestionByQType
+	
 	public List<Question> selectDescListQuestionByQType(Connection conn, String qType, int startRow, int size){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -223,6 +244,32 @@ public class QuestionDAO {
 		}
 		return null;
 	}//selectDescListQuestionByQType
+	
+	public List<Question> selectRankByQTypeCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select q_type, count(q_type) as q_typ_cnt from question group by q_type order by q_typ_cnt desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			List<Question> list = new ArrayList<>();
+			while (rs.next()) {
+				Question question = new Question(
+									rs.getString("q_type"),
+									rs.getInt("q_typ_cnt"));
+									
+				list.add(question);
+			}			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}
 	
 	//--------------------- select 끝
 	

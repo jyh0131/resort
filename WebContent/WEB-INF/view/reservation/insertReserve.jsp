@@ -8,10 +8,11 @@
 	margin:0 auto;
 }
 #calendar {
-	width:300px;
+	width:250px;
 	margin:0 auto;
 	position:relative;
 	float:left;
+	margin-top:50px;
 }
 #calendar #day_title{
 	position: absolute;
@@ -23,21 +24,29 @@
 	margin-left:15px;
 	border-collapse: collapse;
 }
-#calendar td{
-	cursor: pointer;
-}
-#calendar th, td {
+
+#calendar th, #calendar td {
 	padding: 5px;
 	border: 1px solid black;
 	text-align:center;
 }
 
-#calendar table th:first-child, table td:first-child {
+#calendar table th:first-child, #calendar table td:first-child {
 	color: #FF1291;
 }
 
-#calendar table th:last-child, table td:last-child {
+#calendar table th:last-child, #calendar table td:last-child {
 	color: #6EE3F7;
+}
+
+#calendar table td.pastdate{
+	color:lightgray;
+}
+
+#calendar table td.afterdate:hover{
+	cursor:pointer;
+	background:lightgray;
+	color:white;
 }
 
 #calendar #title {
@@ -78,11 +87,26 @@
 	display:none;
 }
 #info {
-	margin-left:10px;
+	margin-left:30px;
 	width:300px;
 	float:left;
-	border:1px solid black;
 	padding:5px;
+}
+#info table {
+	width:400px;
+	border:1px solid black;
+}
+#info table td:first-child{
+	width:50px;
+}
+#info table td:last-child{
+	width:200px;
+}
+#info table th, #info table td{
+	padding:5px;
+}
+#info table tr:last-child td {
+	text-align:center;
 }
 #info span {
 	margin-left:5px;
@@ -98,7 +122,7 @@ footer {
 	<form id="rsv_form" action="${pageContext.request.contextPath}/reservation/insert.do" method="post">
 	<div id="calendar">
 		<div id="day_title">
-			<p>날짜선택</p>
+			<p style="font-weight:bold">날짜선택</p>
 			
 			<img src="${pageContext.request.contextPath}/images/cal_left.png" id="preMonth">
 			<p id="title"></p>
@@ -116,48 +140,71 @@ footer {
 			</tr>
 		</table>
 		<div id="datebox">
-			Check in <input type="date" name="start_date" value="2019-10-01" readonly="readonly"><br>
+			Check in <input type="date" name="start_date" value="" readonly="readonly"><br>
 			Check Out <input type="date" name="end_date" readonly="readonly">
 		</div>
 	</div>
 	<div id="roombox">
+		<p style="font-weight:bold; text-align:center;">객실 선택</p>
 	</div>
 	<div id="info">
-		예약정보<br>
-		<label>예약자명</label>
-		<input type="text" name="name" value="${member.mName}"><br>
-		<label>전화번호</label>
-		<input type="text" name="phone" value="${member.mPhone}"><br>
-		<label>이용객실<br><span id="room"></span></label><br>
-		<label>이용인원
-			<select name="count">
-				<c:forEach begin="1" end="5" var="num">
-					<option>${num}</option>
-				</c:forEach>
-			</select>
-		</label><br>
-		<label>이용일정</label><br>
-			<span id="useDate"></span><br>
-			<label>객실 요금</label>
-			<p id="price"></p>
-			<input type="hidden" name="rt_no" value="">
-			<input type="hidden" name="rn_no" value="">
-			<input type="hidden" name="price" value="">
-			<input type="submit" value="예약하기">
-		</div>
+		<p style="font-weight:bold; text-align:center; margin-bottom:5px; width:400px;">예약 정보</p>
+		<table>
+			<tr>	
+				<td>예약자명</td>
+				<td><input type="text" name="name" value="${member.mName}" style="width:50px;"></td>
+			</tr>
+			<tr>	
+				<td>전화번호</td>
+				<td><input type="text" name="phone" value="${member.mPhone}" style="width:100px;"></td>
+			</tr>
+			<tr>	
+				<td>이용객실</td>
+				<td><span id="room"></span></td>
+			</tr>
+			<tr>	
+				<td>이용인원</td>
+				<td>
+					<select name="count">
+					<c:forEach begin="1" end="5" var="num">
+						<option>${num}</option>
+					</c:forEach>
+					</select>명
+				</td>
+			</tr>
+			<tr>	
+				<td>이용일정</td>
+				<td><span id="useDate"></span></td>
+			</tr>
+			<tr>	
+				<td>객실요금</td>
+				<td><p id="price"></p>
+					<input type="hidden" name="rt_no" value="">
+					<input type="hidden" name="rn_no" value="">
+					<input type="hidden" name="price" value="">
+				</td>
+			</tr>
+			<tr>	
+				<td colspan="2"><input type="submit" value="예약하기"></td>
+			</tr>
+		</table>
+		</div> 
 	</form>
 </div>
 <script>
 	$(function() {
+		// t = 오늘날짜, y = 현재 년도 , m = 현재 달
 		var t = new Date();
 		var y = t.getFullYear();
 		var m = t.getMonth();
 				
 		makeCal();
-		
+	
+	// 달력 생성 함수
 	function makeCal() {
+		// 달력의 년월 제목 생성
 		$("#calendar #title").text(y+"년"+(m+1)+"월");
-		$(".new_cal").remove();
+		$(".new_cal").remove(); // 새로 만들어진 달력의 일들 삭제
 		
 		//해당 월의 1일 날짜로 변경해서 빈칸 개수를 구해야함.
 		var t2 = new Date(y, m, 1); // 매달 1일로 설정
@@ -174,30 +221,61 @@ footer {
 		var row = Math.ceil((day + lastDay) / 7); // (빈칸 갯수 + 마지막 날짜) / 7
 			
 		var num = 1; // 달력에 찍을 일
+		var cnt = 1; // 달력의 두번째 행 부터 찍기 위해
 		
-		var tableObj = document.getElementsByTagName("table")[0];
-		var trObjs = document.getElementsByTagName("tr");
-		var cnt = 1;
+		// 오늘 날짜 생성
+		var today = new Date();
+		
+		// 오늘 날짜와 달력의 날짜를 비교하기 위해,
+		// 오늘 연, 월, 일을 하나의 숫자로 합치기 
+		var today_year = today.getFullYear() + "";
+		var today_month = today.getMonth() + "";
+		if(today_month.length == 1) {
+			today_month = "0" + today_month;
+		}
+
+		var today_date = today.getDate() + "";
+		if(today_date.length == 1) {
+			today_date = "0" + today_date;
+		}
+		var now = today_year + today_month + today_date;
+		now = Number(now);
+		
+		// 달력의 날짜 연, 월, 일을 하나의 숫자로 합치기
+		var cal_now = "";
+		var m_two = m + "";
+		if(m_two.length == 1) {
+			m_two = "0" + m;
+		}
 		
 		for(var i=1; i<=row; i++) { // 행
-			// tableObj.innerHTML += "<tr>";
 			$("#calendar table").append("<tr class='new_cal'>");
 			for(var j=1; j<=7; j++) { // 열
 				if(i==1 && j<=day || num > lastDay) {
-					// trObjs[cnt].innerHTML += "<td></td>";
 					$("#calendar table tr").eq(cnt).append("<td></td>");
 				} else {
-					// trObjs[cnt].innerHTML += "<td>"+num+"</td>";
-					$("#calendar table tr").eq(cnt).append("<td>"+num+"</td>");
+					// 달력에 찍을 일, num의 값을 가져와서 달력의 날짜 cal_now에 숫자로 합하기
+					var d_two = num + "";
+					if(d_two.length == 1) {
+						d_two = "0" + num; 
+					}
+					cal_now = y + "" + m_two + "" + d_two + "";
+					cal_now = Number(cal_now);
+					
+					// 오늘 날짜와 달력의 날짜를 비교하여 오늘보다 전의 날짜는 선택 불가능하게 하기
+					if(cal_now < now) {
+						$("#calendar table tr").eq(cnt).append("<td class='pastdate'>"+num+"</td>");
+					} else {
+						$("#calendar table tr").eq(cnt).append("<td class='afterdate'>"+num+"</td>");					
+					}
 					num++;
 				}
 			}
 			$("#calendar table").append("</tr>");
-			cnt++;
+			cnt++; // 한 주를 다 채우고, 다음 주를 채우기 위해
 		}		
-		// divObj.innerHTML += "</table>";
 	}
-		
+		// 이전 달로 이동
 		$("#calendar #preMonth").click(function() {
 			m--;
 			if(m == -1) {
@@ -207,6 +285,7 @@ footer {
 			makeCal();		
 		});
 
+		// 다음 달로 이동
 		$("#calendar #nextMonth").click(function() {
 			m++;
 			if(m == 12){
@@ -217,7 +296,7 @@ footer {
 		});
 		
 		// 달력의 날짜 클릭 시
-		$(document).on("click", "#calendar td", function() {
+		$(document).on("click", "#calendar td.afterdate", function() {
 			// 원래 있던 데이터 값 지우기
 			$("#info #room").text("");
 			$("#info #useDate").text("");
@@ -269,6 +348,8 @@ footer {
 			$("#useDate").text(y+"-"+m+"-"+d+" ~ "+y1+"-"+m1+"-"+d1);
 			
 			$("#roombox").empty();
+			var $room_title = $("<p>").css("font-weight","bold").css("text-align","center").css("margin-bottom","5px").text("객실 선택");
+			$("#roombox").append($room_title);
 			
 			// 객실 유무 확인
 			$.ajax({
@@ -309,8 +390,10 @@ footer {
 			$("#info #room").text(room);
 			
 			var price = $(this).parent().parent().find(".roomprice").text();
-			$("#info #price").text(price+"원");
 			$("#info input[name='price']").val(price);
+			price = Number(price);
+			price = price.toLocaleString();
+			$("#info #price").text(price+"원");			
 			
 			var rt_no = $(this).parent().parent().find(".rt_no").text();
 			$("#info input[name='rt_no']").val(rt_no);
@@ -344,7 +427,6 @@ footer {
 					alert("방을 선택해주세요.");
 					return false;
 				}
-				
 			} else {
 				return false;
 			}

@@ -6,12 +6,15 @@
 		margin: 20px auto;
 		overflow: hidden;
 	}
-	#banner>h1{
+	#banner>a{
 		float: left;
 		font-size: 50px;
+		text-decoration: none;
 		margin-top: 90px;
 		margin-left: 50px;
+		font-weight: bold;
 		color: #6283ab;
+		cursor: pointer;
 	}
 	#banner>img{
 		float: right;
@@ -36,7 +39,7 @@
 	}
 </style>
 <div id="banner">
-	<h1>Q&amp;A</h1>
+	<a href="${pageContext.request.contextPath}/question/list.do">Q&amp;A</a>
 	<img src="${pageContext.request.contextPath}/images/qna_bg.jpg">
 </div>
 <div id="explan">

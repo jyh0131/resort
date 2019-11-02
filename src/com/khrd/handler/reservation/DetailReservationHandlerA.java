@@ -4,6 +4,7 @@ import java.sql.Connection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.ReservationDAO;
@@ -18,18 +19,40 @@ public class DetailReservationHandlerA implements CommandHandler {
 		
 		int rsvNo = Integer.parseInt(request.getParameter("rsv_no"));
 		
+		HttpSession session = request.getSession();
+		String Auth = (String)session.getAttribute("Auth");
+		
 		Connection conn = null;
 		
 		try {
 			conn = ConnectionProvider.getConnection();
 			ReservationDAO dao = ReservationDAO.getnInstance();
-			Reservation rsv = dao.selectReserveByNo(conn, rsvNo);
-			request.setAttribute("rsv", rsv);
 			
-			return "/WEB-INF/view/reservation/detailReserveA.jsp";
+			conn.setAutoCommit(false);
+			
+			int result = dao.isAdmin(conn, Auth);
+			String rtn = "";
+			
+			switch(result) {
+			case 1:
+				Reservation rsv = dao.selectReserveByNo(conn, rsvNo);
+				request.setAttribute("rsv", rsv);
+				rtn = "/WEB-INF/view/reservation/detailReserveA.jsp";
+				break;
+			case 0:
+				rtn = "/WEB-INF/view/member/login.do";
+				break;
+			default:
+				rtn = "/WEB-INF/index.jsp";
+				break;
+			}
+			conn.commit();
+						
+			return rtn; 
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+			conn.rollback();
 		} finally {
 			JDBCUtil.close(conn);
 		}

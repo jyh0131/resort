@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.khrd.dto.RoomName;
 import com.khrd.dto.RoomType;
@@ -134,8 +135,31 @@ public class RoomNameDAO {
 		return null;
 	}
 	
-	
-	
+	public List<RoomName> selectRoomNameByRoomType(Connection conn, int rtNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs =  null;
+		try {
+			String sql = "select rn_no, rn_name from room_name where rt_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rtNo);
+			rs = pstmt.executeQuery();
+			
+			List<RoomName> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				RoomName rn = new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"));
+				list.add(rn);
+				
+			}
+			return list;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}
 	
 	
 	

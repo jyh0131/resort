@@ -23,20 +23,18 @@
 			<th>번호</th>
 			<th>객실 이름</th>
 			<th>시즌</th>
-			<th>기본 요금</th>
 			<th>시즌 설명</th>
 			<th>수정 / 삭제 </th>
 		</tr>
-		<c:forEach var = "rp" items = "${list }">
+		<c:forEach var = "rs" items = "${list }">
 			<tr>
-				<td>${rp.rpNo }</td>
-				<td>${rp.roomName.rnName }</td>
-				<td>${rp.rpSeason}</td>
-				<td>${rp.rpBase }</td>
-				<td>${rp.rpDetail }</td>
+				<td>${rs.rsNo }</td>
+				<td>${rs.roomName.rnName }</td>
+				<td>${rs.rsSeason}</td>
+				<td>${rs.rsDetail }</td>
 				<td>
-					<a href = "update.do?rpNo=${rp.rpNo }">수정</a> | 
-					<a href = "delete.do?rpNo=${rp.rpNo }">삭제</a>
+					<a href = "update.do?rsNo=${rs.rsNo }">수정</a> | 
+					<a href = "delete.do?rsNo=${rs.rsNo }">삭제</a>
 				</td>
 			</tr>
 		</c:forEach>

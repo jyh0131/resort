@@ -1,6 +1,7 @@
 package com.khrd.handler.room.A;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,11 @@ public class RoomNameUpdateHandler implements CommandHandler {
 				RoomName rn = dao.selectRoomNameByNo(conn, rnNo);
 				
 				request.setAttribute("rn", rn);
+				
+				RoomTypeDAO rtDao = RoomTypeDAO.getInstance();
+				List<RoomType> rt = rtDao.selectRoomTypeList(conn);
+				
+				request.setAttribute("rt", rt);
 				
 				return "/WEB-INF/view/room/name/rnUpdateForm.jsp";
 			}catch (Exception e) {

@@ -10,11 +10,13 @@
 	a{
 		text-decoration: none;
 	} 
+/* -----------------------------mainBody--------------------------- */
 	#roomResort{
 		width: 100%;
 		margin: 0 auto;
 		overflow: hidden;
 	}
+/* -------------------------------aside(사이드메뉴)---------------------------------- */
 	#sideMenu{
 		float:left;
 		width:235px;
@@ -24,31 +26,31 @@
 		text-align: center;
 		margin-left:220px;
 	}
-	.reSubMenu{
-		display: none;
-	}
-	#reMainMenu a {
+	#reMainMenu a { /* 사이드메뉴의 가장 상위 ul태그 안에 모든 a태그 */
 		color:#977F51;
 	}
-	.sideM_T{
+	.reSubMenu{/* roomType(submenu)안의 submenu(roomName의 ul태그) */
+		display: none;
+	}
+	.sideM_T{/* submenu의 type name */
 		display: block;
 		border-bottom: 1px dotted #977F51;
 		margin: 10px auto;
 		padding:5px 0;
 	}
-	#rR_mainBody{
+	#rR_mainBody{/* 객실의 메인 화면  */
 		float:left;
 		width:1024px;
 		margin: 0 auto;
 		text-align: center;
 	}
-	.title_border{
+	.title_border{/* 한글 title과 영문 title 사이의  border */
 		display: block;
 		border-bottom: 1px solid black;
 		width:70px;
 		margin:0 auto;
 	}
-	.mainTitle{
+	.mainTitle{/* main화면에 있는 한글 title */
 		font-size: 28px;
 		margin-bottom:20px;
 		color: #333;
@@ -56,16 +58,24 @@
 	.sideM_e_sm{
 		display: none;
 	}
-	.engTitle{
+	.engTitle{/* main화면에 있는 영문 title */
 		font-size: 46px;
 		margin-top:15px;
 		font-family: 'Tienne', serif;
 		font-style: italic;
 		color: #333;
 	}
-	.subText{
+	.subText{/* main화면에 있는 객실에 대한 설명글 */
 		color: #999;
 		font-size:14px;
+	}
+	#mb_mainImage{/* main화면에 있는 객실 이미지의 body*/
+		width:1024px;
+		margin: 0 auto;
+	}
+	#mb_mainImage > ul > li > img{
+		widht:1100px;
+		height: 550px;
 	}
 </style>
 <script>
@@ -115,7 +125,20 @@
 				</p><!-- 영문 이름 -->
 				<p class = "subText">
 					${rnList[selectRnNo-1].rnDetail }
-				</p>
+				</p><!-- 객실에 대한 설명 글 -->
+			</div>
+			<div id = "mb_mainImage">
+				<ul>
+					<c:forEach var = "rn" items = "${rnList }">
+						<c:forEach var = "ri" items = "${riList }">
+							<c:if test = "${rn.rnNo == ri.roomName.rnNo}">
+								<li>
+									<img src = "${pageContext.request.contextPath }/images/roomImg/${ri.riFile}">
+								</li>
+							</c:if>
+						</c:forEach>
+					</c:forEach>
+				</ul>
 			</div>
 		</article>
 	</section><!-- 객실 body -->

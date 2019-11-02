@@ -51,7 +51,7 @@
 		border-radius: 5px;
 		padding: 1px 3px;
 	}
-	a#btnPrev, a#btnNext{
+	a#btnPrev, a#btnNext, a#btnPrevD, a#btnNextD{
 		display: inline-block;
 		width: 40px;
 		height: 20px;
@@ -59,8 +59,9 @@
 		text-decoration: none;
 		border: 0.5px solid #977F51;
 		margin: 5px;
+		cursor: pointer;
 	}
-	a.btnNum{
+	a.btnNum, a.btnNumD{
 		display: inline-block;
 		width: 20px;
 		height: 20px;
@@ -74,53 +75,92 @@
 <script>
 	$(function() {
 		//질문 유형 선택
-		$("#type").val("${qType}").prop("selected", true);
 		$("#type").change(function() {
 			var type = $(this).val();
 			$.ajax({
 				url: "${pageContext.request.contextPath}/question/typeList.do",
 				type: "get",
-				data: {"type" : type, "pageNo" : "${page.currentPage}"},
+				data: {"type" : type},
 				dataType: "json",
 				success : function(res) {
 					console.log(res);
 					$(".qList").remove();
-					$(res.page.qList).each(function(i, obj) {
-						
-						var $tr = $("<tr>").addClass("qList");
-						var $tdNo = $("<td>").text(obj.qNo); //순번
-						var $tdType = $("<td>").text(obj.qType); //구분
-						var $tdTitle = $("<td>").addClass("titleTD");
-						var $a = $("<a>").attr("href", "${pageContext.request.contextPath}/question/detail.do?no="+obj.qNo).addClass("detail");
-						var $span = $("<span>").addClass("title").text(obj.qTitle);
-						$a.append($span)
-						$tdTitle.append($a); //제목
-						var $tdId = $("<td>").text(obj.mId); //작성자
-						var $tdDate = $("<td>").text(obj.qDate); //작성일
-						$tr.append($tdNo, $tdType, $tdTitle, $tdId, $tdDate);
+					$("#pageBtn").empty();
 
-						/* var temp = "<tr class='qList'>
-							<td>${q.qNo}</td>
-							<td>${q.qType}</td>
-							<td class='titleTD'>
-								<a href='${pageContext.request.contextPath}/question/detail.do?no=${q.qNo}' class='detail'>
-									<span class='title'>${q.qTitle}</span>
-									<c:forEach var='dbQNo' items='${qNoList}'>
-										<c:if test='${q.qNo == dbQNo}'> <!-- 답변이 있으면 -->
-											<span class='answer'>Re</span>
-										</c:if>
-									</c:forEach>
-								</a>            
-							</td>
-							<td>${q.mId}</td>
-							<td>${q.qDate}</td>
-						</tr>"; */
-						
-						$("#pageBtns").before($tr);
+					//Q&A 리스트 생성
+					$(res.page.qList).each(function(i, obj) {
+						qnaList(i, obj);	
 					})
-				}
-			})
-		})
+					pageBtns(res); //버튼 생성
+					$(".btnNumD").eq(0).css("background", "#977F51").css("color", "#fff"); //default 1페이지 버튼 css
+				}//success
+			})//ajax
+		})//changeSelect	
+		
+		//질문 유형 선택 후 버튼 클릭
+		$(document).on("click", ".btnNumD, #btnPrevD, #btnNextD", function() {
+			var type = $("#type").val();
+			var pNo = $(this).attr("data-pNo");
+				
+			$.ajax({
+				url: "${pageContext.request.contextPath}/question/typeList.do",
+				type: "get",
+				data: {"type" : type, "pageNo" : pNo},
+				dataType: "json",
+				success : function(res) {
+					console.log(res);
+					$(".qList").remove();
+					$("#pageBtn").empty();
+
+					//Q&A 리스트 생성
+					$(res.page.qList).each(function(i, obj) {
+						qnaList(i, obj);
+					})
+					pageBtns(res); //버튼 생성
+					$(".btnNumD").eq(pNo%5-1).css("background", "#977F51").css("color", "#fff"); //선택된 페이지 버튼 css
+				}//success
+			})//ajax
+		})//clickPageBtns
+		
+		/* === Q&A 리스트 생성 function === */
+		function qnaList(i, obj) {
+			var $tr = $("<tr>").addClass("qList");
+			var $tdNo = $("<td>").text(obj.qNo); //순번
+			var $tdType = $("<td>").text(obj.qType); //구분
+			var $tdTitle = $("<td>").addClass("titleTD");
+			var $a = $("<a>").attr("href", "${pageContext.request.contextPath}/question/detail.do?no="+obj.qNo).addClass("detail");
+			var $span = $("<span>").addClass("title").text(obj.qTitle);
+			$a.append($span)
+			$tdTitle.append($a); //제목
+			var $tdId = $("<td>").text(obj.mId); //작성자
+			var $tdDate = $("<td>").text(obj.qDate); //작성일
+			$tr.append($tdNo, $tdType, $tdTitle, $tdId, $tdDate);
+			
+			$("#pageBtns").before($tr);
+		}
+		
+		/* === page 버튼 생성 function === */
+		function pageBtns(res){
+			//페이지 번호 버튼
+			for(i=res.page.startPage; i<=res.page.endPage; i++){
+				var $aNum = "<a class='btnNumD' data-pNo='" + i + "'>" + i + "</a>";
+				$("#pageBtn").append($aNum);
+			}	
+			
+			//이전 버튼
+			if(res.page.startPage > 5){
+				var $aPrev = "<a id='btnPrevD' data-pNo='" + (res.page.startPage-5) + "'>이전</a>";
+				$("#pageBtn").prepend($aPrev);
+			}
+			
+			//다음 버튼
+			if(res.page.endPage < res.page.totalPages && res.page.totalPages > 5){
+				var $aNext = "<a id='btnNextD' data-pNo='" + (res.page.startPage+5) + "'>다음</a>";		
+				$("#pageBtn").append($aNext);
+			}
+		}
+		
+		/* === ajax 끝 ====================================================================== */
 		
 		//질문하기
 		$("#writeQ").click(function() {
@@ -144,14 +184,13 @@
 		
 		//선택된 페이지 번호 CSS
 		$(".btnNum").eq("${page.currentPage%5-1}").css("background", "#977F51").css("color", "#fff");
-
 	})
 </script>
 <section>
 	<%@ include file="../include/qna/front.jsp" %>
 	<p id="btns">
 		<select id="type">
-			<option value="" selected="selected">=질문 유형 선택=</option>
+			<option value="no" selected="selected">=질문 유형 선택=</option>
 			<option>객실관련</option>
 			<option>입퇴실관련</option>
 			<option>부대시설관련</option>
@@ -199,13 +238,15 @@
 		</c:forEach>
 		<c:if test="${total != 0}">
 			<tr id="pageBtns">
-				<td colspan="5">
-					<c:if test="${page.startPage > 5}">
+				<td colspan="5" id="pageBtn">
+					<c:if test="${page.startPage > 5}"><!--  && page.totalPages > 5 -->
 						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage-5}" id="btnPrev">이전</a>
 					</c:if>
+					
 					<c:forEach var="pNo" begin="${page.startPage}" end="${page.endPage}">
 						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${pNo}" class="btnNum" data-pNo="${pNo}">${pNo}</a>
 					</c:forEach>
+					
 					<c:if test="${page.endPage < page.totalPages && page.totalPages > 5}">
 						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage+5}" id="btnNext">다음</a>
 					</c:if>
@@ -214,5 +255,6 @@
 		</c:if>
 	</table>
 	<p>현재 선택된 페이지 : ${page.currentPage}</p>
+	<p>타입 넘어오는 거 확ㅇ니 : ${qtype}</p>
 </section>
 <%@ include file="../include/footer.jsp" %>

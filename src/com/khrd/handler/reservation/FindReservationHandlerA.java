@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.ReservationDAO;
@@ -26,6 +27,8 @@ public class FindReservationHandlerA implements CommandHandler {
 			conn = ConnectionProvider.getConnection();
 			ReservationDAO dao = ReservationDAO.getnInstance();			
 			
+			conn.setAutoCommit(false);				
+			
 			if(type == 1) {
 				int no = Integer.parseInt(text);
 				ArrayList<Reservation> list = new ArrayList<>();
@@ -42,10 +45,25 @@ public class FindReservationHandlerA implements CommandHandler {
 				System.out.println(list);
 				request.setAttribute("list", list);
 			}
-			return "/WEB-INF/view/reservation/listReserveA.jsp";
+			
+			HttpSession session = request.getSession();
+			String Auth = (String)session.getAttribute("Auth");
+			
+			int result = dao.isAdmin(conn, Auth);
+			
+			conn.commit();
+			
+			if(result == 1) {
+				return "/WEB-INF/view/reservation/listReserveA.jsp";
+			} else if(result == 0){
+				return "/WEB-INF/view/reservation/listReserve.jsp";
+			} else {
+				response.sendRedirect(request.getContextPath() + "/member/login.do");
+			}			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
+			conn.rollback();
 		} finally {
 			JDBCUtil.close(conn);
 		}

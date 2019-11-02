@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.ReservationDAO;
@@ -53,23 +54,28 @@ public class UpdateReservationHandler implements CommandHandler {
 				conn = ConnectionProvider.getConnection();
 				ReservationDAO dao = ReservationDAO.getnInstance();
 				
+				conn.setAutoCommit(false);				
+				
 				Reservation rsv = new Reservation(rsvNo, name, phone, count, price, new Date(), new Date(), new Date(), cancel, new Member(), new Room());
 				dao.updateReserve(conn, rsv);
 				
 				// 세션 Auth가 admin일 경우에 --> Auth값이 아닌 관리자 여부에 따라 판단하도록,
-//				HttpSession session = request.getSession();
-//				String Auth = (String)session.getAttribute("Auth");
+				HttpSession session = request.getSession();
+				String Auth = (String)session.getAttribute("Auth");
 				
-				int Auth = 1;
+				int result = dao.isAdmin(conn, Auth);
 				
-				if(Auth == 1) {
-					response.sendRedirect(request.getContextPath() + "/reservation/listA.do");
-				} else {
+				conn.commit();
+				
+				if(result == 1) {
 					response.sendRedirect(request.getContextPath() + "/reservation/list.do");
+				} else {
+					response.sendRedirect(request.getContextPath() + "/member/login.do");
 				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
+				conn.rollback();
 			} finally {
 				JDBCUtil.close(conn);
 			}

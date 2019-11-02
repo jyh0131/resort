@@ -43,70 +43,76 @@ $(function(){
 </script>
 
 <style>
-
-#con{
-	margin-left: 680px;
-	width:550px;
-	margin-top:50px;
-}
-
-fieldset{
-	height:200px;
-	border-color: #D4F4FA;
-}
-
-p{
+#title{
 	font-size: 27px;
 	color:#00B4DB;
 	text-align: center;
 }
-
-span{
-	font-weight: bold;
-	margin:10px;
+#con{
+	margin: 0 auto;
+	width:360px;
+	margin-top:20px;
 }
-
-table{
-	margin-left: 30px;
+#con fieldset{
+	width:360px;
+	height:200px;
+	border-color: #D4F4FA;
+}
+#con #login_title{
+	font-weight: bold;
+	margin-left:30px;
+}
+#con table{
+	margin-left:50px;
 	margin-top:30px;
 }
-
-label{
+#con label{
 	font-size: 17px;
 	color: gray;
-
 }
-input{
+#con input{
 	height:17px;
 }
-
-#submit{
-	margin-left:204px;
+#con #submit{
+	margin-left:224px;
 	height:27px;
 	margin-top:7px;
 	width:70px
 }
-
-.show{
+#con .show{
 	font-size: 12px;
 	font-weight: normal;
 	display: none;
-	
+	color:red;
 }
-
-#correct{
+#con #correct{
 	text-align: center;
 	color:black;
-	font-size: 17px;
+	font-size: 14px;
+}
+#con a.admin_list {
+	text-decoration: none;
+	color:#00B4DB;
+	text-align:center;
+	display:block;
+	margin-top:5px;
+}
+#con #withdraw{
+	text-align:center;
+	display: none;
+}
+#people{
+	margin-left:130px;
+	text-decoration: none;
+	font-size: bold;
 }
 
+
 </style>
-
-
 </head>
 <body>
  
-<p>로그인</p>
+<p id="title">로그인</p>
  
 <form action = "adminLogin.do" method ="post">
 
@@ -114,7 +120,7 @@ input{
 
 	<fieldset>
 	<br>
-	<span>관리자 로그인</span>
+	<span id="login_title">관리자 로그인</span>
 		<table>
 			<tr>
 				<td><label>아이디</label></td>
@@ -129,23 +135,29 @@ input{
 		</table>
 		
 		<input type ="submit" value = "로그인" id ="submit" >
+		<br>
+		<c:if test = "${login == true }">
+	<br>
+	<p id = "correct">관리자 아이디와 비밀번호가 일치하지 않습니다</p>
+	<br>
+	</c:if>
+
+	<a href= "login.do" id = "people">일반 회원 로그인</a>
+	
+
 	</fieldset>
 
-	<a href = "adminList.do">관리자 리스트 검색하기</a>
-	<a href = "adminMember.do">회원 리스트에서 관리자 검색하기</a>	
-	<a href = "list.do">모든 회원 검색하기</a>
-	<a href = "listWithout.do">탈퇴한 회원 제외 검색하기</a>
-	<a href = "listWithdraw.do">탈퇴한 회원만 검색하기</a>
+	<a href = "adminList.do" class="admin_list">관리자 리스트 검색하기</a>
+	<a href = "adminMember.do" class="admin_list">회원 리스트에서 관리자 검색하기</a>	
+	<a href = "list.do" class="admin_list">모든 회원 검색하기</a>
+	<a href = "listWithout.do" class="admin_list">탈퇴한 회원 제외 검색하기</a>
+	<a href = "listWithdraw.do" class="admin_list">탈퇴한 회원만 검색하기</a>
 	
 </div>
 
 </form>
 
-<c:if test = "${login == true }">
-<br>
-<p id = "correct">관리자 아이디와 비밀번호가 일치하지 않습니다</p>
 
-</c:if>
 
 <%@ include file= "../include/footer.jsp" %>
 

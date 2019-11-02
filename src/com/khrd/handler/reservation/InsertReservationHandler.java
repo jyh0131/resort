@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.ReservationDAO;
@@ -22,11 +23,8 @@ public class InsertReservationHandler implements CommandHandler {
 		
 		if(request.getMethod().equalsIgnoreCase("get")) {
 			// 회원 이름과 전화번호 가져오기
-//			HttpSession session = request.getSession();
-//			String Auth = (String)session.getAttribute("Auth");
-			
-			// 임시 값 넣어보기
-			String Auth = "abc123";
+			HttpSession session = request.getSession();
+			String Auth = (String)session.getAttribute("Auth");
 			
 			Connection conn = null;
 			
@@ -46,13 +44,9 @@ public class InsertReservationHandler implements CommandHandler {
 			
 		} else if(request.getMethod().equalsIgnoreCase("post")) {
 			
-			//HttpSession session = request.getSession();
-			//String Auth = (String)session.getAttribute("Auth");
+			HttpSession session = request.getSession();
+			String Auth = (String)session.getAttribute("Auth");
 			
-			// 임시 값 넣어보기
-			String Auth = "abc123";
-			
-			// String mId = request.getParameter("mId");
 			String rsvName = request.getParameter("name");
 			String rsvPhone = request.getParameter("phone");
 			int rsvCount = Integer.parseInt(request.getParameter("count"));

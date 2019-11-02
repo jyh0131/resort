@@ -62,7 +62,7 @@ public class Answer {
 
 	@Override
 	public String toString() {
-		return "Answer [aNo=" + aNo + ", aContent=" + aContent + ", aDate=" + aDate + ", qNo=" + qNo + ", mId=" + mId
+		return "\n  Answer [aNo=" + aNo + ", aContent=" + aContent + ", aDate=" + aDate + ", qNo=" + qNo + ", mId=" + mId
 				+ "]";
 	}	
 }

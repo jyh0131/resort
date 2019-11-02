@@ -10,9 +10,16 @@ public class Question {
 	private String qFile; //첨부파일
 	private Date qDate; //등록 날짜
 	private String mId; //아이디
+	private int qTypeCnt; //유형별 질문 개수
 	
 	public Question() {}
 	
+	public Question(String qType, int qTypeCnt) {
+		super();
+		this.qType = qType;
+		this.qTypeCnt = qTypeCnt;
+	}
+
 	public Question(int qNo, String qTitle, String qType, String qContent, String qFile, Date qDate, String mId) {
 		super();
 		this.qNo = qNo;
@@ -23,8 +30,6 @@ public class Question {
 		this.qDate = qDate;
 		this.mId = mId;
 	}
-
-	
 
 	public int getqNo() {
 		return qNo;
@@ -82,9 +87,17 @@ public class Question {
 		this.mId = mId;
 	}
 
+	public int getqTypeCnt() {
+		return qTypeCnt;
+	}
+
+	public void setqTypeCnt(int qTypeCnt) {
+		this.qTypeCnt = qTypeCnt;
+	}
+
 	@Override
 	public String toString() {
-		return "Question [qNo=" + qNo + ", qTitle=" + qTitle + ", qType=" + qType + ", qContent=" + qContent
-				+ ", qFile=" + qFile + ", qDate=" + qDate + ", mId=" + mId + "]";
-	}
+		return "\n Question [qNo=" + qNo + ", qTitle=" + qTitle + ", qType=" + qType + ", qContent=" + qContent
+				+ ", qFile=" + qFile + ", qDate=" + qDate + ", mId=" + mId + ", qTypeCnt=" + qTypeCnt + "]";
+	}	
 }
