@@ -73,7 +73,13 @@
 		width:1024px;
 		margin: 0 auto;
 	}
-	#mb_mainImage > ul > li > img{
+	#mb_mainImage > ul{/* main화면에 있는 이미지 리스트(ul) */
+		width: 100%;
+		height: 550px;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	#mb_mainImage > ul > li > img{/* main화면에 있는 객실의 이미지 */
 		widht:1100px;
 		height: 550px;
 	}
