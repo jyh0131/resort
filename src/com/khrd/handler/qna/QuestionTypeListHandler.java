@@ -25,6 +25,10 @@ public class QuestionTypeListHandler implements CommandHandler {
 		try {
 			conn = ConnectionProvider.getConnection();
 			
+//			if(qType.equals("no")) {
+//				return req.getContextPath() + "question/list.do";
+//			}
+			
 			//페이징
 			QuestionTypeListService listService = new QuestionTypeListService();
 			String pageNoVal = req.getParameter("pageNo");

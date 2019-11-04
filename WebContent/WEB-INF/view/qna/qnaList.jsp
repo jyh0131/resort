@@ -95,8 +95,8 @@
 					$(".btnNumD").eq(0).css("background", "#977F51").css("color", "#fff"); //default 1페이지 버튼 css
 				}//success
 			})//ajax
-		})//changeSelect	
-		
+		})//changeSelect		
+				
 		//질문 유형 선택 후 버튼 클릭
 		$(document).on("click", ".btnNumD, #btnPrevD, #btnNextD", function() {
 			var type = $("#type").val();
@@ -244,7 +244,7 @@
 					</c:if>
 					
 					<c:forEach var="pNo" begin="${page.startPage}" end="${page.endPage}">
-						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${pNo}" class="btnNum" data-pNo="${pNo}">${pNo}</a>
+						<a  href="${pageContext.request.contextPath}/question/list.do?pageNo=${pNo}" class="btnNum" data-pNo="${pNo}">${pNo}</a>
 					</c:forEach>
 					
 					<c:if test="${page.endPage < page.totalPages && page.totalPages > 5}">
@@ -254,7 +254,5 @@
 			</tr>
 		</c:if>
 	</table>
-	<p>현재 선택된 페이지 : ${page.currentPage}</p>
-	<p>타입 넘어오는 거 확ㅇ니 : ${qtype}</p>
 </section>
 <%@ include file="../include/footer.jsp" %>
