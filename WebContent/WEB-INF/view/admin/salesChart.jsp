@@ -10,6 +10,14 @@
 		margin: 0 auto;
 		padding: 10px;
 	}
+	a#home{
+		float: right;
+		margin-right: 300px;
+		text-decoration: none;
+		color : #fff;
+		background: #977F51;
+		padding: 5px 10px; 
+	}
 </style>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
@@ -29,7 +37,8 @@
 	  var options = {
 	    title : '[2019년 월별 매출액]',
 	    seriesType: 'bars',
-	    fontSize : 13};
+	    fontSize : 13
+	  	};
 	
 	  var view = new google.visualization.DataView(data);
       view.setColumns([0, 1,
@@ -45,10 +54,6 @@
 </script>
 <section>
 	<div id="chart_div"></div>
-	<div>
-		<c:forEach var="r" items="${list}">
-			<p>${r.rsvPrice} | ${r.rsvPaymentDate} | ${r.room.rNo}</p> 
-		</c:forEach>
-	</div>
+	<a href="${pageContext.request.contextPath}/home.do" id="home">관리자 홈 가기</a>
 </section>
 <%@ include file="../include/footer.jsp" %>

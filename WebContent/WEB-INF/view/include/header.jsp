@@ -192,7 +192,7 @@
 		//서브 메뉴 보이기/숨기기
 		$("#bottom_main>li, .bottom_sub").mouseover(function() {
 			$("#bottom_main").stop().animate({height: "330px"});
-			$(this).find(".bottom_sub").stop().slideDown(500);
+			$(this).find(".bottom_sub").stop().slideDown(500).css("z-index", "500");
 		}) 
 		$("#bottom_main>li, .bottom_sub").mouseout(function() {
 			$("#bottom_main").stop().animate({height: "100%"});
@@ -233,7 +233,7 @@
 <body>
 	<header>
 		<div id="top_menu">
-			<a href="${pageContext.request.contextPath}/home.jsp" id="home_btn_small">SONO HOME</a>
+			<a href="${pageContext.request.contextPath}/home.do" id="home_btn_small">SONO HOME</a>
 			<ul id="top_main">
 				<li><a href="#">리조트&amp;호텔</a></li>
 				<li><a href="#">레저&amp;스포츠</a></li>
@@ -246,7 +246,7 @@
 		</div><!-- top_menu -->
 		
 		<div id="bottom_menu">
-			<a id="home_btn_big" href="${pageContext.request.contextPath}/home.jsp"></a>
+			<a id="home_btn_big" href="${pageContext.request.contextPath}/home.do"></a>
 			<ul id="bottom_right">
 				<c:if test="${Auth == null}">
 					<li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a> | </li> 
@@ -279,6 +279,11 @@
 				</li>
 				<li><a href="#">테마여행</a>
 					<ul id="#" class="bottom_sub">
+						<li><a href="#">워터파크</a></li>
+						<li><a href="#">골프</a></li>
+						<li><a href="#">승마</a></li>
+						<li><a href="#">스키&amp;보드</a></li>
+						<li><a href="#">테라피&amp;스파</a></li>
 					</ul>
 				</li>
 				<li><a href="#">이벤트&amp;할인</a>
@@ -292,6 +297,11 @@
 				</li>
 				<li><a href="#">분양회원</a>
 					<ul id="#" class="bottom_sub">
+						<li><a href="#">이용절차</a></li>
+						<li><a href="#">예약방법</a></li>
+						<li><a href="#">이용일수</a></li>
+						<li><a href="#">시설이용약관</a></li>
+						<li><a href="#">회원혜택안내</a></li>
 					</ul>
 				</li>
 				<li><a href="#">고객센터</a>

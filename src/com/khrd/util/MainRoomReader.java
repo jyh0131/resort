@@ -26,7 +26,6 @@ public class MainRoomReader implements CommandHandler {
 			request.setAttribute("list", list);
 			
 			return "/home.jsp";
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {

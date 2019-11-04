@@ -9,6 +9,14 @@
 		width: 1000px;
 		margin: 0 auto;
 	}
+	a#home{
+		float: right;
+		margin-right: 300px;
+		text-decoration: none;
+		color : #fff;
+		background: #977F51;
+		padding: 5px 10px; 
+	}
 </style>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -36,5 +44,6 @@
 </script>
 <section>
 	<div id="piechart" style="width: 900px; height: 500px;"></div>
+	<a href="${pageContext.request.contextPath}/home.do" id="home">관리자 홈 가기</a>
 </section>
 <%@ include file="../include/footer.jsp" %>
