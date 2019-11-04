@@ -121,6 +121,11 @@ $(function(){
 	text-align:center;
 	display: none;
 }
+#re{
+	margin-left:920px;
+	text-decoration: none;
+}
+
 </style>
 
 
@@ -170,7 +175,8 @@ $(function(){
 <c:if test = "${withdraw == true}">
 
 <p class = "show2" >탈퇴한 회원입니다</p>
-
+<br>
+<a href = "add.do" id = "re">재가입하기</a>
 </c:if>
 
 

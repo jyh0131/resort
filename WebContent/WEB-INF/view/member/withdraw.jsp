@@ -4,8 +4,8 @@
 
 <style>
 
-div{
-	width-left:600px;
+#con{
+	margin-left:800px;
 }
 
 </style>
@@ -13,7 +13,7 @@ div{
 </head>
 <body>
 
-<div>
+<div id ="con">
 	<p>탈퇴하였습니다.</p>
 	
 	<a href = "home.jsp">홈으로</a>

@@ -63,7 +63,7 @@ input{
 }
 
 #withdraw{
-	margin-left:990px;
+	margin-left:940px;
 }
 
 </style>

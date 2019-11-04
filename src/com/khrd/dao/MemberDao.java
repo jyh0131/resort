@@ -259,7 +259,7 @@ public class MemberDao {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select * from member where m_id =? and m_password = ? and m_admin = 0";
+			String sql = "select * from member where m_id =? and m_password = ? and m_admin = ''";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);
 			pstmt.setString(2, mPassword);			
@@ -295,7 +295,9 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);	
 			pstmt.setString(2, mPassword);
-			return pstmt.executeUpdate();
+//			return pstmt.executeUpdate();
+			pstmt.executeUpdate();
+			return 1;
 			
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -33,7 +33,23 @@ $(function(){
 			return false;
 		}
 		
-		
+		$.ajax({
+			
+			url:"${pageContext.request.contextPath}/member/withdraw.do",
+			type:"get",
+			data:{"id":$("#password").val()},
+			dataType:"json",
+			success:function(res){
+				console.log(res)
+				var result = res.result;
+				if(result == "false"){
+					$("#correct").css("display","inline");
+					return false;
+				}
+				
+			}
+			
+		})
 		
 		
 		
@@ -85,10 +101,11 @@ $(function(){
 	display: none;
 	color:red;
 }
-#con #correct{
+#correct{
 	text-align: center;
 	color:red;
 	font-size: 17px;
+	display:none;
 }
 #con a.admin_list {
 	text-decoration: none;
@@ -111,7 +128,7 @@ $(function(){
 		<table>
 			<tr>
 				<td><label>비밀번호</label></td>
-				<td><input type="password" name="password"></td>
+				<td><input type="password" name="password" id = "password"></td>
 			</tr>
 		</table>
 			<span class="show">비밀번호를 입력하십시오</span>
@@ -120,11 +137,11 @@ $(function(){
 </div>
 </form>
 
-<c:if test = "${login == true }">
 <br>
-<p id = "correct">아이디와 비밀번호가 일치하지 않습니다</p>
-
+<c:if test = "${result == false }">
+<p id = "correct">비밀번호가 일치하지 않습니다</p>
 </c:if>
+
 
 <%@ include file= "../include/footer.jsp" %>
 
