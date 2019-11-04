@@ -51,7 +51,7 @@ p{
 
 	<tr>
 		<td id = "id">${member.mId }</td>
-		<td id = "password">${member.mPassword }</td>
+		<td id = "password">*******</td>
 		<td>${member.mName }</td>
 		<td>${member.mPhone }</td>
 		<td>${member.mEmail }</td>

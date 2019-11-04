@@ -92,7 +92,7 @@ input{
 
 	  <tr>
 	 	<td class = "left"><label>비밀번호 </label></td>
-	 	<td class = "right">${member.mPassword }</td>
+	 	<td class = "right">*******</td>
 	 </tr>
 
 	  <tr>

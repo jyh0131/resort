@@ -31,8 +31,15 @@ public class MemberWithdrawHandler implements CommandHandler {
 			try {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
-				dao.WithdrawMember(conn,Auth,password);	
+				int result = dao.WithdrawMember(conn,Auth,password);	
 				
+				if(result == 1) {
+					request.setAttribute("result", true);
+					return "/WEB-INF/view/member/withdraw.jsp";
+				}else {
+					request.setAttribute("result", false);
+					return "/WEB-INF/view/member/withdrawMember.jsp";
+				}
 //				Map<String, Object> map = new HashMap<String, Object>();
 //				map.put("member", member);				
 				
@@ -45,7 +52,7 @@ public class MemberWithdrawHandler implements CommandHandler {
 					return "/WEB-INF/view/member/withdrawMember.jsp";
 				}
 */
-				return "/WEB-INF/view/member/withdraw.jsp";
+				
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {
