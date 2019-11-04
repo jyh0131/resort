@@ -63,6 +63,8 @@ public class RoomListHandler implements CommandHandler {
 			List<RoomSeason> rsList = rsDao.selectRoomSeasonList(conn);
 			request.setAttribute("rsList", rsList);
 			
+			System.out.println("rsList = " + rsList);
+			
 			//비품구성 리스트
 			RoomEquipmentDAO reDao = RoomEquipmentDAO.getInstance();
 			List<RoomEquipment> reList = reDao.selectRoomEquipmentList(conn);
