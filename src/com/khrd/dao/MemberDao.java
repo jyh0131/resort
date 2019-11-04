@@ -259,7 +259,7 @@ public class MemberDao {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select * from member where m_id =? and m_password = ?";
+			String sql = "select * from member where m_id =? and m_password = ? and m_admin = 0";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);
 			pstmt.setString(2, mPassword);			

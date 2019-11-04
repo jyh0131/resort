@@ -126,7 +126,7 @@ input{
 }
 
 #withdraw{
-	margin-left:990px;
+	margin-left:940px;
 }
 
 </style>
@@ -179,11 +179,12 @@ input{
 	<br>
 
 </div>
- 
+
+ <a href = "withdraw.do" id = "withdraw">회원 탈퇴하기</a>
 
 </form>
 
-<a href = "withdraw.do" id = "withdraw">회원 탈퇴하기</a>
+
 
 
 <%@ include file= "../include/footer.jsp" %>
