@@ -25,7 +25,7 @@ public class MainRoomReader implements CommandHandler {
 			ArrayList<RoomName> list = dao.loadMainRoomInfo(conn);
 			request.setAttribute("list", list);
 			
-			response.sendRedirect(request.getContextPath()+"/home.jsp");
+			return "/home.jsp";
 			
 		} catch(Exception e) {
 			e.printStackTrace();

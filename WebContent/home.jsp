@@ -7,12 +7,17 @@
 	}
 	#wrapper_main {
 		width:100%;
+		z-index:1;
 	}	
 	#room_introbox {
-		border:1px solid black;
+		border:1px solid black;	
 	}
 	#room_introbox .room_detailbox {
-		background:url("");
+		background:url("");	
+		display:none;
+	}
+	.showbox {
+		display:block;	
 	}	
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
@@ -30,6 +35,38 @@
 		  speed:700,
 		  slideWidth: 1920
 		});
+		
+		$(document).ready(function() {
+			// 첫화면에 보여질 방 정보
+			$("#boxNum1").addClass("showbox");
+			
+			// 표시된 방 정보에서 왼쪽 버튼을 눌렀을 때 
+			$(".room_leftbtn").click(function() {
+				var index = $(this).parent().find(".nowCnt").text();
+				if(index < 1) {
+					$(".room_detailbox").removeClass("showbox");
+					$(this).parent().parent().find("#boxNum${list.size()}").addClass("showbox");
+				} else {
+					$(".room_detailbox").removeClass("showbox");
+					$(this).next().next().addClass("showbox");
+				}
+			});
+			
+			// 표시된 방 정보에서 오른쪽 버튼을 눌렀을 때 
+			$(".room_leftbtn").click(function() {
+				var index = $(this).parent().find(".nowCnt").text();
+				var total = $(this).parent().find(".totalCnt").text();
+				
+				if(index > total) {
+					$(".room_detailbox").removeClass("showbox");
+					$(this).parent().parent().find("#boxNum1").addClass("showbox");				
+				} else {
+					$(".room_detailbox").removeClass("showbox");
+					$(this).next().next().addClass("showbox");
+				}
+			});
+		});	
+		
 	});
 </script>
 <div id="wrapper_main">
@@ -45,17 +82,19 @@
 		</div>
 	</div>
 	<div id="room_introbox">
-		<c:forEach var="list" items="${list}">
-			<div class="room_detailbox" id="boxNum${list.ranking}">
-				<c:if test="${list.roomtype.rt_name == '리조트'}">
+		<c:forEach var="rn" items="${list}">
+		<fmt:formatNumber var="roomidx" value="${rn.ranking}" pattern="##"></fmt:formatNumber>
+			<div class="room_detailbox" id="boxNum${roomidx}">
+				<c:if test="${rn.roomType.rtNo == 1}">
 					<p class="room_type">Resort</p>
 				</c:if>
-				<c:if test="${list.roomtype.rt_name == '호텔'}">
+				<c:if test="${rn.roomType.rtNo == 2}">
 					<p class="room_type">Hotel</p>
 				</c:if>
-				<p class="room_name">${list.rn_eng_name}</p>
-				<a href="${pageContext.request.contextPath}/room/M/rnNo=${list.rn_no}">Read More</a>
-				<p><span class="nowCnt">${list.ranking}</span>/<span class="totalCnt">${list.size()}</span></p>
+				<p class="room_name">${rn.rnEngName}</p>
+				<p class="room_detail">${rn.rnDetail}</p>
+				<a href="${pageContext.request.contextPath}/room/M/rnNo=${rn.rnNo}">Read More</a>
+				<p><span class="nowCnt">${roomidx}</span>/<span class="totalCnt">${list.size()}</span></p>
 				<img src="${pageContext.request.contextPath}/images/room_leftbtn.png" class="room_leftbtn">
 				<img src="${pageContext.request.contextPath}/images/room_rightbtn.png" class="room_rightbtn">
 			</div>
@@ -65,23 +104,4 @@
 		<img src="${pageContext.request.contextPath}/images/main_bg_aqua.PNG">
 	</div>
 </div>
-<script>
-	$(function() {
-		// 첫화면에 보여질 방 정보
-		$("#room_introbox .room_detailbox").eq(0).addClass("showbox");
-		
-		// 표시된 방 정보에서 왼쪽 버튼을 눌렀을 때 
-		$(".room_leftbtn").click(function() {
-			
-			$(this).parent().parent().find("#boxNum"+1 2 3 4 5 ).removeClass("showbox");
-			$(this).next().next().addClass("showbox");
-		});
-		
-		// 표시된 방 정보에서 오른쪽 버튼을 눌렀을 때 
-		$(".room_leftbtn").click(function() {
-			$(this).parent().removeClass("showbox");
-			$(this).next().next().addClass("showbox");
-		});
-	});
-</script>
 <%@ include file="WEB-INF/view/include/footer.jsp" %>
