@@ -12,5 +12,6 @@
 				console.log(res);
 			}		
 		});
+		location.href = "${pageContext.request.contextPath}/home.jsp";
 	})
 </script>
