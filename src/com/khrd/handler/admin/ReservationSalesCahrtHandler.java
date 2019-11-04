@@ -3,10 +3,8 @@ package com.khrd.handler.admin;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.khrd.controller.CommandHandler;
 import com.khrd.dao.ReservationDAO;
-import com.khrd.dao.RoomDAO;
 import com.khrd.dao.RoomNameDAO;
 import com.khrd.dto.Reservation;
 import com.khrd.dto.RoomName;
@@ -28,7 +25,6 @@ public class ReservationSalesCahrtHandler implements CommandHandler {
 		try{
 			conn = ConnectionProvider.getConnection();
 			ReservationDAO rsvDao = ReservationDAO.getnInstance();
-			RoomDAO rmDao = RoomDAO.getInstance();
 			RoomNameDAO rmnDao = RoomNameDAO.getInstance();
 			
 			List<Reservation> rsvList = rsvDao.selectSalesInfo(conn);
@@ -56,13 +52,12 @@ public class ReservationSalesCahrtHandler implements CommandHandler {
 				int mPrice = mSales.get(month);
 				mPrice += rsv.getRsvPrice();
 				mSales.put(month, mPrice);
-				System.out.println("map에 가격 잘 가져들어갔는지 확인 : " + sMonth + "월 ::: "+ mSales.get(month));
-				System.out.println("============================");
 			}
-			  Iterator<Integer> iteratorKey = mSales.keySet( ).iterator( );   //키값 오름차순 정렬(기본)
-			  while(iteratorKey.hasNext()){
-				  iteratorKey.next();
-			  }
+			
+			Iterator<Integer> iteratorKey = mSales.keySet( ).iterator( );
+			while(iteratorKey.hasNext()){
+				iteratorKey.next();
+			}
 				
 			req.setAttribute("mSales", mSales);
 			req.setAttribute("rsvList", rsvList);
@@ -75,5 +70,4 @@ public class ReservationSalesCahrtHandler implements CommandHandler {
 		}	
 		return null;
 	}
-
 }

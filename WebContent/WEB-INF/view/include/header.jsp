@@ -17,7 +17,7 @@
 	
 	header{
 		width: 100%;
-		height: 200px;
+		height: 150px;
 		margin-bottom: 50px;
 	}
 	header ul{
@@ -133,6 +133,7 @@
 		top: 79px;
 		left: 0px;
 		border-top: 3px solid #977F51;
+		background: #fff;
 	}
 	.bottom_sub>li{
 		width: 166px;
@@ -191,13 +192,18 @@
 	$(function() {
 		//서브 메뉴 보이기/숨기기
 		$("#bottom_main>li, .bottom_sub").mouseover(function() {
-			$("#bottom_main").stop().animate({height: "330px"});
+			$("#bottom_main").stop().animate({"height": "330px"});
+			$("header").stop().animate({"margin-bottom": "330px"});
 			$(this).find(".bottom_sub").stop().slideDown(500).css("z-index", "500");
 		}) 
+	/* 	
+		$("#bottom_main>li").eq(5).mouseover(); */
 		$("#bottom_main>li, .bottom_sub").mouseout(function() {
-			$("#bottom_main").stop().animate({height: "100%"});
+			$("#bottom_main").stop().animate({"height": "100%"});
+			$("header").stop().animate({"margin-bottom": "50px"});
 			$(this).find(".bottom_sub").stop().slideUp(100);
-		})		
+		})
+		
 		
 		//bottom 메인 메뉴 글자효과
 		$("#bottom_main>li").mouseover(function() {
@@ -273,8 +279,9 @@
 						<li><a href="${pageContext.request.contextPath}/reservation/list.do">예약 조회</a></li>
 					</ul><!-- rsv_meun -->
 				</li>
-				<li><a href="${pageContext.request.contextPath }/room/M/list.do">객실 안내</a>
+				<li><a href="#">객실 안내</a>
 					<ul id="#" class="bottom_sub">
+						<li><a href="${pageContext.request.contextPath }/room/M/list.do">객실 보기</a></li>
 					</ul>
 				</li>
 				<li><a href="#">테마여행</a>

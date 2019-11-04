@@ -8,6 +8,7 @@
 	div#piechart{
 		width: 1000px;
 		margin: 0 auto;
+		z-index: 100;
 	}
 	a#home{
 		float: right;
