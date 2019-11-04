@@ -8,6 +8,7 @@
 	div#chart_div{
 		width: 1000px;
 		margin: 0 auto;
+		padding: 10px;
 	}
 </style>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -16,37 +17,30 @@
 	google.charts.setOnLoadCallback(drawVisualization);
 	
 	var list_data = [
-		['Month', 
-		<c:forEach var="rmn" items="${rmnList}">
-			'${rmn}',
-		</c:forEach>
-		'월 매출'],
-    	<c:forEach var="rsv" items="${rsvList}">
-  
-    	
-    		[월, 객실별매출, , , , , , , 월매출],	
-    	</c:forEach>
+		['Month', '월 매출'],
+   		<c:forEach var="mSales" items="${mSales}">
+   			["${mSales.key}월", ${mSales.value}],
+   		</c:forEach>
     ];
 	
 	function drawVisualization() {
-	  var data = google.visualization.arrayToDataTable([
-	    ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda'],
-	    ['2004/05',  165,      938,         522,             998,           450],
-	    ['2005/06',  135,      1120,        599,             1268,          288],
-	    ['2006/07',  157,      1167,        587,             807,           397],
-	    ['2007/08',  139,      1110,        615,             968,           215],
-	    ['2008/09',  136,      691,         629,             1026,          366]
-	  ]);
+	  var data = google.visualization.arrayToDataTable(list_data);
 	
 	  var options = {
-	    title : '[월별 매출액 & 객실별 매출액]',
-	    vAxis: {title: 'sales'},
-	    hAxis: {title: 'Month'},
+	    title : '[2019년 월별 매출액]',
 	    seriesType: 'bars',
-	    series: {5: {type: 'line'}}        };
+	    fontSize : 13};
 	
+	  var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       ]);
+	  
 	  var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-	  chart.draw(data, options);
+	  chart.draw(view, options);
 	}
 </script>
 <section>

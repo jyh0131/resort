@@ -1,8 +1,13 @@
 package com.khrd.handler.admin;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +17,6 @@ import com.khrd.dao.ReservationDAO;
 import com.khrd.dao.RoomDAO;
 import com.khrd.dao.RoomNameDAO;
 import com.khrd.dto.Reservation;
-import com.khrd.dto.Room;
 import com.khrd.dto.RoomName;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
@@ -30,14 +34,6 @@ public class ReservationSalesCahrtHandler implements CommandHandler {
 			List<Reservation> rsvList = rsvDao.selectSalesInfo(conn);
 			List<String> rmnList = new ArrayList<>();
 			System.out.println("예약 정보 리스트 : " + rsvList);
-
-//			for(Reservation r : rsvList) {
-//				int rnNo = r.getRoom().getRoomName().getRnNo(); //객실이름번호
-//				String rmName = rmnDao.selectRoomNameByNo(conn, rnNo).getRnName(); //객실이름
-//				rmnList.add(rmName);
-//			}
-			
-			//int rnNo = r.getRoom().getRoomName().getRnNo(); //객실이름번호
 			
 			List<RoomName> rmNameList = rmnDao.selectRoomNameList(conn);
 			for(RoomName rmn : rmNameList) {
@@ -46,6 +42,29 @@ public class ReservationSalesCahrtHandler implements CommandHandler {
 			
 			System.out.println("모든 객실 이름 리스트 : " + rmnList);
 			
+			TreeMap<Integer, Integer> mSales = new TreeMap<>();
+			
+			//1월~12월을 키로, 맵을 값으로 하는 맵 생성
+			for(int i=1; i<=12; i++){
+				mSales.put(i, 0);
+			}
+			
+			for(Reservation rsv : rsvList) {
+				SimpleDateFormat sdf = new SimpleDateFormat("M");
+				String sMonth = sdf.format(rsv.getRsvPaymentDate());
+				int month = Integer.parseInt(sMonth);
+				int mPrice = mSales.get(month);
+				mPrice += rsv.getRsvPrice();
+				mSales.put(month, mPrice);
+				System.out.println("map에 가격 잘 가져들어갔는지 확인 : " + sMonth + "월 ::: "+ mSales.get(month));
+				System.out.println("============================");
+			}
+			  Iterator<Integer> iteratorKey = mSales.keySet( ).iterator( );   //키값 오름차순 정렬(기본)
+			  while(iteratorKey.hasNext()){
+				  iteratorKey.next();
+			  }
+				
+			req.setAttribute("mSales", mSales);
 			req.setAttribute("rsvList", rsvList);
 			req.setAttribute("rmnList", rmnList);
 			return "/WEB-INF/view/admin/salesChart.jsp";
