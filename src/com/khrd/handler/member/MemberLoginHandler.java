@@ -63,7 +63,7 @@ public class MemberLoginHandler implements CommandHandler {
 					HttpServletResponse response2 = (HttpServletResponse)response;
 				}
 				
-				return "/home.jsp";
+				return "/home.do";
 		
 			}catch(Exception e) {
 				e.printStackTrace();

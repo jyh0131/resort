@@ -182,7 +182,7 @@ input {
 				if (Number.test(number) == true) {
 					$(".input").eq(3).css("display", "none");
 
-				} else {
+				}else {
 					$(".input").eq(3).css("display", "inline");
 					return false;
 				}

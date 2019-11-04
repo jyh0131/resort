@@ -114,7 +114,6 @@
 	th,td{
 		border-collapse: collapse;
 		padding:15px;
-		text-align: center;
 		border:1px solid #d8d8d8;
 		border-top:none;
 		color: #777;
@@ -130,8 +129,12 @@
 	th:last-child,td:last-child {
 		border-right:none;
 	}
+	/* 객실 구성의 td태그  */
+	#mb_roomConfiguration td{
+		text-align: center;
+	}
 	/* room_season의 시즌 적용 날짜 span */
-	.season_date{
+	.room_H3span{
 		display: inline-block;
 	    margin-left: 20px;
 	    font-size: 14px;
@@ -231,36 +234,96 @@
 				</table>
 			</div><!-- 객실 구성을 담은 div -->
 			<div id = "mb_roomSeason">
-				<h3>객실요금 (VAT포함) <span class = "season_date">* 요금 적용기간 : 2019년 7월 19일 ~</span></h3>
+				<h3>객실요금 (VAT포함) <span class = "room_H3span">* 요금 적용기간 : 2019년 7월 19일 ~</span></h3>
 				<table id = "rs_table">
 					<tr>
-						<th colspan="2">구분</th>
+						<th colspan="3">구분</th>
 						<th>기본 요금</th>
 					</tr>
 					<tr>
-						<td rowspan="6">
+						<td rowspan="7">
 							${rnList[selectRnNo-1].rnName }
 						</td>
+						<td>
+							${rsList[0].rsSeason }
+						</td>
+						<td>
+							${rsList[0].rsDetail }
+						</td>
+						<td rowspan="7">
+							${rnList[selectRnNo-1].rnPrice }원
+						</td>
 					</tr>
-					<tr>
-					<c:forEach var = "rs" items = "${rsList }">
-						<c:if test = "${rnList[selectRnNo-1].rnNo == rs.roomName.rnNo }">
-							<td>
-								${rs.rsSeason }
-							</td>
-							<td>
-								${rs.rsDetail }
-							</td>
+					<c:forEach var = "rs" items = "${rsList }" varStatus="i">
+						<c:if test = "${rnList[selectRnNo-1].rnNo == rs.roomName.rnNo && i.index >= 1}">
+							<tr>
+								<td>
+									${rs.rsSeason }
+								</td>
+								<td>
+									${rs.rsDetail }
+								</td>
+							</tr>
 						</c:if>
 					</c:forEach>
-					</tr>
 					<tr>
-						<td rowspan="6">
-							${rnList[selectRnNo-1].rnPrice }
-						</td>
+						
 					</tr>
 				</table>
 			</div><!-- 객실 시즌 정보를 담은 div -->
+			<div id = "mb_roomEqureation">
+				<h3>비품구성 <span class = "room_H3span">* 클린형객실 취사도구 미비치 </span></h3>
+				<table id = "re_table">
+				<c:forEach var = "re" items = "${reList }">
+					<c:if test="${rnList[selectRnNo-1].rnNo == re.roomName.rnNo }">
+						<tr>
+							<th>가구류</th>
+								<td>
+									${re.reFurniture }
+								</td>
+							</tr>
+							<tr>
+								<th>가전류</th>
+								<td>
+									${re.reHomeAppliances }
+								</td>
+							</tr>
+							<tr>
+								<th>식기류</th>
+								<td>
+									${re.reTableWare }
+								</td>
+							</tr>
+							<tr>
+								<th>세면류</th>
+								<td>
+									${re.reWash }
+								</td>
+							</tr>
+							<tr>
+								<th>침구류</th>
+								<td>			
+									${re.reBedding }
+								</td>
+							</tr>
+							<tr>
+								<th>기타</th>
+								<td>
+									${re.reOther }
+								</td>
+							</tr>
+<%-- 						<c:if test = "${rtList[2].rtNo == reList.roomName.roomType.rtNo}">
+								<tr>
+									<th>어메니티</th>
+									<td>
+										${reList.reAmenity }
+									</td>
+							</tr>
+						</c:if>  --%>
+					</c:if>	
+				</c:forEach>
+				</table>
+			</div><!-- 비품 구성 정보를 담은 div -->
 		</article>
 	</section><!-- 객실 body -->
 <%@ include file="../include/footer.jsp" %>

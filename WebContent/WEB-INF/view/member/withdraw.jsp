@@ -16,7 +16,7 @@
 <div id ="con">
 	<p>탈퇴하였습니다.</p>
 	
-	<a href = "home.jsp">홈으로</a>
+	<a href = "withdrawLogout.do">홈으로</a>
 </div>
 
 <%@ include file= "../include/footer.jsp" %>>
