@@ -254,7 +254,7 @@
 				</c:if>
 				<c:if test="${Auth != null}">
 					<li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a> | </li> 
-					<li><a href="#">내 정보보기</a> | </li>
+					<li><a href="${pageContext.request.contextPath}/member/information.do">내 정보보기</a> | </li>
 				</c:if>
 				<li>
 					<span id="langBtn">KOR</span>
