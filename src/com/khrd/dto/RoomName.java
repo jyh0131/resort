@@ -7,7 +7,7 @@ public class RoomName {
 	private String rnDetail;
 	private int rnPrice;
 	private String rnEngName;
-	private int indexNum;
+	private double ranking;
 
 	public RoomName() {
 		super();
@@ -37,7 +37,7 @@ public class RoomName {
 	}
 	
 	public RoomName(int rnNo, String rnName, RoomType roomType, String rnDetail, int rnPrice, String rnEngName,
-			int indexNum) {
+			double ranking) {
 		super();
 		this.rnNo = rnNo;
 		this.rnName = rnName;
@@ -45,7 +45,7 @@ public class RoomName {
 		this.rnDetail = rnDetail;
 		this.rnPrice = rnPrice;
 		this.rnEngName = rnEngName;
-		this.indexNum = indexNum;
+		this.ranking = ranking;
 	}
 
 	public int getRnNo() {
@@ -96,18 +96,18 @@ public class RoomName {
 		this.rnEngName = rnEngName;
 	}
 	
-	public int getIndexNum() {
-		return indexNum;
+	public double getRanking() {
+		return ranking;
 	}
 
-	public void setIndexNum(int indexNum) {
-		this.indexNum = indexNum;
+	public void setRanking(double ranking) {
+		this.ranking = ranking;
 	}
 
 	@Override
 	public String toString() {
 		return "RoomName [rnNo=" + rnNo + ", rnName=" + rnName + ", roomType=" + roomType + ", rnDetail=" + rnDetail
-				+ ", rnPrice=" + rnPrice + ", rnEngName=" + rnEngName + ", indexNum=" + indexNum + "]";
+				+ ", rnPrice=" + rnPrice + ", rnEngName=" + rnEngName + ", indexNum=" + ranking + "]";
 	}
 
 }
