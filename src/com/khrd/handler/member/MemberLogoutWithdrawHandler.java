@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
 
-public class MemberLogoutHandler implements CommandHandler {
+public class MemberLogoutWithdrawHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {

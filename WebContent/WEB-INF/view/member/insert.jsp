@@ -111,7 +111,7 @@ input {
 				<tr>
 					<td class="left"><label>전화번호 </label></td>
 					<td class="right"><input type="text" name="number"
-						placeholder="-없이 입력해주세요">&nbsp;&nbsp;<span class="input">전화번호를
+						placeholder="-없이 입력해주세요">&nbsp;&nbsp;<span class="input"> -없이 전화번호를
 							입력하세요.</span></td>
 				</tr>
 

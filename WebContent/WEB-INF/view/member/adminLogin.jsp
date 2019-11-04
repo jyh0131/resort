@@ -131,19 +131,19 @@ $(function(){
 			
 			<tr>
 				<td><label>비밀번호</label></td>
-				<td><input type ="text" name = "password" ><span class = "show">비밀번호를 입력하십시오</span></td>
+				<td><input type ="password" name = "password" ><span class = "show">비밀번호를 입력하십시오</span></td>
 			</tr>
 			 
 		</table>
-		
+
 		<input type ="submit" value = "로그인" id ="submit" >
 		<br>
 		<c:if test = "${login == true }">
 	<br>
 	<p id = "correct">관리자 아이디와 비밀번호가 일치하지 않습니다</p>
 	<br>
+	
 	</c:if>
-
 	
 	</fieldset>
 	<br>
@@ -159,7 +159,6 @@ $(function(){
 
 </form>
 
-
-
+		
 <%@ include file= "../include/footer.jsp" %>
 
