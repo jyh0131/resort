@@ -7,6 +7,11 @@
 	margin: 0 auto;
 }
 
+#rsv_wrapper #no_reserve{
+	margin:200px 0px;
+	text-align:center;
+}
+
 #rsv_wrapper table {
 	width: 430px;
 	background: #FAECC5;
@@ -41,7 +46,7 @@
 <div id="rsv_container">
 	<c:if test="${list.size() == 0}">
 		<div id="rsv_wrapper">
-			<p>예약된 내용이 없습니다.</p>
+			<div id="no_reserve">예약된 내용이 없습니다.</div>
 		</div>
 	</c:if>
 	<c:forEach var="rsv" items="${list}">
