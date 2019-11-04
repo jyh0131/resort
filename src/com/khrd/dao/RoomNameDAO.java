@@ -161,9 +161,32 @@ public class RoomNameDAO {
 		return null;
 	}
 	
-	
-	
-	
-	
+	public ArrayList<RoomName> loadMainRoomInfo(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from room_type rt left join room_name rn on rt.rt_no = rn.rt_no left join room_img ri using(rn_no);"; 
+			pstmt = conn.prepareStatement(sql);
+			ArrayList<RoomName> list = new ArrayList<>();
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				RoomName rn = new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"),
+											new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
+											rs.getString("rn_detail"), rs.getInt("rn_price"),
+											rs.getString("rn_eng_name"), rs.getInt("ranking"));
+				list.add(rn);
+			}
+			return list;
+			
+		} catch(Exception e) {
+			
+		} finally {
+			JDBCUtil.close(pstmt);
+			JDBCUtil.close(rs);
+		}
+		
+		return null;
+	}
 	
 }
