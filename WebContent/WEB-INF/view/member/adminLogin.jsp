@@ -20,6 +20,8 @@ $(function(){
 			$(".show").eq(0).css("display", "inline");
 			$(".show").eq(0).text("영어 숫자 조합의 아이디를 입력하십시오");
 			return false;
+		}else if(Id.test(id) == true){
+			$(".show").eq(0).css("display", "none");
 		}
 		
 		var Password = /^[a-zA-Z0-9]{4,17}$/;
@@ -49,12 +51,12 @@ $(function(){
 	text-align: center;
 }
 #con{
-	margin: 0 auto;
+	margin-left:680px;
 	width:360px;
 	margin-top:20px;
 }
 #con fieldset{
-	width:360px;
+	width:530px;
 	height:200px;
 	border-color: #D4F4FA;
 }
@@ -102,7 +104,7 @@ $(function(){
 	display: none;
 }
 #people{
-	margin-left:130px;
+	margin-left:200px;
 	text-decoration: none;
 	font-size: bold;
 }
@@ -142,11 +144,11 @@ $(function(){
 	<br>
 	</c:if>
 
+	
+	</fieldset>
+	<br>
 	<a href= "login.do" id = "people">일반 회원 로그인</a>
 	
-
-	</fieldset>
-
 	<a href = "adminList.do" class="admin_list">관리자 리스트 검색하기</a>
 	<a href = "adminMember.do" class="admin_list">회원 리스트에서 관리자 검색하기</a>	
 	<a href = "list.do" class="admin_list">모든 회원 검색하기</a>

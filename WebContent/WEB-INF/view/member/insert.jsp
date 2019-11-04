@@ -82,7 +82,7 @@ input {
 				<tr>
 					<td class="left"><label>아이디 </label></td>
 					<td class="right"><input type="text" name="id" id="id"
-						placeholder="4자 이상 13자 이하 아이디">&nbsp;&nbsp;
+						placeholder="4자 이상 15자 이하 아이디">&nbsp;&nbsp;
 						<button id="btnCheck" type="button">아이디 중복체크</button> &nbsp;&nbsp;
 
 						<%-- <c:if test="${result == 1 } }">
@@ -139,8 +139,10 @@ input {
 	</form>
 
 	<script>
-		$(function() {
-
+	// 회원가입시 아이디 중복체크 확인을 위한 변수
+	var avail_id = "";
+	
+		$(function() {			
 			$("form").submit(function() {
 
 				var Name = /^[가-힣]{2,13}$/;
@@ -153,12 +155,12 @@ input {
 					return false;
 				}
 
-				var Id = /^[a-zA-Z0-9]{4,17}$/;
+				var Id = /^[a-zA-Z0-9]{4,15}$/;
 				var id = $("input[name='id']").val();
 
 				if (Id.test(id) == true) {
 					$(".input").eq(1).css("display", "none");
-				} else {
+				}else {
 					$(".input").eq(1).css("display", "inline");
 					return false;
 				}
@@ -197,12 +199,28 @@ input {
 
 				var date = $("input[name='date']").val();
 
-				if (date != null) {
-					$(".input").eq(5).css("diplay", "none");
-				} else if (date == null) {
-					$(".input").eq(5).css("diplay", "inline");
+				if (date != "") {
+					$(".input").eq(5).css("display", "none");
+				} else if (date == "") {
+					$(".input").eq(5).css("display", "inline");
 					return false;
 				}
+				
+				var password1 = $("#password").val();
+				var password2 = $("#passwordCheck").val();
+				
+				if (password1 != password2) {
+					$("#pass").text("비밀번호를 확인해주세요");
+					alert("비밀번호를 확인해주세요")
+					return false;
+				}
+				
+				var now_id = $("input#id").val();
+				if(avail_id != now_id) {
+					alert("아이디 중복확인을 해주세요.");
+					return false;
+				}
+				
 			})
 
 		})
@@ -212,16 +230,18 @@ input {
 			var password1 = $("#password").val();
 			var password2 = $("#passwordCheck").val();
 
-			if (password1 != password2) {
+		if (password1 != password2) {
 				$("#pass").text("비밀번호가 일치하지 않습니다")
 				$(".input").eq(2).css("display", "none");
-
+				
 			} else {
 				$("#pass").text("비밀번호가 일치합니다")
 			}
 
 		}
-
+		
+		
+		
 		$(document).on("click", "#btnCheck", function() {
 			$.ajax({
 				url : "${pageContext.request.contextPath}/member/idCheck.do",
@@ -240,19 +260,19 @@ input {
 					if (id == "") {
 						$("#show").text("아이디를 입력해주세요");
 						return false;
+					}else if(id.length < 4 || id.length > 15 ){
+						$("#show").text("4자 이상 15자 이하 아이디를 입력해주세요");				
+						return false;
 					}
 
 					if (result == "fail") {
 						$("#show").text("사용 가능한 아이디 입니다");
-
+						avail_id = $("#id").val();
 					} else if (result == "success") {
-						$("#show").text("이 아이디는 이미 존재합니다")
-
-						$("#join").click(function() {
-							alert("아이디를 확인해 주세요");
+						var text = $("#show").text("존재하는 아이디입니다");
 							return false;
-						})
-					}
+					}					
+					
 				}
 			})
 		})
