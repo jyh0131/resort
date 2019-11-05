@@ -131,10 +131,12 @@ $(function(){
 
 </head>
 <body>
- 
+
+
 <p id="title">로그인</p>
  
 <form action = "login.do" method ="post">
+
 
 <div id = "con">
 
@@ -160,11 +162,11 @@ $(function(){
 		<br>
 	</fieldset>
 
-	
-
 </div>
 
 </form>
+ 
+
  
 <c:if test = "${login == true }">
 <br>

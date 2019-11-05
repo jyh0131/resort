@@ -257,7 +257,7 @@ public class MemberDao {
 		
 		PreparedStatement pstmt = null;		
 		ResultSet rs = null;
-		
+
 		try {
 			String sql = "select * from member where m_id =? and m_password = ? and m_admin = '0'";
 			pstmt = conn.prepareStatement(sql);
@@ -330,8 +330,7 @@ public class MemberDao {
 			e.printStackTrace();
 		}finally {
 			JDBCUtil.close(pstmt);
-		}
-				 
+		}				 
 		return null;
 	}
 	
@@ -358,7 +357,6 @@ public class MemberDao {
 			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
 		}
-
 		return null;
 	}
 	
@@ -418,8 +416,7 @@ public class MemberDao {
 		}finally {
 			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
-		}
-				
+		}				
 		return null;
 	}
 	
@@ -442,9 +439,7 @@ public class MemberDao {
 		}finally {
 			JDBCUtil.close(pstmt);
 			JDBCUtil.close(rs);
-		}
-		
-
+		}		
 		return -1;
 	}
 }

@@ -29,7 +29,7 @@ public class MemberJoinHandler implements CommandHandler {
 			String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String number = request.getParameter("number");
-			String email = request.getParameter("email");					
+			String email = request.getParameter("email");		
 			String date = request.getParameter("date");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date regDate = sdf.parse(date);
@@ -39,6 +39,8 @@ public class MemberJoinHandler implements CommandHandler {
 
 				MemberDao dao = MemberDao.getInstance();
 				Member member = new Member(id, password, name, number, email, regDate, 0, 0);
+				System.out.println(member);
+				
 				int result = dao.InsertMember(conn, member);
 				request.setAttribute("result", result);
 				

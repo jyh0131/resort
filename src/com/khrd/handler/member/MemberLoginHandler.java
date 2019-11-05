@@ -35,36 +35,25 @@ public class MemberLoginHandler implements CommandHandler {
 				Member member2 = dao.withdrawCheck(conn, id);
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("member2", member2);
-//				if(member2 != null) {
-//					map.put("result","success");
-//				} else {
-//					map.put("result", "fail");
-//				}
-//				ObjectMapper om = new ObjectMapper();
-//				String json = om.writeValueAsString(map);
-//				response.setContentType("application/json;charset=utf-8");
-//				PrintWriter out = response.getWriter();
-//				out.println(json);
-//				out.flush();	
 				
+				HttpSession session = request.getSession();
+/*				String Auth = (String)session.getAttribute("Auth");
+				if(Auth == null) {
+					request.setAttribute("Auth", true);
+					return "/home.do";
+				}	*/		
 				if(member == null){
-					request.setAttribute("login", true);
-					
+					request.setAttribute("login", true);				
 					return "/WEB-INF/view/member/login.jsp";
 				}else if(member2 != null) {
 					request.setAttribute("withdraw", true);
 					return "/WEB-INF/view/member/login.jsp";
-				}			
-				 
-				HttpSession session = request.getSession();
-				session.setAttribute("Auth", member.getmId());
-	
-				if(session == null || session.getAttribute("Auth") == null) {
-					HttpServletResponse response2 = (HttpServletResponse)response;
+				} else {		 		
+					session.setAttribute("Auth", member.getmId());				
+					response.sendRedirect(request.getContextPath()+"/home.do");
 				}
+				return null;
 				
-				return "/home.do";
-		
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {

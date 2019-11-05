@@ -20,17 +20,15 @@ public class MemberIdCheckHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-	
-			Connection conn = null;
-			
+
+			Connection conn = null;		
 			String id = request.getParameter("id");
 			
 			try {
 				conn = ConnectionProvider.getConnection();
 				MemberDao dao = MemberDao.getInstance();
 				Member member = dao.SelectMemberByID(conn, id);
-				
+				System.out.println(member);
 				Map<String, Object> map = new HashMap<String, Object>();
 				
 				map.put("member", member);
@@ -47,9 +45,7 @@ public class MemberIdCheckHandler implements CommandHandler {
 				PrintWriter out = response.getWriter();
 				out.println(json);
 				out.flush();
-				
-
-				
+	
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {
