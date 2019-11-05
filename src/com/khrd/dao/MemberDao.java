@@ -286,15 +286,14 @@ public class MemberDao {
 	}
 	
 	// 회원 탈퇴 탈퇴 정보 변경
-	public int WithdrawMember1(Connection conn, String mId, String mPassword) {
+	public int WithdrawMember1(Connection conn, String mId) {
 		
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "update member set m_out = '1' where m_id = ? and m_password = ? ";
+			String sql = "update member set m_out = '1' where m_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);	
-			pstmt.setString(2, mPassword);
 			return pstmt.executeUpdate();
 /*			pstmt.executeUpdate();
 			return 1;

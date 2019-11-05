@@ -17,19 +17,19 @@ public class MemberLogoutWithdrawHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
 		Connection conn = null;										
-		HttpSession session = request.getSession();
-		
-		String Auth = (String)session.getAttribute("Auth");
-		String password = request.getParameter("password");
-		
+
 		try {
+			HttpSession session = request.getSession();
+			String Auth = (String)session.getAttribute("Auth");
 			conn = ConnectionProvider.getConnection();
 			MemberDao dao = MemberDao.getInstance();			
-			dao.WithdrawMember1(conn, Auth, password);			
-			return "/WEB-INF/view/member/withdrawResult.jsp";
-/*			int withdraw = dao.WithdrawMember1(conn, Auth, password);
+			dao.WithdrawMember1(conn, Auth);		
+
+			session.invalidate();
 			
-			if(withdraw == 1) {
+			return "/WEB-INF/view/member/withdrawResult.jsp";
+			
+/*			if(withdraw == 1) {
 				request.setAttribute("result", true);
 				return "/WEB-INF/view/member/withdrawResult.jsp";
 			}else {
@@ -43,7 +43,6 @@ public class MemberLogoutWithdrawHandler implements CommandHandler {
 			JDBCUtil.close(conn);
 		}		
 		
-		session.invalidate();
 		return "/home.do";
 
 	}
