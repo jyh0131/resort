@@ -1,4 +1,4 @@
-package com.khrd.handler.qna;
+package com.khrd.handler.notice;
 
 import java.sql.Connection;
 import java.util.List;
@@ -8,30 +8,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
-import com.khrd.dao.AnswerDAO;
 import com.khrd.dao.MemberDao;
-import com.khrd.dao.QuestionDAO;
-import com.khrd.dto.Question;
+import com.khrd.dao.NoticeDAO;
+import com.khrd.dto.Notice;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
-import com.khrd.service.QuestionListService;
-import com.khrd.service.QuestionPage;
+import com.khrd.service.NoticeListService;
+import com.khrd.service.NoticePage;
 
-public class QuestionListHandler implements CommandHandler {
+public class NoticeListHandler implements CommandHandler {
 
 	@Override
-	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {		
-		Connection conn = null;    
+	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			QuestionDAO dao = QuestionDAO.getInstance();
-			List<Question> list = dao.selectListQuestion(conn);
+			NoticeDAO dao = NoticeDAO.getInstance();
+			List<Notice> list = dao.selectListNotice(conn);
 			req.setAttribute("list", list);
-			
-			//답변 유무 확인
-			AnswerDAO daoA = AnswerDAO.getInstance();
-			List<Integer> qNoList = daoA.selectListQNo(conn);
-			req.setAttribute("qNoList", qNoList);
 			
 			//아이디 체크(관리자/사용자)
 			HttpSession session = req.getSession();
@@ -41,20 +35,21 @@ public class QuestionListHandler implements CommandHandler {
 			req.setAttribute("admin", admin);
 			
 			//페이징
-			QuestionListService listService = new QuestionListService();
+			NoticeListService listService = new NoticeListService();
 			String pageNoVal = req.getParameter("pageNo");
 			int pageNo = 1;
 			if(pageNoVal != null) {
 				pageNo = Integer.parseInt(pageNoVal);
 			}
-			QuestionPage page = listService.getQuestionPage(pageNo);
+			NoticePage page = listService.getNoticePage(pageNo);
 			req.setAttribute("page", page);
-			return "/WEB-INF/view/qna/qnaList.jsp";   
+			
+			return "/WEB-INF/view/notice/noticeList.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			JDBCUtil.close(conn);
-		}		
+		}
 		return null;
 	}
 

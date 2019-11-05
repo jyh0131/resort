@@ -5,19 +5,21 @@ import java.util.Date;
 public class Notice {
 	private int nNo; //번호
 	private String nTitle; //제목
-	private Date nDate; //작성일
+	private String nContent; //내용
 	private String nFile; //첨부파일
+	private Date nDate; //작성일
 	private int nViews; //조회수
 	private String mId; //작성자
 	
 	public Notice() {}
 	
-	public Notice(int nNo, String nTitle, Date nDate, String nFile, int nViews, String mId) {
+	public Notice(int nNo, String nTitle, String nContent, String nFile, Date nDate, int nViews, String mId) {
 		super();
 		this.nNo = nNo;
 		this.nTitle = nTitle;
-		this.nDate = nDate;
+		this.nContent = nContent;
 		this.nFile = nFile;
+		this.nDate = nDate;
 		this.nViews = nViews;
 		this.mId = mId;
 	}
@@ -38,12 +40,12 @@ public class Notice {
 		this.nTitle = nTitle;
 	}
 
-	public Date getnDate() {
-		return nDate;
+	public String getnContent() {
+		return nContent;
 	}
 
-	public void setnDate(Date nDate) {
-		this.nDate = nDate;
+	public void setnContent(String nContent) {
+		this.nContent = nContent;
 	}
 
 	public String getnFile() {
@@ -52,6 +54,14 @@ public class Notice {
 
 	public void setnFile(String nFile) {
 		this.nFile = nFile;
+	}
+
+	public Date getnDate() {
+		return nDate;
+	}
+
+	public void setnDate(Date nDate) {
+		this.nDate = nDate;
 	}
 
 	public int getnViews() {
@@ -72,7 +82,7 @@ public class Notice {
 
 	@Override
 	public String toString() {
-		return "\n Notice [nNo=" + nNo + ", nTitle=" + nTitle + ", nDate=" + nDate + ", nFile=" + nFile + ", nViews="
-				+ nViews + ", mId=" + mId + "]";
+		return "\n Notice [nNo=" + nNo + ", nTitle=" + nTitle + ", nContent=" + nContent + ", nFile=" + nFile + ", nDate="
+				+ nDate + ", nViews=" + nViews + ", mId=" + mId + "]";
 	}	
 }
