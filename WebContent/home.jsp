@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="WEB-INF/view/include/header.jsp" %>
 <style>
+@import url('https://fonts.googleapis.com/css?family=Italianno&display=swap');
 	header{
 		margin-bottom: 10px;
 	}
@@ -19,7 +20,7 @@
 	#room_introbox .room_detailbox .text_box{
 		background:rgba(255,255,255,0.8);
 		padding:30px;
-		width:400px;
+		width:420px;
 		position:relative;
 	}
 	#room_introbox .room_detailbox p.room_type{
@@ -28,7 +29,8 @@
 	}
 	#room_introbox .room_detailbox p.room_name{
 		color:rgb(151,127,81);
-		font-size:24px;
+		font-size:48px;
+		font-family: 'Italianno', cursive;
 		margin:0 10px 10px 10px;
 	}
 	#room_introbox .room_detailbox p.room_detail{
@@ -41,7 +43,7 @@
 		text-decoration: none;
 		display:inline-block;
 		color:white;
-		padding:20px;
+		padding:15px;
 		font-size:16px;
 		font-weight:bold;
 		background:rgb(151,127,81);
