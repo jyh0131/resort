@@ -8,28 +8,35 @@
 	#wrapper_main {
 		width:100%;
 		z-index:1;
-	}	
-	#room_introbox {
-		border:1px solid black;	
 	}
 	#room_introbox .room_detailbox {
-		background:url("");  /* 방 이미지의 주소 */
-		margin-left:200px;
-		margin-top:100px;
-		height:400px;
+		background:no-repeat cover center;
+		padding-left:200px;
+		padding-top:100px;
+		height:600px;
+	}
+	#room_introbox .room_detailbox .text_box{
+		background:rgba(255,255,255,0.8);
+		padding:30px;
+		width:400px;
+		position:relative;
 	}
 	#room_introbox .room_detailbox p.room_type{
+		margin:10px;
 		font-size:14px;
 	}
 	#room_introbox .room_detailbox p.room_name{
 		color:rgb(151,127,81);
 		font-size:24px;
+		margin:0 10px 10px 10px;
 	}
 	#room_introbox .room_detailbox p.room_detail{
 		font-size:13px;
 		color:#777777;
+		margin:0 10px 10px 10px;
 	}
 	#room_introbox .room_detailbox a{
+		text-align:right;
 		text-decoration: none;
 		display:inline-block;
 		color:white;
@@ -37,9 +44,17 @@
 		font-size:16px;
 		font-weight:bold;
 		background:rgb(151,127,81);
+		margin:0 10px 10px 10px;
 	}
 	#room_introbox .room_detailbox .idx_cnt{
-		
+		position:absolute;
+		right:45px;
+		bottom:10px;
+	}
+	#room_introbox .room_detailbox .btn_clickbox {
+		position:absolute;
+		right:10px;
+		bottom:30px;
 	}
 	#room_introbox .room_detailbox .idx_cnt .totalCnt{
 		color:rgb(151,127,81);
@@ -65,6 +80,15 @@
 		});
 		
 		$(document).ready(function() {
+			// 방 이미지 삽입
+			$("#boxNum1").css("background", "url('${pageContext.request.contextPath}/images/resort_family_img.jpg')");			
+			$("#boxNum2").css("background", "url('${pageContext.request.contextPath}/images/resort_suite_img.jpg')");			
+			$("#boxNum3").css("background", "url('${pageContext.request.contextPath}/images/hotel_superior_img.jpg')");			
+			$("#boxNum4").css("background", "url('${pageContext.request.contextPath}/images/hotel_deluxe_ocean_suite_img.jpg')");			
+			$("#boxNum5").css("background", "url('${pageContext.request.contextPath}/images/hotel_executive_suite_img.jpg')");
+			$("#boxNum6").css("background", "url('${pageContext.request.contextPath}/images/hotel_ocean_suite_img.jpg')");
+			$("#boxNum7").css("background", "url('${pageContext.request.contextPath}/images/hotel_presidential_suite_img.jpg')");
+			
 			// 첫화면에 보여질 방 정보
 			$("#boxNum1").removeClass("hidebox");
 			
@@ -78,17 +102,17 @@
 			
 			// 표시된 방 정보에서 왼쪽 버튼을 눌렀을 때 
 			$(".room_leftbtn").click(function() {
-				var index = $(this).parent().find(".nowCnt").text();
+				var index = $(this).parent().parent().find(".nowCnt").text();
 				index = Number(index);
-				var total = $(this).parent().find(".totalCnt").text();
+				var total = $(this).parent().parent().find(".totalCnt").text();
 				total = Number(total);
 				
 				$(".room_detailbox").addClass("hidebox");
 				
 				if(index == 1) {
-					$(this).parent().parent().find("#boxNum"+total).removeClass("hidebox");
+					$(this).parents().find("#boxNum"+total).removeClass("hidebox");
 				} else {
-					$(this).parent().parent().find("#boxNum"+(index-1)).removeClass("hidebox");
+					$(this).parents().find("#boxNum"+(index-1)).removeClass("hidebox");
 				}
 			});
 			
@@ -102,17 +126,17 @@
 			
 			// 표시된 방 정보에서 오른쪽 버튼을 눌렀을 때 
 			$(".room_rightbtn").click(function() {
-				var index = $(this).parent().find(".nowCnt").text();
+				var index = $(this).parent().parent().find(".nowCnt").text();
 				index = Number(index);
-				var total = $(this).parent().find(".totalCnt").text();
+				var total = $(this).parent().parent().find(".totalCnt").text();
 				total = Number(total);
 				
 				$(".room_detailbox").addClass("hidebox");
 				
 				if(index == total) {
-					$(this).parent().parent().find("#boxNum1").removeClass("hidebox");				
+					$(this).parents().find("#boxNum1").removeClass("hidebox");				
 				} else {
-					$(this).parent().parent().find("#boxNum"+(index+1)).removeClass("hidebox");
+					$(this).parents().find("#boxNum"+(index+1)).removeClass("hidebox");
 				}
 			});
 		});	
@@ -134,19 +158,24 @@
 	<div id="room_introbox">
 		<c:forEach var="rn" items="${list}">
 		<fmt:formatNumber var="roomidx" value="${rn.ranking}" pattern="##"></fmt:formatNumber>
-			<div class="room_detailbox hidebox" id="boxNum${roomidx}">
-				<c:if test="${rn.roomType.rtNo == 1}">
-					<p class="room_type">Resort</p>
-				</c:if>
-				<c:if test="${rn.roomType.rtNo == 2}">
-					<p class="room_type">Hotel</p>
-				</c:if>
-				<p class="room_name">${rn.rnEngName}</p>
-				<p class="room_detail">${rn.rnDetail}</p>
-				<a href="${pageContext.request.contextPath}/room/M/rnNo=${rn.rnNo}">Read More</a>
-				<p class="idx_cnt"><span class="nowCnt">${roomidx}</span>/<span class="totalCnt">${list.size()}</span></p>
-				<img src="${pageContext.request.contextPath}/images/room_leftbtn.png" class="room_leftbtn">
-				<img src="${pageContext.request.contextPath}/images/room_rightbtn.png" class="room_rightbtn">
+			<div class="room_detailbox hidebox" id="boxNum${rn.rnNo}">
+				<div class="text_box">
+					<c:if test="${rn.roomType.rtNo == 1}">
+						<p class="room_type">Resort</p>
+					</c:if>
+					<c:if test="${rn.roomType.rtNo == 2}">
+						<p class="room_type">Hotel</p>
+					</c:if>
+					<p class="room_name">${rn.rnEngName}</p>
+					<p class="room_detail">${rn.rnDetail}</p>
+					<a href="${pageContext.request.contextPath}/room/M/list.do?rnNo=${rn.rnNo}">Read More</a>
+					<p class="idx_cnt"><span class="nowCnt">${rn.rnNo}</span>/<span class="totalCnt">${list.size()}</span></p>
+					
+					<div class="btn_clickbox">
+						<img src="${pageContext.request.contextPath}/images/room_leftbtn.png" class="room_leftbtn">
+						<img src="${pageContext.request.contextPath}/images/room_rightbtn.png" class="room_rightbtn">
+					</div>
+				</div>
 			</div>
 		</c:forEach>
 	</div>

@@ -15,12 +15,13 @@ import com.khrd.dto.Reservation;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
-public class FindReservationHandlerA implements CommandHandler {
+public class FindReservationHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		int type = Integer.parseInt(request.getParameter("find"));
+		System.out.println(type);
 		String text = request.getParameter("findtext");
 		
 		HttpSession session = request.getSession();
@@ -64,13 +65,13 @@ public class FindReservationHandlerA implements CommandHandler {
 				Date start_date = sdf.parse(sStart_date);
 				Date end_date = sdf.parse(sEnd_date);
 				
-				ArrayList<Reservation> list = dao.selectByDateAdmin(conn, start_date, end_date);
+				ArrayList<Reservation> list = dao.selectByDate(conn, Auth, start_date, end_date);
 				System.out.println("type : " + type);
 				System.out.println("list : " + list);
 				System.out.println("size : " + list.size());
 				request.setAttribute("list", list);
 			}
-			
+						
 			int result = dao.isAdmin(conn, Auth);
 			
 			conn.commit();

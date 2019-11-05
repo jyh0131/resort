@@ -15,7 +15,7 @@ table{
 	margin-top:100px;
 }
 
-#id,#out,#password,#admin{
+#id,#out,#password,#admin,#date{
 	text-align: center;
 }
 p{
@@ -56,7 +56,7 @@ p{
 		<td>${member.mName }</td>
 		<td>${member.mPhone }</td>
 		<td>${member.mEmail }</td>
-		<td>${member.mRegdate }</td>
+		<td id = "date"><fmt:formatDate value="${member.mRegdate}" pattern="yyyy-MM-dd"/></td>
 		<td id = "out">${member.mOut }</td>
 		<td id = "admin">${member.mAdmin }</td>
 	</tr>

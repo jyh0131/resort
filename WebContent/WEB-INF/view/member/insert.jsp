@@ -117,14 +117,15 @@ input {
 
 				<tr>
 					<td class="left"><label>이메일 </label></td>
-					<td class="right"><input type="text" name="email">&nbsp;&nbsp;<span
-						class="input">이메일을 입력하세요.</span></td>
+					<td class="right"><input type="text" name="email">&nbsp;&nbsp;<span	class="input">이메일을 입력하세요.</span></td>
 				</tr>
 
 				<tr>
 					<td class="left"><label>생년월일</label></td>
+					
 					<td class="right"><input type="date" name="date">&nbsp;&nbsp;<span
 						class="input">생년월일을 입력하세요.</span></td>
+
 				</tr>
 
 			</table>
