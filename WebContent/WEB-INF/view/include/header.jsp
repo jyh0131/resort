@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>SONO : Hotel & Resorts</title>
+<title>SONO : Hotel &amp; Resorts</title>
 <style>
 	*{
 		margin: 0px;
@@ -119,6 +119,7 @@
 		cursor: pointer;
 	}
 	#bottom_main>li>a{
+		display: inline-block;
 		width: 100%;
 		height: 100%;
 		font-weight: bold;
@@ -140,6 +141,11 @@
 		clear: both;
 		text-align: center;
 		line-height: 40px;
+	}
+	.bottom_sub>li>a{
+		display: inline-block;
+		width: 100%;
+		height: 100%;
 	}
 	
 	ul#bottom_right{
@@ -313,7 +319,7 @@
 				</li>
 				<li><a href="#">고객센터</a>
 					<ul id="service_menu" class="bottom_sub">
-						<li><a href="#">공지사항</a></li>
+						<li><a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a></li>
 						<li><a href="#">FAQ</a></li>
 						<li><a href="${pageContext.request.contextPath}/question/list.do">Q&amp;A</a></li>
 						<li><a href="#">고객의 말씀</a></li>
