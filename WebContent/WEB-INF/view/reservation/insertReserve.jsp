@@ -71,8 +71,13 @@
 }
 #roombox {
 	width:300px;
-	height:300px;
+	height:500px;
 	float:left;
+}
+#roombox #selectroombox {
+	width:300px;
+	height:500px;
+	overflow:auto;
 }
 #roombox .roomlist {
 	border:1px solid black;
@@ -145,7 +150,9 @@ footer {
 		</div>
 	</div>
 	<div id="roombox">
-		<p style="font-weight:bold; text-align:center;">객실 선택</p>
+		<p style="font-weight:bold; text-align:center; margin-bottom:5px">객실 선택</p>
+		
+		<div id="selectroombox"></div>
 	</div>
 	<div id="info">
 		<p style="font-weight:bold; text-align:center; margin-bottom:5px; width:400px;">예약 정보</p>
@@ -347,9 +354,9 @@ footer {
 			
 			$("#useDate").text(y+"-"+m+"-"+d+" ~ "+y1+"-"+m1+"-"+d1);
 			
-			$("#roombox").empty();
-			var $room_title = $("<p>").css("font-weight","bold").css("text-align","center").css("margin-bottom","5px").text("객실 선택");
-			$("#roombox").append($room_title);
+			$("#roombox #selectroombox").empty();
+			// var $room_title = $("<p>").css("font-weight","bold").css("text-align","center").css("margin-bottom","5px").text("객실 선택");
+			// $("#roombox #selectroombox").append($room_title);
 			
 			// 객실 유무 확인
 			$.ajax({
@@ -377,7 +384,7 @@ footer {
 						var $price = $("<p>").text(obj.room.roomName.rnPrice).addClass("roomprice");
 						var $span = $("<span>").text(room_type + " " + room_name);
 						var $room = $("<div>").append($span).append($p).append($price).append($rt_no).append($rn_no).addClass("roomlist");				
-						$("#roombox").append($room);
+						$("#roombox #selectroombox").append($room);
 	
 					});
 				}

@@ -1,128 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp"%>
+    pageEncoding="UTF-8"%>
+<%@ include file="../include/header.jsp" %>
 <style>
-#rsv_wrapper {
-	width: 430px;
-	margin: 0 auto;
-}
-
-#rsv_wrapper #no_reserve{
-	margin:200px 0px;
-	text-align:center;
-}
-
-#rsv_wrapper table {
-	width: 430px;
-	background: #FAECC5;
-	border: 1px solid black;
-	margin: 0 auto;
-}
-
-#rsv_wrapper td {
-	padding: 5px;
-}
-
-#rsv_wrapper td.paydate {
-	font-size: 14px;
-	color: gray;
-	text-align: right;
-}
-
-#rsv_wrapper #btnbox {
-	text-align: center;
-}
-
-#rsv_wrapper button {
-	border: 1px solid black;
-	background: #BABABA;
-	margin: 10px 10px 10px 0;
-	font-size: 16px;
-	padding: 3px;
-	color: white;
-	cursor: pointer;
-}
+	#rsv_wrapper {
+		width:1200px;
+		height:600px;
+	}
+	#rsv_wrapper #scroll_box{
+		width:100%;
+		overflow:auto;
+	}
+	#rsv_wrapper table {
+		border-collapse:collapse;
+		background:#FAECC5;
+		margin:0 auto;
+		margin-top:50px;
+	}
+	#rsv_wrapper td, th {
+		padding:7px;
+		text-align:center;		
+		border:1px solid black;
+	}
+	#rsv_wrapper td.paydate{
+		font-size:14px;
+		color:gray;
+		text-align: right;
+	}
+	#rsv_wrapper #btnbox {
+		text-align:center;
+	}
+	#rsv_wrapper a{
+		border:1px solid black;
+		background:#BABABA;
+		font-size:16px;
+		padding:3px;
+		color:white;
+		text-decoration: none;
+	}
+	#findbox {
+		margin-top:10px;
+		text-align: center;
+	}
 </style>
-<div id="rsv_container">
-	<c:if test="${list.size() == 0}">
-		<div id="rsv_wrapper">
-			<div id="no_reserve">예약된 내용이 없습니다.</div>
+	<div id="rsv_wrapper">
+		<div id="scroll_box">
+		<table>
+			<tr>
+				<th>예약번호</th>
+				<th>결제일</th>
+				<th>예약일</th>
+				<th>예약자</th>
+				<th>이용객실</th>
+				<th>예약인원</th>				
+				<th>취소여부</th>
+				<th></th>
+			</tr> 
+			<c:forEach var="list" items="${list}">
+				<tr>
+					<td>${list.rsvNo}</td>
+					<fmt:formatDate var="paymentDate" value="${list.rsvPaymentDate}" pattern="yyyy-MM-dd"/>
+					<td>${paymentDate}</td>
+					<fmt:formatDate var="startDate" value="${list.rsvStartDate}" pattern="yyyy-MM-dd"/>
+					<fmt:formatDate var="endDate" value="${list.rsvEndDate}" pattern="yyyy-MM-dd"/>
+					<td>${startDate} ~ ${endDate}</td>					
+					<td>${list.rsvName}</td>
+					<td>${list.room.roomName.roomType.rtName} ${list.room.roomName.rnName} ${list.room.rRoom}호</td>
+					<td>${list.rsvCount}명</td>
+					<td>
+						<c:if test="${list.rsvCancel == 0}">
+							No
+						</c:if>
+						<c:if test="${list.rsvCancel == 1}">
+							Yes
+						</c:if>
+					</td>	
+					<td><a href="${pageContext.request.contextPath}/reservation/detail.do?rsv_no=${list.rsvNo}">보기</a></td>
+				</tr>
+			</c:forEach>
+		</table>
+		<div id="findbox">
+			<form action="${pageContext.request.contextPath}/reservation/find.do">
+				<select name="find">
+					<option value="1">예약번호</option>	
+					<option value="2">예약자</option>
+					<option value="3">예약 아이디</option>
+				</select>
+				<input type="text" name="findtext">
+				<input type="submit" value="검색">
+			</form>
 		</div>
-	</c:if>
-	<c:forEach var="rsv" items="${list}">
-		<div id="rsv_wrapper">
-			<table>
-				<tr>
-					<fmt:formatDate var="paymentDate" value="${rsv.rsvPaymentDate}"
-						pattern="yyyy-MM-dd" />
-					<td class="paydate" colspan="2">결제일 ${paymentDate}</td>
-					<!-- 결제일 -->
-				</tr>
-				<tr>
-					<td>예약번호</td>
-					<td>${rsv.rsvNo}</td>
-				</tr>
-				<tr>
-					<td>예약자</td>
-					<td>${rsv.rsvName}</td>
-				</tr>
-				<tr>
-					<td>전화번호</td>
-					<td>${rsv.rsvPhone}</td>
-				</tr>
-				<tr>
-					<td>이용 객실</td>
-					<td>${rsv.room.roomName.roomType.rtName}
-						${rsv.room.roomName.rnName} ${rsv.room.rRoom}호</td>
-				</tr>
-				<tr>
-					<td>예약일</td>
-					<fmt:formatDate var="startDate" value="${rsv.rsvStartDate}"
-						pattern="yyyy-MM-dd" />
-					<fmt:formatDate var="endDate" value="${rsv.rsvEndDate}"
-						pattern="yyyy-MM-dd" />
-					<td>${startDate}~ ${endDate}</td>
-				</tr>
-				<tr>
-					<td>예약인원</td>
-					<td>${rsv.rsvCount}명</td>
-				</tr>
-				<tr>
-					<td>가격</td>
-					<fmt:formatNumber var="price" value="${rsv.rsvPrice}"
-						pattern="#,###" />
-					<td>${price}원</td>
-				</tr>
-				<tr>
-					<td>취소여부</td>
-					<td><c:if test="${rsv.rsvCancel == 0}">
-								No
-							</c:if> <c:if test="${rsv.rsvCancel == 1}">
-								Yes
-							</c:if></td>
-				</tr>
-			</table>
-			<div id="btnbox">
-				<c:if test="${rsv.rsvCancel == 0}">
-					<button id="deletebtn" data-delete="${rsv.rsvNo}">예약 취소</button>
-				</c:if>
-				<c:if test="${rsv.rsvCancel == 1}">
-					<button id="updatebtn" disabled="disabled"
-						style="color: red; background: white; border: none;">취소된
-						예약은 수정이 불가능합니다.</button>
-				</c:if>
-			</div>
+		<a href="${pageContext.request.contextPath}/reservation/list.do" style="margin-left:50px;">모든 예약 보기</a>
 		</div>
-	</c:forEach>
-</div>
+	</div>
 <script>
-	$("#btnbox #deletebtn").click(function() {
-		if (confirm("정말 취소하시겠습니까?") == true) {
-			var no = $(this).attr("data-delete");
-			location.href = "${pageContext.request.contextPath}/reservation/cancel.do?no="+no;
-		} else {
+	$("form").submit(function() {
+		var text = $("#findbox input[name='findtext']").val();
+		if(text == "") {
+			alert("검색할 단어를 입력해주세요.");
 			return false;
+		}		
+		
+		var select = $("select[name='find']").val();
+		if(select == 1) {
+			var textreg = /^[0-9]$/;
+			if(textreg.test(text) == false) {
+				alert("예약번호는 숫자만 입력해주세요.");
+				return false;
+			}
 		}
 	});
 </script>
-<%@ include file="../include/footer.jsp"%>
+<%@ include file="../include/footer.jsp" %>

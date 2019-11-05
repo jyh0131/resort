@@ -78,8 +78,8 @@
 			<form action="${pageContext.request.contextPath}/reservation/findA.do">
 				<select name="find">
 					<option value="1">예약번호</option>	
-					<option value="2">예약자 이름</option>
-					<option value="3">아이디</option>
+					<option value="2">예약자</option>
+					<option value="3">예약 아이디</option>
 				</select>
 				<input type="text" name="findtext">
 				<input type="submit" value="검색">
