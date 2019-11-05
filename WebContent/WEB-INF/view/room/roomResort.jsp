@@ -41,7 +41,7 @@
 	}
 	#rR_mainBody{/* 객실의 메인 화면  */
 		float:left;
-		width:1024px;
+		/* width:1024px; */
 		margin: 0 auto;
 		text-align: center;
 	}
@@ -75,28 +75,42 @@
 		width:1024px;
 		margin: 0 auto;
 		overflow: hidden;
+		position: relative;
 	}
+	/* #mi_body{
+		
+	} */
 	#mb_mainImage > ul{/* main화면에 있는 이미지 리스트(ul) */
-		width: 100%;
 		height: 550px;
-		margin: 0 auto;
+	}
+	#mb_mainImage > ul > li{
+		float: left;
 	}
 	#mb_mainImage > ul > li > img{/* main화면에 있는 객실의 이미지 */
 		widht:1100px;
 		height: 550px;
 	}
-	/* .left{
+	#mb_mainImage > p > span.prve{
 		display: inline-block;
    		width: 50px;
     	height: 50px;
-    	background: rgba(0, 0, 0, 0.5) url(${pageContext.request.contextPath }/images/room_left_btn.png) no-repeat;		
+    	position: absolute;
+    	right: 63;
+    	bottom:10;
+    	background: rgba(102, 51, 0, 0.5) url("${pageContext.request.contextPath}/images/roomImg/room_left_btn.png") no-repeat;
 	}
-	.right{
+	#mb_mainImage > p > span.next{
 		display: inline-block;
    		width: 50px;
     	height: 50px;
-    	background: rgba(0, 0, 0, 0.5) url(${pageContext.request.contextPath }/images/room_right_btn.png) no-repeat 0 0;		
-	} */
+    	position: absolute;
+    	right: 10;
+    	bottom:10;
+    	background: rgba(102, 51, 0, 0.5) url("${pageContext.request.contextPath}/images/roomImg/room_right_btn.png") no-repeat;
+	}
+	span.next:hover,span.prve:hover{
+		cursor: Pointer;
+	}
 	
 	/* 모든 객실 리스트의 테이블 */
 	h3{
@@ -144,8 +158,21 @@
 <script>
 	$(function(){
 		$("#reMainMenu > li > a").click(function(){
-			$(".reSubMenu").css("display","none");
 			$(this).next().css("display","block");
+			
+		})
+		/* $(".reSubMenu > li").click(function(){
+			$(this).parent().parent().css("display","block");
+		}) */
+		
+		var fileArr = "${imgFile}";
+		var ulWidth = fileArr.length;
+		
+		$("#mb_mainImage > ul").css("width", ulWidth*1100 + "px");
+		
+		$(".prve").click(function(){
+			var index = 1;
+			
 		})
 	})
 </script>
@@ -189,16 +216,24 @@
 					${rnList[selectRnNo-1].rnDetail }
 				</p><!-- 객실에 대한 설명 글 -->
 			</div><!-- 메인 타이틀(객실 이름) -->
-			<div id = "mb_mainImage">
+			<div id = "mb_mainImage"><!-- 
+				<div id = "mi_body"></div> -->	
 				<ul>
-					<c:forEach var = "ri" items = "${riList }">
-						<c:if test = "${rnList[selectRnNo-1].rnNo == ri.roomName.rnNo}">
+					<c:forEach var = "ri" items = "${imgFile }">
+						<%-- <c:if test = "${rnList[selectRnNo-1].rnNo == ri.roomName.rnNo}"> --%>
 							<li>
-								<img src = "${pageContext.request.contextPath }/images/roomImg/${ri.riFile}">
+								<img src = "${pageContext.request.contextPath }/upload/roomImg/${ri}" class = "imgList">
 							</li>
-						</c:if>
+						<%-- </c:if> --%>
 					</c:forEach>
 				</ul>
+				<p>
+					<span class = "prve"></span>						
+				</p>
+				<p>
+					<span class = "next"></span>
+				</p>
+				
 				<!-- <div id = "mainImg_btn">
 					<span class = "left"></span>
 					<span class = "rigth"></span> 
@@ -312,14 +347,14 @@
 									${re.reOther }
 								</td>
 							</tr>
-<%-- 						<c:if test = "${rtList[2].rtNo == reList.roomName.roomType.rtNo}">
+						<c:if test = "${re.reAmenity != null}">
 								<tr>
 									<th>어메니티</th>
 									<td>
-										${reList.reAmenity }
+										${re.reAmenity }
 									</td>
 							</tr>
-						</c:if>  --%>
+						</c:if>	
 					</c:if>	
 				</c:forEach>
 				</table>

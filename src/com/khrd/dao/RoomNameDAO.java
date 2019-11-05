@@ -191,4 +191,54 @@ public class RoomNameDAO {
 		return null;
 	}
 	
+	public int selectCountRoomName(Connection conn) {//페이지 개수를 구하기 위한 전체 게시글 개수를 구하기 위한 메서드
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select count(*) from room_name";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();		
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}
+	
+	public List<RoomName> selectRoomName(Connection conn,int startRow, int size){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from room_name left join room_type using(rt_no) order by rn_no desc limit ?,?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, size);
+			rs = pstmt.executeQuery();
+			List<RoomName> result = new ArrayList<>();
+			while(rs.next()) {
+				RoomName rn = new RoomName(rs.getInt("rn_no"),
+						rs.getString("rn_name"),
+						new RoomType(rs.getInt("rt_no"), rs.getString("rt_name")),
+						rs.getString("rn_detail"),
+						rs.getInt("rn_price"),
+						rs.getString("rn_eng_name"));
+				
+				result.add(rn);
+			}
+			return result;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}
+	
 }

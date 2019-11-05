@@ -48,6 +48,8 @@ public class RoomListHandler implements CommandHandler {
 			List<RoomImg> riList = riDao.selectRoomImgList(conn);
 			request.setAttribute("riList", riList);
 			
+			
+			
 			//객실 이름에 따른 방 번호
 			RoomDAO rDao = RoomDAO.getInstance();
 			List<Room> rList = rDao.selectRoomList(conn);
@@ -63,8 +65,6 @@ public class RoomListHandler implements CommandHandler {
 			List<RoomSeason> rsList = rsDao.selectRoomSeasonList(conn);
 			request.setAttribute("rsList", rsList);
 			
-			System.out.println("rsList = " + rsList);
-			
 			//비품구성 리스트
 			RoomEquipmentDAO reDao = RoomEquipmentDAO.getInstance();
 			List<RoomEquipment> reList = reDao.selectRoomEquipmentList(conn);
@@ -74,8 +74,11 @@ public class RoomListHandler implements CommandHandler {
 			if(sNo == null) {
 				sNo = "1";
 			}
-			
 			request.setAttribute("selectRnNo", sNo);
+			
+			int rnNo = Integer.parseInt(sNo);
+			List<String> imgFile = riDao.selectRoomImgByRnNo(conn, rnNo);
+			request.setAttribute("imgFile", imgFile);
 
 			return "/WEB-INF/view/room/roomResort.jsp";
 		}catch(Exception e) {

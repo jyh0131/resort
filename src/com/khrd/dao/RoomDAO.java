@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.khrd.dto.Room;
 import com.khrd.dto.RoomName;
@@ -107,6 +108,23 @@ public class RoomDAO {
 		return -1;
 	}
 	
+	public int deleteRoomByRnNo(Connection conn, int rnNo) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "delete from room where rn_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rnNo);
+			return pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+		}
+		
+		return -1;
+	}
+	
 	public int updateRoom(Connection conn, Room r) {
 		PreparedStatement pstmt = null;
 		
@@ -125,5 +143,53 @@ public class RoomDAO {
 		
 		
 		return -1;
+	}
+	
+	public int selectCountRoom(Connection conn) {//페이지 개수를 구하기 위한 전체 게시글 개수를 구하기 위한 메서드
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select count(*) from room";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();		
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}
+	
+	public List<Room> selectRoom(Connection conn,int startRow, int size){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from room left join room_name using(rn_no) order by r_no desc limit ?,?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, size);
+			rs = pstmt.executeQuery();
+			List<Room> result = new ArrayList<>();
+			while(rs.next()) {
+				Room r = new Room(rs.getInt("r_no"),
+						rs.getInt("r_room"),
+						new RoomName(rs.getInt("rn_no"), rs.getString("rn_name"),
+								rs.getString("rn_eng_name")));
+				
+				result.add(r);
+			}
+			return result;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
 	}
 }

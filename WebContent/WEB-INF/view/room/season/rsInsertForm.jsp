@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href = "${pageContext.request.contextPath }/css/roomAll.css" type ="text/css" rel = "stylesheet">  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<%@ include file="../../include/headerA.jsp" %>
+<link href = "${pageContext.request.contextPath }/css/roomAll.css" type ="text/css" rel = "stylesheet"> 
 <script src = "${pageContext.request.contextPath }/js/room.js"></script>
 <script>
 	$(function(){
@@ -40,8 +34,6 @@
 		$("select[name='roomType']").change();
 	})
 </script>
-</head>
-<body>
 	<form action = "insert.do" method = "post" id = "rsInsertForm">
 		<fieldset>
 			<legend>객실 가격 정보 등록</legend>
@@ -78,5 +70,4 @@
 		
 		
 	</form>
-</body>
-</html>
+	<%@ include file="../../include/footer.jsp" %>
