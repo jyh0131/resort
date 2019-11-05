@@ -18,9 +18,11 @@
 	}
 	#rsv_wrapper table {
 		border-collapse:collapse;
-		background:#FAECC5;
 		margin:0 auto;
 	}
+	#rsv_wrapper table tr:first-child th{
+		background:#FAECC5;
+	}	
 	#rsv_wrapper td, th {
 		padding:7px;
 		text-align:center;		
@@ -35,11 +37,10 @@
 		text-align:center;
 	}
 	#rsv_wrapper a{
-		border:1px solid black;
-		background:#BABABA;
+		background:#FAECC5;
 		font-size:16px;
-		padding:3px;
-		color:white;
+		padding:4px;
+		color:black;
 		text-decoration: none;
 	}
 	#findbox {

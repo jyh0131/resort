@@ -7,12 +7,15 @@
 		margin:0 auto;
 	}
 	#rsv_wrapper table {
-		background:#FAECC5;
+		border-collapse: collapse;
 		border:1px solid black;
-		margin:0 auto;
+		margin:0 auto;		
 	}
 	#rsv_wrapper td {
 		padding:5px;
+	}
+	#rsv_wrapper tr td:first-child{
+		background:#FAECC5;
 	}
 	#rsv_wrapper .length{
 		width:60px;
@@ -26,12 +29,12 @@
 		text-align:center;
 	}
 	#rsv_wrapper #btnbox button, #rsv_wrapper #btnbox input{
-		border:1px solid black;
-		background:#BABABA;
+		border:none;
+		background:#FAECC5;
 		margin:10px 10px 10px 0;
 		font-size:16px;
-		padding:3px;
-		color:white;
+		padding:4px;
+		color:black;
 		cursor:pointer;
 	}
 </style>
@@ -40,7 +43,8 @@
 			<table>
 				<tr>
 				<fmt:formatDate var="paymentDate" value="${rsv.rsvPaymentDate}" pattern="yyyy-MM-dd"/>
-					<td class="paydate">결제일 ${paymentDate}</td> <!-- 결제일 -->
+					<td class="paydate">결제일 ${paymentDate}</td>
+					<td></td>
 				</tr>
 				<tr>
 					<td>예약번호</td>

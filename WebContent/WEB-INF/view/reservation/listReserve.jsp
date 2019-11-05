@@ -18,11 +18,14 @@
 	}
 	#rsv_wrapper table {
 		border-collapse:collapse;
-		background:#FAECC5;
 		margin:0 auto;
 		margin-top:50px;
 	}
-	#rsv_wrapper td, th {
+	#rsv_wrapper tr:first-child th {
+		background:#FFD9EC;
+		font-weight:normal;
+	}
+	#rsv_wrapper td, #rsv_wrapper th {
 		padding:7px;
 		text-align:center;		
 		border:1px solid black;
@@ -36,11 +39,10 @@
 		text-align:center;
 	}
 	#rsv_wrapper a{
-		border:1px solid black;
-		background:#BABABA;
+		background:#FFD9EC;
 		font-size:16px;
-		padding:3px;
-		color:white;
+		padding:4px;
+		color:black;
 		text-decoration: none;
 	}
 	#findbox {
@@ -97,7 +99,6 @@
 				<select name="find">
 					<option value="1">예약번호</option>	
 					<option value="2">이름</option>
-					<option value="3">아이디</option>
 					<option value="4">예약날짜</option>
 				</select>
 				<input type="text" name="findtext">
@@ -108,7 +109,7 @@
 				<input type="submit" value="검색">
 			</form>
 		</div>
-		<a href="${pageContext.request.contextPath}/reservation/list.do" style="margin-left:50px;">모든 예약 보기</a>
+		<a href="${pageContext.request.contextPath}/reservation/list.do" style="margin-left:100px;">모든 예약 보기</a>
 		</div>
 	</div>
 <script>

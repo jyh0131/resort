@@ -50,12 +50,6 @@ public class FindReservationHandler implements CommandHandler {
 				System.out.println("list : " + list);
 				System.out.println("size : " + list.size());
 				request.setAttribute("list", list);
-			} else if(type == 3) {
-				ArrayList<Reservation> list = dao.selectReserveById(conn, text);
-				System.out.println("type : " + type);
-				System.out.println("list : " + list);
-				System.out.println("size : " + list.size());
-				request.setAttribute("list", list);
 			} else if(type == 4) {
 				String sStart_date = request.getParameter("start_date");
 				String sEnd_date = request.getParameter("end_date");

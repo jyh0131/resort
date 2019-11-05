@@ -10,7 +10,8 @@
 		z-index:1;
 	}
 	#room_introbox .room_detailbox {
-		background:no-repeat cover center;
+		background:no-repeat center;
+		background-size:cover;
 		padding-left:200px;
 		padding-top:100px;
 		height:600px;
@@ -81,13 +82,13 @@
 		
 		$(document).ready(function() {
 			// 방 이미지 삽입
-			$("#boxNum1").css("background", "url('${pageContext.request.contextPath}/images/resort_family_img.jpg')");			
-			$("#boxNum2").css("background", "url('${pageContext.request.contextPath}/images/resort_suite_img.jpg')");			
-			$("#boxNum3").css("background", "url('${pageContext.request.contextPath}/images/hotel_superior_img.jpg')");			
-			$("#boxNum4").css("background", "url('${pageContext.request.contextPath}/images/hotel_deluxe_ocean_suite_img.jpg')");			
-			$("#boxNum5").css("background", "url('${pageContext.request.contextPath}/images/hotel_executive_suite_img.jpg')");
-			$("#boxNum6").css("background", "url('${pageContext.request.contextPath}/images/hotel_ocean_suite_img.jpg')");
-			$("#boxNum7").css("background", "url('${pageContext.request.contextPath}/images/hotel_presidential_suite_img.jpg')");
+			$("#boxNum1").css("background-image", "url('${pageContext.request.contextPath}/images/resort_family_img.jpg')");			
+			$("#boxNum2").css("background-image", "url('${pageContext.request.contextPath}/images/resort_suite_img.jpg')");			
+			$("#boxNum3").css("background-image", "url('${pageContext.request.contextPath}/images/hotel_superior_img.jpg')");			
+			$("#boxNum4").css("background-image", "url('${pageContext.request.contextPath}/images/hotel_deluxe_ocean_suite_img.jpg')");			
+			$("#boxNum5").css("background-image", "url('${pageContext.request.contextPath}/images/hotel_executive_suite_img.jpg')");
+			$("#boxNum6").css("background-image", "url('${pageContext.request.contextPath}/images/hotel_ocean_suite_img.jpg')");
+			$("#boxNum7").css("background-image", "url('${pageContext.request.contextPath}/images/hotel_presidential_suite_img.jpg')");
 			
 			// 첫화면에 보여질 방 정보
 			$("#boxNum1").removeClass("hidebox");
@@ -139,6 +140,7 @@
 					$(this).parents().find("#boxNum"+(index+1)).removeClass("hidebox");
 				}
 			});
+			
 		});	
 		
 	});
@@ -169,7 +171,7 @@
 					<p class="room_name">${rn.rnEngName}</p>
 					<p class="room_detail">${rn.rnDetail}</p>
 					<a href="${pageContext.request.contextPath}/room/M/list.do?rnNo=${rn.rnNo}">Read More</a>
-					<p class="idx_cnt"><span class="nowCnt">${rn.rnNo}</span>/<span class="totalCnt">${list.size()}</span></p>
+					<p class="idx_cnt"><span class="nowCnt">${rn.rnNo}</span>/<span class="totalCnt">7</span></p>
 					
 					<div class="btn_clickbox">
 						<img src="${pageContext.request.contextPath}/images/room_leftbtn.png" class="room_leftbtn">

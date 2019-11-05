@@ -36,7 +36,7 @@
 }
 
 #calendar table th:last-child, #calendar table td:last-child {
-	color: #6EE3F7;
+	color: #6B66FF;
 }
 
 #calendar table td.pastdate{
