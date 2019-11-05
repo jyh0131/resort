@@ -1,7 +1,9 @@
 package com.khrd.handler.reservation;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +21,11 @@ public class FindReservationHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		int type = Integer.parseInt(request.getParameter("find"));
+		System.out.println(type);
 		String text = request.getParameter("findtext");
+		
+		HttpSession session = request.getSession();
+		String Auth = (String)session.getAttribute("Auth");
 		
 		Connection conn = null;
 		
@@ -34,21 +40,38 @@ public class FindReservationHandler implements CommandHandler {
 				ArrayList<Reservation> list = new ArrayList<>();
 				Reservation rsv = dao.selectReserveByNo(conn, no);
 				list.add(rsv);
-				System.out.println(list);
+				System.out.println("type : " + type);
+				System.out.println("list : " + list);
+				System.out.println("size : " + list.size());
 				request.setAttribute("list", list);
 			} else if(type == 2) {
 				ArrayList<Reservation> list = dao.selectReserveByName(conn, text);
-				System.out.println(list);
+				System.out.println("type : " + type);
+				System.out.println("list : " + list);
+				System.out.println("size : " + list.size());
 				request.setAttribute("list", list);
 			} else if(type == 3) {
 				ArrayList<Reservation> list = dao.selectReserveById(conn, text);
-				System.out.println(list);
+				System.out.println("type : " + type);
+				System.out.println("list : " + list);
+				System.out.println("size : " + list.size());
+				request.setAttribute("list", list);
+			} else if(type == 4) {
+				String sStart_date = request.getParameter("start_date");
+				String sEnd_date = request.getParameter("end_date");
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Date start_date = sdf.parse(sStart_date);
+				Date end_date = sdf.parse(sEnd_date);
+				
+				ArrayList<Reservation> list = dao.selectByDate(conn, Auth, start_date, end_date);
+				System.out.println("type : " + type);
+				System.out.println("list : " + list);
+				System.out.println("size : " + list.size());
 				request.setAttribute("list", list);
 			}
-			
-			HttpSession session = request.getSession();
-			String Auth = (String)session.getAttribute("Auth");
-			
+						
 			int result = dao.isAdmin(conn, Auth);
 			
 			conn.commit();

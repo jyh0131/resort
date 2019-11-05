@@ -43,14 +43,7 @@
 	cursor: pointer;
 }
 </style>
-<div id="rsv_container">
-	<c:if test="${list.size() == 0}">
-		<div id="rsv_wrapper">
-			<div id="no_reserve">예약된 내용이 없습니다.</div>
-		</div>
-	</c:if>
-	<c:forEach var="rsv" items="${list}">
-		<div id="rsv_wrapper">
+	<div id="rsv_wrapper">
 			<table>
 				<tr>
 					<fmt:formatDate var="paymentDate" value="${rsv.rsvPaymentDate}"
@@ -111,11 +104,14 @@
 						style="color: red; background: white; border: none;">취소된
 						예약은 수정이 불가능합니다.</button>
 				</c:if>
+				<button id="listbtn">목록 보기</button>
 			</div>
 		</div>
-	</c:forEach>
-</div>
 <script>
+	$("#btnbox #listbtn").click(function() {
+		location.href = "${pageContext.request.contextPath}/reservation/list.do";
+	});
+	
 	$("#btnbox #deletebtn").click(function() {
 		if (confirm("정말 취소하시겠습니까?") == true) {
 			var no = $(this).attr("data-delete");
