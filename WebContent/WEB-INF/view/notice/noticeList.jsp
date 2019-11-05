@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
-<section>
 <style>
 	section{
 		width: 100%;
@@ -11,6 +10,17 @@
 		height: 30px;
 		margin: 0 auto;
 		text-align: right;
+	}
+	#size{
+		float: left;
+		padding: 3px 7px;
+		border: 0.5px solid #977F51;
+		border-radius: 5px;
+		padding: 3px 7px 5px;
+		font-size: 12px;		
+		color: #977F51;
+		outline: none;
+		cursor: pointer;
 	}
 	table{
 		width: 700px;
@@ -74,15 +84,30 @@
 	$(function() {
 		//작성하기
 		$("#writeN").click(function() {
-			location.href = "${pageContext.request.contextPath}/notice/insert.do";
+			location.href = "${pageContext.request.contextPath}/notice/add.do";
 		})
+		
+		//페이지 사이즈 변경
+		$("#size").change(function() {
+			var val = $(this).val();
+			location.href = "${pageContext.request.contextPath}/notice/list.do?size=" + val;
+		})
+		
+		//페이지 사이즈 선택
+		$("select").val("${size}").attr("selected", true);
 		
 		//선택된 페이지 번호 CSS
 		$(".btnNum").eq("${page.currentPage%5-1}").css("background", "#977F51").css("color", "#fff");
 	})
 </script>
-<%@ include file="../include/notice/front.jsp" %>
+<section>
+	<%@ include file="../include/notice/front.jsp" %>
 	<p id="btns">
+		<select name="size" id="size">
+			<option value="5">5개씩 보기</option>
+			<option value="10">10개씩 보기</option>
+			<option value="20">20개씩 보기</option>
+		</select>
 		<c:if test="${admin == 1}"> <!-- 관리자일 때만 -->
 			<button id="writeN">작성하기</button>
 		</c:if>
@@ -122,15 +147,15 @@
 			<tr id="pageBtns">
 				<td colspan="5" id="pageBtn">
 					<c:if test="${page.startPage > 5}"><!--  && page.totalPages > 5 -->
-						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.startPage-5}" id="btnPrev">이전</a>
+						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.startPage-5}&size=${size}" id="btnPrev">이전</a>
 					</c:if>
 					
 					<c:forEach var="pNo" begin="${page.startPage}" end="${page.endPage}">
-						<a  href="${pageContext.request.contextPath}/notice/list.do?pageNo=${pNo}" class="btnNum" data-pNo="${pNo}">${pNo}</a>
+						<a  href="${pageContext.request.contextPath}/notice/list.do?pageNo=${pNo}&size=${size}" class="btnNum" data-pNo="${pNo}">${pNo}</a>
 					</c:forEach>
 					
 					<c:if test="${page.endPage < page.totalPages && page.totalPages > 5}">
-						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.startPage+5}" id="btnNext">다음</a>
+						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.startPage+5}&size=${size}" id="btnNext">다음</a>
 					</c:if>
 				</td>
 			</tr>

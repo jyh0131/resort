@@ -24,11 +24,14 @@
 		font-size: 14px;
 		color: #977F51;
 	}
-	span.error, span.titleError{
+	span.error, span.titleError, p#check>span{
 		display: none;
 		color: #977F51;
 		font-size: 12px;
 		margin-left: 10px;
+	}
+	textarea+span.error{
+		padding-left: 80px;
 	}
 </style>
 <script src="${pageContext.request.contextPath}/js/qna.js"></script>
@@ -42,22 +45,36 @@
 			
 			//제목 글자 수 제한
 			var title = $("#title").val();
-			var reg = /^.{1,60}$/i;
+			var reg = /^.{1,30}$/i;
 			if(reg.test(title) == false){
 				$(".titleError").css("display", "inline");
 				return false;
-			}			
+			}
+		})
+		
+		//체크박스 선택 시 안내문
+		$("#on").click(function() {
+			if($(this).prop('checked')) { 
+				$(this).next().css("display", "inline");
+			}else { 
+				$(this).next().css("display", "none");
+			}
 		})
 	})
 </script>
 <section>
 	<%@ include file="../include/qna/front.jsp" %>
 	<form action="add.do" method="post" enctype="multipart/form-data">
+		<p id="check">
+			<label for="on">공지 등록</label>
+			<input type="checkbox" name="check" id="on">
+			<span>(목록의 상위에 표시됩니다.)</span>
+		</p>
 		<p>
 			<label>제목</label>
 			<input type="text" name="title" size="70" id="title">
 			<span class="error">제목을 입력하세요.</span>
-			<span class="titleError">제목은 50글자 이내로 입력 가능합니다.</span>
+			<span class="titleError">제목은 30글자 이내로 입력 가능합니다.</span>
 		</p>
 		<p>
 			<label>내용</label>
@@ -67,10 +84,6 @@
 		<p>
 			<label>첨부파일</label>
 			<input type="file" name="file" id="file">
-		</p>
-		<p>
-			<label>공지 등록(공지사항의 상위에 표시됩니다.)</label>
-			<input type="checkbox" name="check">
 		</p>
 		<p id="btns">
 			<input type="submit" value="등록">

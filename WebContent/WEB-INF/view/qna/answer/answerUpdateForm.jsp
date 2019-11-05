@@ -28,7 +28,7 @@
 		display: none;
 		color: #977F51;
 		font-size: 12px;
-		margin-left: 10px;
+		margin-left: 80px;
 	}
 </style>
 <script src="${pageContext.request.contextPath}/js/qna.js"></script>

@@ -37,8 +37,23 @@
 	#explan>p>span{
 		color: #ff0000;
 	}
+	p#btns>button{
+		padding: 3px 7px;
+		border: 0.5px solid #977F51;
+		border-radius: 5px;
+		text-decoration: none;
+		font-size: 12px;
+		background: #fff;
+		color: #977F51;
+		outline: none;
+		cursor: pointer;
+	}
+	p#btns>button:hover{
+		background: #DFD2B3;
+		color: #fff;          
+	}
 </style>
 <div id="banner">
-	<a href="${pageContext.request.contextPath}/question/list.do">공지사항</a>
-	<img src="${pageContext.request.contextPath}/images/qna_bg.jpg">
+	<a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a>
+	<img src="${pageContext.request.contextPath}/images/banner_bg.jpg">
 </div>

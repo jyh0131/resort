@@ -161,14 +161,13 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "insert into notice values(null, n_title=?, n_content=?, n_file=?, now(), n_views=?, n_check=?, m_id=?)";
+			String sql = "insert into notice values(null, ?, ?, ?, now(), 0, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, notice.getnTitle());
 			pstmt.setString(2, notice.getnContent());
 			pstmt.setString(3, notice.getnFile());
-			pstmt.setInt(4, notice.getnViews());
-			pstmt.setInt(5, notice.getnCheck());
-			pstmt.setString(6, notice.getmId());
+			pstmt.setInt(4, notice.getnCheck());
+			pstmt.setString(5, notice.getmId());
 			return pstmt.executeUpdate();			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -187,8 +186,8 @@ public class NoticeDAO {
 			pstmt.setString(1, notice.getnTitle());
 			pstmt.setString(2, notice.getnContent());
 			pstmt.setString(3, notice.getnFile());
-			pstmt.setInt(4, notice.getnNo());
-			pstmt.setInt(5, notice.getnCheck());
+			pstmt.setInt(4, notice.getnCheck());
+			pstmt.setInt(5, notice.getnNo());
 			return pstmt.executeUpdate();			
 		} catch (Exception e) {
 			e.printStackTrace();

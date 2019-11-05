@@ -15,17 +15,18 @@ import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 import com.khrd.util.PageMaker;
 
-public class NoticeListHandler implements CommandHandler {
-	private int size = 10; //한 페이지에 보일 게시글 수
-	
+public class NoticeListHandler implements CommandHandler {	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String sSize = req.getParameter("size");
+		int size = 10;  //한 페이지에 보일 게시글 수	
+		if(sSize != null) {
+			size = Integer.parseInt(sSize);
+		}		
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			NoticeDAO dao = NoticeDAO.getInstance();
-			/*List<Notice> list = dao.selectListNotice(conn);
-			req.setAttribute("list", list);*/
 			
 			//아이디 체크(관리자/사용자)
 			HttpSession session = req.getSession();
@@ -45,6 +46,7 @@ public class NoticeListHandler implements CommandHandler {
 			PageMaker page = new PageMaker(total, pageNo, size);
 			req.setAttribute("list", list);
 			req.setAttribute("page", page);
+			req.setAttribute("size", size);
 			
 			return "/WEB-INF/view/notice/noticeList.jsp";
 		} catch (Exception e) {

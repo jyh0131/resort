@@ -13,6 +13,14 @@
 	}
 	#type{
 		float: left;
+		padding: 3px 7px;
+		border: 0.5px solid #977F51;
+		border-radius: 5px;
+		padding: 3px 7px 5px;
+		font-size: 12px;		
+		color: #977F51;
+		outline: none;
+		cursor: pointer;
 	}
 	table{
 		width: 700px;
