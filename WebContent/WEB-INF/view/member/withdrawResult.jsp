@@ -7,8 +7,9 @@
 #con{
 	margin-left:800px;
 }
-#aa{
+#home{
 	color:black;
+	margin-left:24px;
 }
 
 </style>
@@ -18,7 +19,9 @@
 <br><br>
 <div id ="con">
 	
-	<a href = "withdrawLogout.do" class = "aa">탈퇴하시겠습니까?</a>&nbsp;&nbsp;&nbsp;<a href = "/resort/home.do" class = "aa">홈으로</a>
+	<p>탈퇴하였습니다.</p>
+	<br>
+	<a href = "/resort/home.do" id = "home">홈으로</a>
 </div>
 
 <%@ include file= "../include/footer.jsp" %>>

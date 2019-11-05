@@ -285,8 +285,8 @@ public class MemberDao {
 		return null;
 	}
 	
-	// 회원 탈퇴
-	public int WithdrawMember(Connection conn, String mId, String mPassword) {
+	// 회원 탈퇴 탈퇴 정보 변경
+	public int WithdrawMember1(Connection conn, String mId, String mPassword) {
 		
 		PreparedStatement pstmt = null;
 		
@@ -295,10 +295,10 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mId);	
 			pstmt.setString(2, mPassword);
-//			return pstmt.executeUpdate();
-			pstmt.executeUpdate();
+			return pstmt.executeUpdate();
+/*			pstmt.executeUpdate();
 			return 1;
-			
+			*/
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -307,6 +307,35 @@ public class MemberDao {
 				 
 		return -1;
 	}
+	
+	// 회원 탈퇴 비밀번호 체크
+	public Member WithdrawMember2(Connection conn, String mId, String mPassword) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from member where m_out = '0' and m_id = ? and m_password = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);	
+			pstmt.setString(2, mPassword);
+			rs = pstmt.executeQuery();
+			if(rs.next()){								
+				Member member = new Member(rs.getString("m_id"), rs.getString("m_password"),
+						rs.getString("m_name"), rs.getString("m_phone"), rs.getString("m_email"), rs.getTimestamp("m_regdate"),
+						rs.getInt("m_out"), rs.getInt("m_admin"));
+				return member;
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			JDBCUtil.close(pstmt);
+		}
+				 
+		return null;
+	}
+	
 // 탈퇴한 아이디 체크해서 접속 못하게 막기
 	public Member withdrawCheck(Connection conn, String mId) {
 		
