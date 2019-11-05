@@ -88,7 +88,7 @@
 					$("#pageBtn").empty();
 
 					//Q&A 리스트 생성
-					$(res.page.qList).each(function(i, obj) {
+					$(res.list).each(function(i, obj) {
 						qnaList(i, obj);	
 					})
 					pageBtns(res); //버튼 생성
@@ -113,7 +113,7 @@
 					$("#pageBtn").empty();
 
 					//Q&A 리스트 생성
-					$(res.page.qList).each(function(i, obj) {
+					$(res.list).each(function(i, obj) {
 						qnaList(i, obj);
 					})
 					pageBtns(res); //버튼 생성
@@ -218,7 +218,7 @@
 				<td colspan="5">게시글이 없습니다.</td>
 			</tr>
 		</c:if>
-		<c:forEach var="q" items="${page.qList}">
+		<c:forEach var="q" items="${list}">
 			<tr class="qList">
 				<td>${q.qNo}</td>
 				<td>${q.qType}</td>

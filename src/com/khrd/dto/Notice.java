@@ -9,11 +9,12 @@ public class Notice {
 	private String nFile; //첨부파일
 	private Date nDate; //작성일
 	private int nViews; //조회수
+	private int nCheck; //공지여부
 	private String mId; //작성자
 	
 	public Notice() {}
 	
-	public Notice(int nNo, String nTitle, String nContent, String nFile, Date nDate, int nViews, String mId) {
+	public Notice(int nNo, String nTitle, String nContent, String nFile, Date nDate, int nViews, int nCheck, String mId) {
 		super();
 		this.nNo = nNo;
 		this.nTitle = nTitle;
@@ -21,6 +22,7 @@ public class Notice {
 		this.nFile = nFile;
 		this.nDate = nDate;
 		this.nViews = nViews;
+		this.nCheck = nCheck;
 		this.mId = mId;
 	}
 
@@ -72,6 +74,14 @@ public class Notice {
 		this.nViews = nViews;
 	}
 
+	public int getnCheck() {
+		return nCheck;
+	}
+
+	public void setnCheck(int nCheck) {
+		this.nCheck = nCheck;
+	}
+
 	public String getmId() {
 		return mId;
 	}
@@ -83,6 +93,6 @@ public class Notice {
 	@Override
 	public String toString() {
 		return "\n Notice [nNo=" + nNo + ", nTitle=" + nTitle + ", nContent=" + nContent + ", nFile=" + nFile + ", nDate="
-				+ nDate + ", nViews=" + nViews + ", mId=" + mId + "]";
+				+ nDate + ", nViews=" + nViews + ", nCheck=" + nCheck + ", mId=" + mId + "]";
 	}	
 }

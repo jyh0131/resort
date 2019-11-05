@@ -30,16 +30,18 @@
 		color: #333;
 	}
 	td:nth-child(2n-1){
-		width: 70px;
+		width: 12%;
 		color: #DFD2B3;
-		padding-right: 20px;
+		text-align: right;
 	}
 	td:nth-child(2n){
+		width: 35%;
 		padding-left: 20px;
 	}
 	td#title{
 		font-weight: bold;
 		color: #977F51;
+		padding-left: 20px;
 	}
 	td>img{
 		width: 30%;
@@ -68,65 +70,48 @@
 <script>
 	$(function() {
 		$("#list").click(function() {
-			location.href="${pageContext.request.contextPath}/question/list.do";
+			location.href="${pageContext.request.contextPath}/notice/list.do";
 		})
-		$("#updateQ").click(function() {
+		$("#updateN").click(function() {
 			location.href="${pageContext.request.contextPath}/question/update.do?no=${q.qNo}";
 		})
-		$("#deleteQ").click(function() {
+		$("#deleteN").click(function() {
 			location.href="${pageContext.request.contextPath}/question/delete.do?no=${q.qNo}";
-		})
-		$("#insertA").click(function() {
-			location.href="${pageContext.request.contextPath}/answer/add.do?no=${q.qNo}";
-		})
-		$("#updateA").click(function() {
-			location.href="${pageContext.request.contextPath}/answer/update.do?no=${q.qNo}";
-		})
-		$("#deleteA").click(function() {
-			location.href="${pageContext.request.contextPath}/answer/delete.do?no=${a.aNo}";
 		})
 	})
 </script>
 <section>
-	<%@ include file="../include/qna/front.jsp" %>
+	<%@ include file="../include/notice/front.jsp" %>
 	<p id="btns">
 		<button id="list">목록 가기</button>
 		<c:if test="${Auth == q.mId || admin == 1}">
-			<button id="updateQ">공지 수정</button>
-			<button id="deleteQ">질문 삭제</button>
+			<button id="updateN">공지 수정</button>
+			<button id="deleteN">질문 삭제</button>
 		</c:if>
 	</p>
 	<table>
 		<tr>
-			<td colspan="4" id="title">${q.qTitle}</td> 
+			<td>제목 | </td>
+			<td colspan="3" id="title">${n.nTitle}</td> 
 		</tr>
 		<tr>
-			<td>작성자 | </td>
-			<td>${q.mId}</td>
-			<td>질문 유형 | </td>
-			<td>${q.qType}</td>
+			<td>작성일 | </td>
+			<td>${n.nDate}</td>
+			<td>조회 수 | </td>
+			<td>${n.nViews}회</td>
+		</tr>
+		<tr>
+			<td>내용  | </td>
+			<td colspan="3">${n.nContent}</td>
 		</tr>
 		<tr>
 			<td>첨부파일 | </td>
 			<td colspan="3">
-				<c:if test="${q.qFile != null}">
-					<img src="${pageContext.request.contextPath}/upload/${q.qFile}">
+				<c:if test="${n.nFile != null}">
+					<img src="${pageContext.request.contextPath}/upload/${n.nFile}">
 				</c:if>
 			</td>
 		</tr>
-		<tr>
-			<td>내용  | </td>
-			<td colspan="3">${q.qContent}</td>
-		</tr>
-	</table>
-	<!-- 답변 있을 때만 -->
-	<c:if test="${a != null}">
-		<div id="answer">
-			<p><span>RE : 대명리조트입니다.</span> 관리자 | ${a.aDate}</p>
-			<hr>
-			${a.aContent}
-		</div>
-	</c:if>
-	
+	</table>	
 </section>
 <%@ include file="../include/footer.jsp" %>

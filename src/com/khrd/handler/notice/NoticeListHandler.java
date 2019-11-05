@@ -13,19 +13,19 @@ import com.khrd.dao.NoticeDAO;
 import com.khrd.dto.Notice;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
-import com.khrd.service.NoticeListService;
-import com.khrd.service.NoticePage;
+import com.khrd.util.PageMaker;
 
 public class NoticeListHandler implements CommandHandler {
-
+	private int size = 10; //한 페이지에 보일 게시글 수
+	
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
 			NoticeDAO dao = NoticeDAO.getInstance();
-			List<Notice> list = dao.selectListNotice(conn);
-			req.setAttribute("list", list);
+			/*List<Notice> list = dao.selectListNotice(conn);
+			req.setAttribute("list", list);*/
 			
 			//아이디 체크(관리자/사용자)
 			HttpSession session = req.getSession();
@@ -35,13 +35,15 @@ public class NoticeListHandler implements CommandHandler {
 			req.setAttribute("admin", admin);
 			
 			//페이징
-			NoticeListService listService = new NoticeListService();
 			String pageNoVal = req.getParameter("pageNo");
 			int pageNo = 1;
 			if(pageNoVal != null) {
 				pageNo = Integer.parseInt(pageNoVal);
 			}
-			NoticePage page = listService.getNoticePage(pageNo);
+			int total = dao.selectCountNotice(conn);
+			List<Notice> list = dao.selectDescListNotice(conn, (pageNo -1)*size, size);
+			PageMaker page = new PageMaker(total, pageNo, size);
+			req.setAttribute("list", list);
 			req.setAttribute("page", page);
 			
 			return "/WEB-INF/view/notice/noticeList.jsp";

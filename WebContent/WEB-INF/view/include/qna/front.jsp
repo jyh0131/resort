@@ -11,7 +11,7 @@
 		font-size: 50px;
 		text-decoration: none;
 		margin-top: 90px;
-		margin-left: 50px;
+		margin-left: 30px;
 		font-weight: bold;
 		color: #6283ab;
 		cursor: pointer;

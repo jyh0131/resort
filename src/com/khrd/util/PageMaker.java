@@ -1,24 +1,18 @@
-package com.khrd.service;
+package com.khrd.util;
 
-import java.util.List;
-
-import com.khrd.dto.Notice;
-
-public class NoticePage {
+public class PageMaker {
 	private int total; //전체 게시글 개수
 	private int currentPage; //사용자 요청 페이지 번호
-	private List<Notice> nList; //보여질 게시글 리스트
 	private int totalPages; ///전체 페이지 개수
 	private int startPage; //페이지 시작 번호
 	private int endPage; //페이지 마지막 번호
 	
-	public NoticePage() { }
+	public PageMaker() { }
 
-	public NoticePage(int total, int currentPage, int size, List<Notice> nList) {
+	public PageMaker(int total, int currentPage, int size) {
 		super();
 		this.total = total;
 		this.currentPage = currentPage;
-		this.nList = nList;
 		
 		if(total == 0) { //게시글이 0개면 모두 0
 			totalPages = 0;
@@ -57,14 +51,6 @@ public class NoticePage {
 		this.currentPage = currentPage;
 	}
 
-	public List<Notice> getnList() {
-		return nList;
-	}
-
-	public void setqList(List<Notice> nList) {
-		this.nList = nList;
-	}
-
 	public int getTotalPages() {
 		return totalPages;
 	}
@@ -91,8 +77,7 @@ public class NoticePage {
 
 	@Override
 	public String toString() {
-		return "NoticePage [total=" + total + ", currentPage=" + currentPage + ", nList=" + nList + ", totalPages="
+		return "NoticePage [total=" + total + ", currentPage=" + currentPage + ", totalPages="
 				+ totalPages + ", startPage=" + startPage + ", endPage=" + endPage + "]";
 	}
-	
 }

@@ -25,6 +25,9 @@ public class NoticeDetailHandler implements CommandHandler {
 			Notice notice = dao.selectNoticeByNNo(conn, nNo);
 			req.setAttribute("n", notice);
 			
+			//조회 수 증가
+			dao.updateNoticeViews(conn, nNo);
+			
 			//아이디 체크(관리자/사용자)
 			HttpSession session = req.getSession();
 			String mId = (String) session.getAttribute("Auth");

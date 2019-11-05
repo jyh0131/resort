@@ -35,6 +35,7 @@ public class NoticeDAO {
 									rs.getString("n_File"), 
 									rs.getDate("n_date"),
 									rs.getInt("n_views"),
+									rs.getInt("n_check"),
 									rs.getString("m_id"));
 				list.add(notice);
 			}
@@ -65,6 +66,7 @@ public class NoticeDAO {
 									rs.getString("n_File"), 
 									rs.getDate("n_date"),
 									rs.getInt("n_views"),
+									rs.getInt("n_check"),
 									rs.getString("m_id"));
 
 				return notice;
@@ -78,6 +80,28 @@ public class NoticeDAO {
 		return null;
 	}//selectNoticeByNNo
 	
+	public int selectNoticeNCheck(Connection conn, int nNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select n_check from notice where n_no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nNo);
+			rs = pstmt.executeQuery();		
+			if(rs.next()) {
+				return rs.getInt("n_check");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//selectNoticeNCheck
+	
+	/* 페이지을 위한 전체 행의 개수 */
 	public int selectCountNotice(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -98,12 +122,13 @@ public class NoticeDAO {
 		return -1;
 	}//selectCountNotice
 	
+	/* 페이징을 위한 n_no 내림차순 정렬, 단 n_check의 값이 1인 행들을 가장 위로 정렬*/
 	public List<Notice> selectDescListNotice(Connection conn, int startRow, int size){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select * from notice order by n_no desc limit ?, ?";
+			String sql = "select * from notice order by n_check=0, n_no desc limit ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, size);
@@ -117,6 +142,7 @@ public class NoticeDAO {
 									rs.getString("n_File"), 
 									rs.getDate("n_date"),
 									rs.getInt("n_views"),
+									rs.getInt("n_check"),
 									rs.getString("m_id"));
 				
 				list.add(notice);
@@ -135,13 +161,14 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "insert into notice values(null, n_title=?, n_content=?, n_file=?, now(), n_views=?, m_id=?)";
+			String sql = "insert into notice values(null, n_title=?, n_content=?, n_file=?, now(), n_views=?, n_check=?, m_id=?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, notice.getnTitle());
 			pstmt.setString(2, notice.getnContent());
 			pstmt.setString(3, notice.getnFile());
 			pstmt.setInt(4, notice.getnViews());
-			pstmt.setString(5, notice.getmId());
+			pstmt.setInt(5, notice.getnCheck());
+			pstmt.setString(6, notice.getmId());
 			return pstmt.executeUpdate();			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -155,12 +182,13 @@ public class NoticeDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "update notice set n_title=?, n_content=?, n_file=? where n_no=?";
+			String sql = "update notice set n_title=?, n_content=?, n_file=?, n_check=? where n_no=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, notice.getnTitle());
 			pstmt.setString(2, notice.getnContent());
 			pstmt.setString(3, notice.getnFile());
 			pstmt.setInt(4, notice.getnNo());
+			pstmt.setInt(5, notice.getnCheck());
 			return pstmt.executeUpdate();			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -170,6 +198,7 @@ public class NoticeDAO {
 		return -1;
 	}//updateNotice
 
+	/* 첨부파일 삭제 */
 	public int updateNoticeFile(Connection conn, int nNo){
 		PreparedStatement pstmt = null;
 		
@@ -185,6 +214,23 @@ public class NoticeDAO {
 		}
 		return -1;
 	}//updateNoticeFile
+	
+	/* 조회 수 증가 */
+	public int updateNoticeViews(Connection conn, int nNo){
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "update notice set n_views = n_views + 1 where n_no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nNo);
+			return pstmt.executeUpdate();			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//updateNoticeViews
 	
 	public int deleteNotice(Connection conn, int nNo){
 		PreparedStatement pstmt = null;

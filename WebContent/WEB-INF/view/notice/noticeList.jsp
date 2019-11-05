@@ -27,6 +27,12 @@
 	td{
 		padding: 10px;
 	}
+	span.notice{
+		background: #DFD2B3;
+		color: #fff;
+		border-radius: 5px;
+		padding: 1px 3px;
+	}
 	td.titleTD{
 		text-align: left;
 		padding-left: 30px;
@@ -64,10 +70,21 @@
 		cursor: pointer;
 	}
 </style>
-<%@ include file="../include/qna/front.jsp" %>
+<script>
+	$(function() {
+		//작성하기
+		$("#writeN").click(function() {
+			location.href = "${pageContext.request.contextPath}/notice/insert.do";
+		})
+		
+		//선택된 페이지 번호 CSS
+		$(".btnNum").eq("${page.currentPage%5-1}").css("background", "#977F51").css("color", "#fff");
+	})
+</script>
+<%@ include file="../include/notice/front.jsp" %>
 	<p id="btns">
 		<c:if test="${admin == 1}"> <!-- 관리자일 때만 -->
-			<button id="writeQ">작성하기</button>
+			<button id="writeN">작성하기</button>
 		</c:if>
 	</p>
 	<table>
@@ -82,11 +99,18 @@
 				<td colspan="5">게시글이 없습니다.</td>
 			</tr>
 		</c:if>
-		<c:forEach var="n" items="${page.nList}">
+		<c:forEach var="n" items="${list}">
 			<tr class="nList">
-				<td>${n.nNo}</td>
+				<td>
+				<c:if test="${n.nCheck == 1}"> <!-- 공지 O -->
+					<span class="notice">공지</span>
+				</c:if>
+				<c:if test="${n.nCheck != 1}"> <!-- 공지 X -->
+					${n.nNo}
+				</c:if>
+				</td>
 				<td class="titleTD">
-					<a href="${pageContext.request.contextPath}/#" class="detail">
+					<a href="${pageContext.request.contextPath}/notice/detail.do?no=${n.nNo}" class="detail">
 						${n.nTitle}
 					</a>
 				</td>

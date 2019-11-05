@@ -30,16 +30,18 @@
 		color: #333;
 	}
 	td:nth-child(2n-1){
-		width: 70px;
+		width: 12%;
 		color: #DFD2B3;
-		padding-right: 20px;
+		text-align: right;
 	}
 	td:nth-child(2n){
+		width: 35%;
 		padding-left: 20px;
 	}
 	td#title{
 		font-weight: bold;
 		color: #977F51;
+		padding-left: 20px;
 	}
 	td>img{
 		width: 30%;
@@ -107,7 +109,8 @@
 	</p>
 	<table>
 		<tr>
-			<td colspan="4" id="title">${q.qTitle}</td> 
+			<td>제목  | </td>
+			<td colspan="3" id="title">${q.qTitle}</td> 
 		</tr>
 		<tr>
 			<td>작성자 | </td>
@@ -116,16 +119,16 @@
 			<td>${q.qType}</td>
 		</tr>
 		<tr>
+			<td>내용  | </td>
+			<td colspan="3">${q.qContent}</td>
+		</tr>
+		<tr>
 			<td>첨부파일 | </td>
 			<td colspan="3">
 				<c:if test="${q.qFile != null}">
 					<img src="${pageContext.request.contextPath}/upload/${q.qFile}">
 				</c:if>
 			</td>
-		</tr>
-		<tr>
-			<td>내용  | </td>
-			<td colspan="3">${q.qContent}</td>
 		</tr>
 	</table>
 	<!-- 답변 있을 때만 -->
