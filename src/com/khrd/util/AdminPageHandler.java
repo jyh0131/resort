@@ -1,32 +1,36 @@
 package com.khrd.util;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.khrd.controller.CommandHandler;
-import com.khrd.dao.RoomNameDAO;
-import com.khrd.dto.RoomName;
+import com.khrd.dao.MemberDao;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
 
-public class MainRoomReader implements CommandHandler {
+public class AdminPageHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// 메인 화면에 표시될 방의 정보를 불러오는 핸들러
+
+		HttpSession session = request.getSession();
+		String Auth = (String) session.getAttribute("Auth");
+		
 		Connection conn = null;
 		
 		try {
 			conn = ConnectionProvider.getConnection();
+			MemberDao dao = MemberDao.getInstance();
+			int result = dao.AdminIDCheck(conn, Auth);
 			
-			RoomNameDAO dao = RoomNameDAO.getInstance();
-			ArrayList<RoomName> list = dao.loadMainRoomInfo(conn);
-			request.setAttribute("list", list);
-			
-			return "/home.jsp";
+			if(result == 1) {
+				return "/homeA.do";
+			} else {
+				return "/home.do";
+			}
 			
 		} catch(Exception e) {
 			e.printStackTrace();
