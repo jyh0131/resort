@@ -39,9 +39,16 @@
   		<url-pattern>/question/updateFile.do</url-pattern>
   		<url-pattern>/question/delete.do</url-pattern>
 	  	<url-pattern>/question/myQ.do</url-pattern>
+	  	
 	  	<url-pattern>/answer/add.do</url-pattern>
 	  	<url-pattern>/answer/update.do</url-pattern>
 	  	<url-pattern>/answer/delete.do</url-pattern>
+	  	
+	  	<url-pattern>/notice/add.do</url-pattern>
+	  	<url-pattern>/notice/update.do</url-pattern>
+	  	<url-pattern>/notice/updateFile.do</url-pattern>
+	  	<url-pattern>/notice/delete.do</url-pattern>
+	  	
 	  	<url-pattern>/reservation/insert.do</url-pattern>
 	  	<url-pattern>/reservation/update.do</url-pattern>
 	  	<url-pattern>/reservation/cancel.do</url-pattern>
@@ -50,6 +57,9 @@
 	  	<url-pattern>/reservation/load.do</url-pattern>
 	  	<url-pattern>/reservation/detailA.do</url-pattern>
 	  	<url-pattern>/reservation/findA.do</url-pattern>
+	  	
+	  	<url-pattern>/admin/qTypeChart.do</url-pattern>
+	  	<url-pattern>/admin/salesChart.do</url-pattern>
   </filter-mapping>
   
   <welcome-file-list>
