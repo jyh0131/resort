@@ -8,14 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	*{
-		margin: 0;
-		padding:0;
-	}
-	header ul{
+	ul{
 		list-style:none;
 	}
-	header a{
+	a{
 		text-decoration: none;
 	}
 	#admin_mainHeader{
@@ -40,10 +36,11 @@
 	#am_menuBody{/* nav태그 */
 		float: left;
 		width: 1000px;
-		margin: 10px 60px 0;
+		margin-left: 60px;
 	}
 	#am_mainMenu{
 		width: 100%;
+		text-align: center;
 	}
 	#am_mainMenu > li {
 		float: left;
@@ -57,18 +54,17 @@
 	    font-size: 18px;
 	    border-right: 1px solid #999;
 	    color:#666;
-	    text-align: center;
 	}
-	#am_mainMenu > li:last-child > span{
+	#am_mainMenu > li:last-child > a{
 		border:none;
 	}
 	#am_mainMenu > li > ul.am_subMenu{/* 메인메뉴 안의 서브메뉴 */
-		width: 100%;
+		width: 1000px;
 		display: none;
-		padding-left:60px;
 	}
 	.am_subMenu > li{
-		width: 100%; 
+		width: 25%;
+		text-align: left;
 	}
 	.am_subMenu > li > a{
 		display: block;
@@ -78,7 +74,6 @@
 	.am_subMenu > li > ul.am_sm_submenu{/* 메인메뉴 안의 서브메뉴 안의 서브메뉴 */
 		width: 100%;
 		display: none;
-		padding-left:30px;
 	}
 	.am_sm_submenu > li > a{
 		display: block;
@@ -124,7 +119,6 @@
 		$(".am_subMenu > li").mouseout(function(){
 			$(this).find(".am_sm_submenu").css("display","none");
 		})
-		
 	})
 </script>
 
@@ -132,13 +126,13 @@
 <body>
 	<header id = "admin_mainHeader">
 		<div id = "am_contaner">
-			<a href = "${pageContext.request.contextPath}/home.do" class = "MainTitle"></a><!-- main로고 -->
+			<a href = "${pageContext.request.contextPath}/home.jsp" class = "MainTitle"></a><!-- main로고 -->
 			<nav id = "am_menuBody">
 				<ul id = "am_mainMenu">
 					<li>
 						<span>예약 관리</span>
 						<ul id = "reservation" class = "am_subMenu">
-							<li><a href = "${pageContext.request.contextPath }/reservation/list.do">전체 예약 정보 확인</a></li>
+							<li><a href = "">전체 예약 정보 확인</a></li>
 							<li><a href = "">월별 매출액</a></li>
 						</ul>
 					</li>  
@@ -146,52 +140,52 @@
 						<span>객실 관리</span>
 						<ul id = "room" class = "am_subMenu">
 							<li>
-								<a href = "${pageContext.request.contextPath }/roomType/list.do">객실 타입 정보</a>
+								<a href = "">객실 타입 정보</a>
 								<ul class = "am_sm_submenu">
-									<li><a href = "${pageContext.request.contextPath }/roomType/insert.do">- 객실 타입 추가</a></li>
-									<li><a href = "${pageContext.request.contextPath }/roomType/list.do">- 객실 타입 LIST</a></li>
+									<li><a href = "">- 객실 타입 추가</a></li>
+									<li><a href = "">- 객실 타입 LIST</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href = "${pageContext.request.contextPath }/roomName/list.do">객실 정보</a>
+								<a href = "">객실 정보</a>
 								<ul class = "am_sm_submenu">
-									<li><a href = "${pageContext.request.contextPath }/roomName/insert.do">- 객실 정보 추가</a></li>
-									<li><a href = "${pageContext.request.contextPath }/roomName/list.do">- 객실 정보 LIST</a></li>
+									<li><a href = "">- 객실 정보 추가</a></li>
+									<li><a href = "">- 객실 정보 LIST</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href = "${pageContext.request.contextPath }/roomImg/list.do">객실 이미지 정보</a>
+								<a href = "">객실 이미지 정보</a>
 								<ul class = "am_sm_submenu">
-									<li><a href = "${pageContext.request.contextPath }/roomImg/insert.do">- 객실 이미지 추가</a></li>
-									<li><a href = "${pageContext.request.contextPath }/roomImg/list.do">- 객실 이미지 LIST</a></li>
+									<li><a href = "">- 객실 이미지 추가</a></li>
+									<li><a href = "">- 객실 이미지 LIST</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href = "${pageContext.request.contextPath }/room/list.do">객실 방 번호 정보</a>
+								<a href = "">객실 방 번호 정보</a>
 								<ul class = "am_sm_submenu">
-									<li><a href = "${pageContext.request.contextPath }/room/insert.do">- 객실 방 번호 추가</a></li>
-									<li><a href = "${pageContext.request.contextPath }/room/list.do">- 객실 방 번호 LIST</a></li>
+									<li><a href = "">- 객실 방 번호 추가</a></li>
+									<li><a href = "">- 객실 방 번호 LIST</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href = "${pageContext.request.contextPath }/roomConfiguration/list.do">객실 구성 정보</a>
+								<a href = "">객실 구성 정보</a>
 								<ul class = "am_sm_submenu">
-									<li><a href = "${pageContext.request.contextPath }/roomConfiguration/insert.do">- 객실 구성 추가</a></li>
-									<li><a href = "${pageContext.request.contextPath }/roomConfiguration/list.do">- 객실 구성 LIST</a></li>
+									<li><a href = "">- 객실 구성 추가</a></li>
+									<li><a href = "">- 객실 구성 LIST</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href = "${pageContext.request.contextPath }/roomSeason/list.do">시즌 정보</a>
+								<a href = "">시즌 정보</a>
 								<ul class = "am_sm_submenu">
-									<li><a href = "${pageContext.request.contextPath }/roomSeason/insert.do">- 시즌 정보 추가</a></li>
-									<li><a href = "${pageContext.request.contextPath }/roomSeason/list.do">- 시즌 정보 LIST</a></li>
+									<li><a href = "">- 시즌 정보 추가</a></li>
+									<li><a href = "">- 시즌 정보 LIST</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href = "${pageContext.request.contextPath }/roomEquipment/list.do">비품 구성 정보</a>
+								<a href = "">비품 구성 정보</a>
 								<ul class = "am_sm_submenu">
-									<li><a href = "${pageContext.request.contextPath }/roomEquipment/insert.do">- 비품 구성 추가</a></li>
-									<li><a href = "${pageContext.request.contextPath }/roomEquipment/list.do">- 비품 구성 LIST</a></li>
+									<li><a href = "">- 비품 구성 추가</a></li>
+									<li><a href = "">- 비품 구성 LIST</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -199,10 +193,10 @@
 					<li>
 						<span>회원 관리</span>
 						<ul id = "member" class = "am_subMenu">
-							<li><a href = "">관리자 리스트</a></li>
-							<li><a href = "">전체 회원 리스트</a></li>
-							<li><a href = "">회원 리스트(탈퇴제외)</a></li>
-							<li><a href = "">탈퇴 회원 리스트</a></li>
+							<li><a href = "adminList.do">관리자 리스트</a></li>
+							<li><a href = "list.do">전체 회원 리스트</a></li>
+							<li><a href = "listWithout.do">회원 리스트(탈퇴제외)</a></li>
+							<li><a href = "listWithdraw.do">탈퇴 회원 리스트</a></li>
 						</ul>
 					</li>
 					<li>
