@@ -183,8 +183,8 @@
 			</div>
 		</c:forEach>
 	</div>
-	<div style="text-align:center;">
-		<img src="${pageContext.request.contextPath}/images/main_bg_aqua.PNG">
+	<div style="text-align:center;" style = "width:100%;">
+		<img src="${pageContext.request.contextPath}/images/main_bg_aqua.PNG" style = "width:100%;">
 	</div>
 </div>
 <%@ include file="WEB-INF/view/include/footer.jsp" %>

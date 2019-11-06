@@ -8,10 +8,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	ul{
+	*{
+		margin: 0;
+		padding:0;
+	}
+	header ul{
 		list-style:none;
 	}
-	a{
+	header a{
 		text-decoration: none;
 	}
 	#admin_mainHeader{
@@ -36,12 +40,10 @@
 	#am_menuBody{/* nav태그 */
 		float: left;
 		width: 1000px;
-		margin-left: 60px;
-		z-index: 200;
+		margin: 10px 60px 0;
 	}
 	#am_mainMenu{
 		width: 100%;
-		text-align: center;
 	}
 	#am_mainMenu > li {
 		float: left;
@@ -55,17 +57,18 @@
 	    font-size: 18px;
 	    border-right: 1px solid #999;
 	    color:#666;
+	    text-align: center;
 	}
-	#am_mainMenu > li:last-child > a{
+	#am_mainMenu > li:last-child > span{
 		border:none;
 	}
 	#am_mainMenu > li > ul.am_subMenu{/* 메인메뉴 안의 서브메뉴 */
-		width: 1000px;
+		width: 100%;
 		display: none;
+		padding-left:60px;
 	}
 	.am_subMenu > li{
-		width: 25%;
-		text-align: left;
+		width: 100%; 
 	}
 	.am_subMenu > li > a{
 		display: block;
@@ -75,6 +78,7 @@
 	.am_subMenu > li > ul.am_sm_submenu{/* 메인메뉴 안의 서브메뉴 안의 서브메뉴 */
 		width: 100%;
 		display: none;
+		padding-left:30px;
 	}
 	.am_sm_submenu > li > a{
 		display: block;
@@ -128,7 +132,7 @@
 <body>
 	<header id = "admin_mainHeader">
 		<div id = "am_contaner">
-			<a href = "${pageContext.request.contextPath}/home.jsp" class = "MainTitle"></a><!-- main로고 -->
+			<a href = "${pageContext.request.contextPath}/home.do" class = "MainTitle"></a><!-- main로고 -->
 			<nav id = "am_menuBody">
 				<ul id = "am_mainMenu">
 					<li>
