@@ -157,9 +157,16 @@
 </style>
 <script>
 	$(function(){
-		$("#reMainMenu > li > a").click(function(){
+		
+		$(".sideM_T").click(function(){
+			/* $(".reSubMenu").css("display","none"); */
 			$(this).next().css("display","block");
-			
+		})
+		$(".sideM_sm").click(function(){
+			var sub = $(this).parent().parent().css("display");
+			if(sub == "none"){
+				$(this).parent().parent().show();
+			}
 		})
 		/* $(".reSubMenu > li").click(function(){
 			$(this).parent().parent().css("display","block");
@@ -171,7 +178,6 @@
 		$("#mb_mainImage > ul").css("width", ulWidth*1100 + "px");
 		
 		$(".prve").click(function(){
-			var index = 1;
 			
 		})
 	})
