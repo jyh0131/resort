@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file= "../include/headerA.jsp" %>
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core"%> 
 
 <script>
 
 $(function(){
 	
-	$.ajax({
-
+/* 	$.ajax({
+	
 		url:"${pageContext.request.contextPath}/member/list.do",
 		type:"get",
 		data:{"id":$("#password").val()},
@@ -19,13 +20,10 @@ $(function(){
 			var password= "${member.mPassword }";
 			
 			for(var i= 0; i >= password.length; i++ ){
-				
-				
-			}
-			
-		}
-		
-	})
+					replace.		
+			}			
+		}	
+	}) */
 	
 })
 
@@ -68,7 +66,6 @@ table{
 
 	<tr>
 		<th>회원 아이디</th>
-		<th>회원 비밀번호</th>
 		<th>회원 이름</th>
 		<th>회원 전화번호</th>
 		<th>회원 이메일</th>
@@ -80,7 +77,6 @@ table{
 
 	<tr>
 		<td id = "id">${member.mId }</td>
-		<td id = "password">${member.mPassword }</td>
 		<td>${member.mName }</td>
 		<td>${member.mPhone }</td>
 		<td>${member.mEmail }</td>

@@ -39,7 +39,6 @@ table{
 
 	<tr>
 		<th>회원 아이디</th>
-		<th>회원 비밀번호</th>
 		<th>회원 이름</th>
 		<th>회원 전화번호</th>
 		<th>회원 이메일</th>
@@ -51,7 +50,6 @@ table{
 
 	<tr>
 		<td id = "id">${member.mId }</td>
-		<td id = "password">*******</td>
 		<td>${member.mName }</td>
 		<td>${member.mPhone }</td>
 		<td>${member.mEmail }</td>
