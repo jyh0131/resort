@@ -70,7 +70,7 @@
  				<li><a href="#">영상정보처리기기운영관리방침</a> &#183; </li>
  				<li><a href="#">이용약관</a>&#183; </li>
  				<li><a href="#">원격지원</a> &#183; </li>
- 				<li><a href="#">홈페이지 오류신고</a></li>
+ 				<li><a href="${pageContext.request.contextPath}/homeA.do">관리자 페이지 이동</a></li>
  			</ul>
  		</div>
  		<div id="footer_detail">
