@@ -37,7 +37,7 @@ public class QuestionUpdateHandler implements CommandHandler {
 			return "/WEB-INF/view/qna/question/questionUpdateForm.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			int qNo = Integer.parseInt(req.getParameter("no"));
-			String uploadPath = req.getRealPath("upload");
+			String uploadPath = req.getRealPath("upload/question");
 			File dir = new File(uploadPath);
 			if(dir.exists() == false) {
 				dir.mkdir();

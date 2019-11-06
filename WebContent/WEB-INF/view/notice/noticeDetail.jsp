@@ -73,10 +73,10 @@
 			location.href="${pageContext.request.contextPath}/notice/list.do";
 		})
 		$("#updateN").click(function() {
-			location.href="${pageContext.request.contextPath}/question/update.do?no=${q.qNo}";
+			location.href="${pageContext.request.contextPath}/notice/update.do?no=${n.nNo}";
 		})
 		$("#deleteN").click(function() {
-			location.href="${pageContext.request.contextPath}/question/delete.do?no=${q.qNo}";
+			location.href="${pageContext.request.contextPath}/notice/delete.do?no=${n.nNo}";
 		})
 	})
 </script>
@@ -84,7 +84,7 @@
 	<%@ include file="../include/notice/front.jsp" %>
 	<p id="btns">
 		<button id="list">목록 가기</button>
-		<c:if test="${Auth == q.mId || admin == 1}">
+		<c:if test="${admin == 1}"> <!-- 관리자일 때만 -->
 			<button id="updateN">공지 수정</button>
 			<button id="deleteN">질문 삭제</button>
 		</c:if>

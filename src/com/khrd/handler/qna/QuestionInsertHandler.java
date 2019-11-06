@@ -22,7 +22,7 @@ public class QuestionInsertHandler implements CommandHandler {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			return "/WEB-INF/view/qna/question/questionInsertForm.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
-			String uploadPath = req.getRealPath("upload");
+			String uploadPath = req.getRealPath("upload/question");
 			File dir = new File(uploadPath);
 			if(dir.exists() == false) {
 				dir.mkdir();

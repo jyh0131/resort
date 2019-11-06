@@ -30,6 +30,9 @@
 		font-size: 12px;
 		margin-left: 10px;
 	}
+	textarea+span.error{
+		padding-left: 80px;
+	}
 </style>
 <script src="${pageContext.request.contextPath}/js/qna.js"></script>
 <script>
@@ -42,7 +45,7 @@
 			
 			//제목 글자 수 제한
 			var title = $("#title").val();
-			var reg = /^.{1,50}$/i;
+			var reg = /^.{1,20}$/i;
 			if(reg.test(title) == false){
 				$(".titleError").css("display", "inline");
 				return false;
@@ -57,7 +60,7 @@
 			<label>제목</label>
 			<input type="text" name="title" size="70" id="title">
 			<span class="error">제목을 입력하세요.</span>
-			<span class="titleError">제목은 50글자 이내로 입력 가능합니다.</span>
+			<span class="titleError">제목은 20글자 이내로 입력 가능합니다.</span>
 		</p>
 		<p>
 			<label>질문 유형</label>

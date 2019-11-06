@@ -43,8 +43,9 @@
 		margin-bottom:10px;
 		margin-top:10px;
 	}
-	footer>#footer_detail p{
+	footer>#footer_detail > p{
 		text-align:left;
+		margin: 0;/* 관리자용 페이지에서 footer 배경색 밖으로 나오는 p태그 막음 */
 	}
 	footer>#footer_copyright {
 		margin:0 auto;

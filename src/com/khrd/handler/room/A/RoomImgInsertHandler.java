@@ -43,7 +43,7 @@ public class RoomImgInsertHandler implements CommandHandler {
 			
 			
 		}else if(request.getMethod().equalsIgnoreCase("post")) {
-			String roomImages = request.getRealPath("roomimages");
+			String roomImages = request.getRealPath("upload/roomImg");
 			File dir = new File(roomImages);
 			if(dir.exists() == false) {
 				dir.mkdir();

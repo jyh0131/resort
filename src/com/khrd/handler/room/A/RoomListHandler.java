@@ -11,9 +11,10 @@ import com.khrd.dao.RoomDAO;
 import com.khrd.dto.Room;
 import com.khrd.jdbc.ConnectionProvider;
 import com.khrd.jdbc.JDBCUtil;
+import com.khrd.util.PageMaker;
 
 public class RoomListHandler implements CommandHandler {
-
+	private int size = 10;//한 페이지에 보일 게시물의 개수
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Connection conn = null;
@@ -21,8 +22,18 @@ public class RoomListHandler implements CommandHandler {
 		try {
 			conn = ConnectionProvider.getConnection();
 			RoomDAO dao = RoomDAO.getInstance();
-			List<Room> list = dao.selectRoomList(conn);
+			
+			//페이징
+			String pageNoVal = request.getParameter("pageNo");
+			int pageNo = 1;
+			if(pageNoVal != null) {
+				pageNo = Integer.parseInt(pageNoVal);
+			}
+			int total = dao.selectCountRoom(conn);
+			List<Room> list = dao.selectRoom(conn, (pageNo -1)*size, size);
+			PageMaker page = new PageMaker(total, pageNo, size);
 			request.setAttribute("list", list);
+			request.setAttribute("page", page);
 			
 			return "/WEB-INF/view/room/rList.jsp";
 		}catch(Exception e) {

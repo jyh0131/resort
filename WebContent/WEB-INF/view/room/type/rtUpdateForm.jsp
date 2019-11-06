@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ include file="../../include/headerA.jsp" %>
 <link href = "${pageContext.request.contextPath }/css/roomAll.css" type ="text/css" rel = "stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src = "${pageContext.request.contextPath }/js/room.js"></script>
 <script>
 	$(function(){
@@ -18,8 +13,6 @@
 		})
 	})
 </script>
-</head>
-<body>
 	<form action = "update.do" method = "post" id = "rtUpdateForm">
 		<fieldset>
 			<legend>객실 타입 수정</legend>
@@ -37,5 +30,4 @@
 			</p>
 		</fieldset>
 	</form>
-</body>
-</html>
+	<%@ include file="../../include/footer.jsp" %>

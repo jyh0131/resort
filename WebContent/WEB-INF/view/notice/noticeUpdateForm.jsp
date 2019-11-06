@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../../include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <style>
 	section{
 		width: 100%;
@@ -24,7 +24,7 @@
 		font-size: 14px;
 		color: #977F51;
 	}
-	span.error, span.titleError{
+	span.error, span.titleError, p#check>span{
 		display: none;
 		color: #977F51;
 		font-size: 12px;
@@ -51,24 +51,35 @@
 			
 			//제목 글자 수 제한
 			var title = $("#title").val();
-			var reg = /^.{1,20}$/i;
+			var reg = /^.{1,30}$/i;
 			if(reg.test(title) == false){
 				$(".titleError").css("display", "inline");
 				return false;
-			}			
+			}
 		})
 		
-		//질문 유형 선택
-		$("#type").val("${q.qType}").prop("selected", true);
+		//체크박스 선택 여부 적용(1일 때만 체크)
+		if("${n.nCheck}" == 1){
+			$("#on").attr("checked", true);
+		}
+		
+		//체크박스 선택 시 안내문
+		$("#on").click(function() {
+			if($(this).prop('checked')) { 
+				$(this).next().css("display", "inline");
+			}else { 
+				$(this).next().css("display", "none");
+			}
+		})
 		
 		//파일 삭제 버튼
 		$("#remove").click(function() {
 			var target = $(this);
-			var qNo = $(this).attr("data-qNo");
+			var nNo = $(this).attr("data-nNo");
 			$.ajax({
-				url: "${pageContext.request.contextPath}/question/updateFile.do",
+				url: "${pageContext.request.contextPath}/notice/updateFile.do",
 				type: "get",
-				data: {"no" : qNo},
+				data: {"no" : nNo},
 				dataType: "json",
 				success : function(res) {
 					console.log(res);
@@ -80,31 +91,22 @@
 	})
 </script>
 <section>
-	<%@ include file="../../include/qna/front.jsp" %>
-	<form action="update.do?no=${q.qNo}" method="post" enctype="multipart/form-data">
-		<p>
-			<label>제목</label>
-			<input type="text" name="title" size="70" id="title" value="${q.qTitle}">
-			<span class="error">제목을 입력하세요.</span>
-			<span class="titleError">제목은 20글자 이내로 입력 가능합니다.</span>
+	<%@ include file="../include/qna/front.jsp" %>
+	<form action="update.do?no=${n.nNo}" method="post" enctype="multipart/form-data">
+		<p id="check">
+			<label for="on">공지 등록</label>
+			<input type="checkbox" name="check" id="on">
+			<span>(목록의 상위에 표시됩니다.)</span>
 		</p>
 		<p>
-			<label>질문 유형</label>
-			<select name="type" id="type">
-				<option>객실관련</option>
-				<option>입퇴실관련</option>
-				<option>부대시설관련</option>
-				<option>식음료관련</option>
-				<option>패키지관련</option>
-				<option>셔틀버스관련</option>
-				<option>차량등록</option>
-				<option>기타</option>
-			</select>
-			<span class="error">질문 유형을 선택하세요.</span>
+			<label>제목</label>
+			<input type="text" name="title" size="70" id="title" value="${n.nTitle}">
+			<span class="error">제목을 입력하세요.</span>
+			<span class="titleError">제목은 30글자 이내로 입력 가능합니다.</span>
 		</p>
 		<p>
 			<label>내용</label>
-			<textarea name="content" cols="100" rows="30">${q.qContent}</textarea>
+			<textarea name="content" cols="100" rows="30">${n.nContent}</textarea>
 			<span class="error">내용을 입력하세요.</span>
 		</p>
 		<p>
@@ -113,9 +115,9 @@
 		</p>
 		<p>
 			<label>기존 파일</label>
-			<c:if test="${q.qFile != null}">
-				<span id="fileName">${q.qFile}</span>
-				<span id="remove" data-qNo="${q.qNo}"> x </span>
+			<c:if test="${n.nFile != null}">
+				<span id="fileName">${n.nFile}</span>
+				<span id="remove" data-nNo="${n.nNo}"> x </span>
 			</c:if>
 		</p>		
 		<p id="btns">
@@ -123,5 +125,6 @@
 			<input type="reset" value="취소">
 		</p>
 	</form>
+	
 </section>
-<%@ include file="../../include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>

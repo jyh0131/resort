@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ include file="../../include/headerA.jsp" %>
 <link href = "${pageContext.request.contextPath }/css/roomAll.css" type ="text/css" rel = "stylesheet">  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src = "${pageContext.request.contextPath }/js/room.js"></script>
 <script>
 	$(function(){
@@ -19,8 +13,6 @@
 		})
 	})
 </script>
-</head>
-<body>
 	<form action = "insert.do" method = "post" id = "rcInsertForm">
 		<fieldset>
 			<legend>객실 구성 등록</legend>
@@ -59,5 +51,4 @@
 		
 		
 	</form>
-</body>
-</html>
+<%@ include file="../../include/footer.jsp" %>	

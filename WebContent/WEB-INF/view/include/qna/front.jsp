@@ -37,10 +37,25 @@
 	#explan>p>span{
 		color: #ff0000;
 	}
+	p#btns>button, p#btns>input{
+		padding: 3px 7px;
+		border: 0.5px solid #977F51;
+		border-radius: 5px;
+		text-decoration: none;
+		font-size: 12px;
+		background: #fff;
+		color: #977F51;
+		outline: none;
+		cursor: pointer;
+	}
+	p#btns>button:hover{
+		background: #DFD2B3;
+		color: #fff; 
+	}
 </style>
 <div id="banner">
 	<a href="${pageContext.request.contextPath}/question/list.do">Q&amp;A</a>
-	<img src="${pageContext.request.contextPath}/images/qna_bg.jpg">
+	<img src="${pageContext.request.contextPath}/images/banner_bg.jpg">
 </div>
 <div id="explan">
 	<h3>QUESTION &amp; ANSWER 무엇이든 물어보세요</h3>

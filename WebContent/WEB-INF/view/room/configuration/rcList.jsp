@@ -1,23 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@ include file="../../include/headerA.jsp" %>
 <style>
-	table,th,td{
-		border:1px solid black;
+	table{
+		margin: 20px auto;
+		border-top:0.5px solid #dfd2d3;
 		border-collapse: collapse;
+		width: 980px;
 	}
 	th,td{
-		padding:5px;
+		border:0.5px solid #dfd2d3;
+		border-collapse: collapse;
 		text-align: center;
 	}
+	th{
+		background: #977F51;
+		color:white;
+	}
+	td,a{
+		color:#888;
+	}
+	a:hover{
+		color:#333;
+		font-weight: bold;
+	}
+	th,td{
+		padding:10px;
+	}
+	#pageBtns {
+		border-bottom: 0.5px solid #dfd2d3;
+	}
+	#pageBtn{
+		border:none;
+	}
+	#pageBtn > a{
+		display: inline-block;
+		width: 40px;
+		height: 20px;
+		color: #977F51;
+		text-decoration: none;
+		border: 0.5px solid #977F51;
+		margin: 5px;
+		cursor: pointer;
+	}
+	img{
+		width: 400px;
+		height: 300px;
+	}
+	th:last-child{
+		width: 85px;
+	}
+	#insert{
+		display: block;
+		color:white;
+		border:0.5px solid #977F51;
+		border-radius: 8px;
+		width: 90px;
+		text-align: center;
+		background-color:#977f51;
+		padding:5px;
+		font-weight: bold;
+		margin-left:1329px; 
+	}
+	#insert:hover {
+		background: white;
+		color:#977f51;
+	}
 </style>
-</head>
-<body>
+<script>
+	$(function(){
+		$(".btnNum").eq("${page.currentPage%5-1}").css("background","#977F51").css("color","white");
+	})
+</script>
+	
+	<a href = "insert.do" id = "insert">추가하기</a>
 	<table>
 		<tr>
 			<th>객실 구성 번호</th>
@@ -42,7 +98,22 @@
 				</td>
 			</tr>
 		</c:forEach>
+		<c:if test="${total != 0}">
+			<tr id="pageBtns">
+				<td colspan="7" id="pageBtn">
+					<c:if test="${page.startPage > 5}"><!--  && page.totalPages > 5 -->
+						<a href="${pageContext.request.contextPath}/roomConfiguration/list.do?pageNo=${page.startPage-5}" id="btnPrev">이전</a>
+					</c:if>
+					
+					<c:forEach var="pNo" begin="${page.startPage}" end="${page.endPage}">
+						<a  href="${pageContext.request.contextPath}/roomConfiguration/list.do?pageNo=${pNo}" class="btnNum" data-pNo="${pNo}">${pNo}</a>
+					</c:forEach>
+					
+					<c:if test="${page.endPage < page.totalPages && page.totalPages > 5}">
+						<a href="${pageContext.request.contextPath}/roomConfiguration/list.do?pageNo=${page.startPage+5}" id="btnNext">다음</a>
+					</c:if>
+				</td>
+			</tr>
+		</c:if>
 	</table>
-	<a href = "insert.do">추가하기</a>
-</body>
-</html>
+<%@ include file="../../include/footer.jsp" %>	
