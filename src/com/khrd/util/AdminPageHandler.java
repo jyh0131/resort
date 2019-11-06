@@ -29,7 +29,7 @@ public class AdminPageHandler implements CommandHandler {
 			if(result == 1) {
 				return "/homeA.jsp";
 			} else {
-				return "/home.do";
+				response.sendRedirect(request.getContextPath()+"/home.do");
 			}
 			
 		} catch(Exception e) {
