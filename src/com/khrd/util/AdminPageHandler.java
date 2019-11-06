@@ -27,7 +27,7 @@ public class AdminPageHandler implements CommandHandler {
 			int result = dao.AdminIDCheck(conn, Auth);
 			
 			if(result == 1) {
-				return "/homeA.do";
+				return "/homeA.jsp";
 			} else {
 				return "/home.do";
 			}
