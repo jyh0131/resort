@@ -8,97 +8,109 @@
 }
 
 #rsv_wrapper #rsv_title{
-	margin-left:20px;
+	margin:10px 65px;
 	font-weight: bold;
-	font-size:24px;
-}
-
-#rsv_wrapper #no_reserve{
-	margin:200px 0px;
-	text-align:center;
+	font-size:20px;
 }
 
 #rsv_wrapper table {
 	border-collapse: collapse;
-	text-align:center;
+	padding-left:10px;
 }
 
 #rsv_wrapper table td {
-	padding: 5px;
+	font-size:14px;
+	padding: 10px;
 }
 
-#rsv_room_info table {
+#rsv_room_info table, #rsv_member_info table {
 	width: 900px;
 	margin: 0 auto;
 }
 
-#rsv_room_info #rsv_subtitle {
-	margin:20px 0 10px 70px;
+#rsv_room_info table td:first-child{
+	background:#EAEAEA;
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
+	width:150px;
 }
-
-#rsv_room_info table td {
-	border:1px solid black;
+#rsv_room_info table td:last-child {
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
 }
 
 #rsv_room_info tr:first-child td{
-	background:#FFD9EC;
+	border-top:3px solid #918EDB;
 }
 
 #rsv_member_info {
-	text-align:right;
 	margin-top:40px;
 	margin-right:65px;
 	height:200px;
 }
 
 #rsv_member_info table {
-	float:right;
+	margin-left:62px;
 }
 
-#rsv_member_info table td{
-	border:1px solid black;
+#rsv_member_info table td:first-child{
+	background:#EAEAEA;
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
+	width:150px;
+}
+#rsv_member_info table td:last-child {
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
 }
 
-#rsv_member_info tr td:first-child{
-	background:#FFD9EC;
+#rsv_member_info tr:first-child td{
+	border-top:3px solid #918EDB;
 }
 
 #rsv_wrapper #btnbox {
-	clear:both;
 	text-align: center;
 }
 
 #rsv_wrapper button {
-	border: 1px solid black;
-	background: #FFD9EC;
+	border: 1px solid gray;
+	background: #EAEAEA;
 	margin: 10px 10px 10px 0;
-	font-size: 16px;
+	font-size: 14px;
 	padding: 3px;
 	color: black;
 	cursor: pointer;
 }
 </style>
 	<div id="rsv_wrapper">
-		<p id="rsv_title">예약 조회</p>
-			<div id="rsv_room_info">
-				<fmt:formatDate var="paymentDate" value="${rsv.rsvPaymentDate}" pattern="yyyy-MM-dd" />
-				<p id="rsv_subtitle">결제일 - ${paymentDate}</p>
+		<div id="rsv_room_info">
+			<p id="rsv_title">예약 조회</p>
 				<table>
 					<tr>
-						<td>예약번호</td>
-						<td>이용 객실</td>
-						<td>예약날짜</td>
-						<td>인원</td>
-						<td>취소 여부</td>
+						<td>결제일</td>
+						<fmt:formatDate var="paymentDate" value="${rsv.rsvPaymentDate}" pattern="yyyy-MM-dd" />
+						<td>${paymentDate}</td>
 					</tr>
 					<tr>
+						<td>예약번호</td>
 						<td>${rsv.rsvNo}</td>
+					</tr>
+					<tr>
+						<td>이용 객실</td>
 						<td>${rsv.room.roomName.roomType.rtName}
 							${rsv.room.roomName.rnName} ${rsv.room.rRoom}호</td>
-						<fmt:formatDate var="startDate" value="${rsv.rsvStartDate}"	pattern="yyyy-MM-dd" />
+					</tr>
+					<tr>
+						<td>예약날짜</td><fmt:formatDate var="startDate" value="${rsv.rsvStartDate}"	pattern="yyyy-MM-dd" />
 						<fmt:formatDate var="endDate" value="${rsv.rsvEndDate}" pattern="yyyy-MM-dd" />
 						<td>${startDate}~ ${endDate}</td>
+					</tr>
+					<tr>
+						<td>인원</td>
 						<td>${rsv.rsvCount}명</td>
+					</tr>
+					<tr>
+						<td>취소 여부</td>
 						<td>
 							<c:if test="${rsv.rsvCancel == 0}">
 								No
@@ -111,7 +123,7 @@
 			</div>
 			
 			<div id="rsv_member_info">
-				<p id="rsv_subtitle">예약자 정보</p>
+				<p id="rsv_title">예약자 정보</p>
 				<table>
 					<tr>
 						<td>예약자 이름</td><td>${rsv.rsvName}</td>
