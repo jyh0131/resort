@@ -14,7 +14,7 @@ import com.khrd.jdbc.JDBCUtil;
 import com.khrd.util.PageMaker;
 
 public class RoomNameListHandler implements CommandHandler {
-	private int size = 10;//한 페이지에 보일 게시물의 개수
+	private int size = 5;//한 페이지에 보일 게시물의 개수
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Connection conn = null;

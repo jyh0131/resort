@@ -10,7 +10,7 @@
 	a{
 		text-decoration: none;
 	} 
-/* -----------------------------mainBody--------------------------- */
+
 	#roomResort{
 		width: 100%;
 		margin: 0 auto;
@@ -30,18 +30,26 @@
 	#reMainMenu a { /* 사이드메뉴의 가장 상위 ul태그 안에 모든 a태그 */
 		color:#977F51;
 	}
-	.reSubMenu{/* roomType(submenu)안의 submenu(roomName의 ul태그) */
-		display: none;
+	.reSubMenu{/* roomType(submenu)안의 submenu(roomName의 ul) */
+		margin: 0 auto;
 	}
 	.sideM_T{/* submenu의 type name */
 		display: block;
-		border-bottom: 1px dotted #977F51;
-		margin: 10px auto;
+		border-bottom: 2.5px solid #977F51;
+		margin: 40px auto 10px;
 		padding:5px 0;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.sideM_sm{/* roomType(submenu)안의 submenu(roomName의 ul > li) */
+		display: block;
+		border-bottom: 1px dotted #977F51;
+		margin: 0 auto;
+		padding:5px 0;
+		font-size: 14px;
 	}
 	#rR_mainBody{/* 객실의 메인 화면  */
 		float:left;
-		/* width:1024px; */
 		margin: 0 auto;
 		text-align: center;
 	}
@@ -77,9 +85,6 @@
 		overflow: hidden;
 		position: relative;
 	}
-	/* #mi_body{
-		
-	} */
 	#mb_mainImage > ul{/* main화면에 있는 이미지 리스트(ul) */
 		height: 550px;
 	}
@@ -100,7 +105,7 @@
     	background: rgba(102, 51, 0, 0.5) url("${pageContext.request.contextPath}/images/roomImg/room_left_btn.png") no-repeat;
 	}
 	#mb_mainImage > p > span.next{
-		display: inline-block;
+		display: inline-block; 
    		width: 50px;
     	height: 50px;
     	position: absolute;
@@ -157,28 +162,28 @@
 </style>
 <script>
 	$(function(){
-		
-		$(".sideM_T").click(function(){
-			/* $(".reSubMenu").css("display","none"); */
-			$(this).next().css("display","block");
-		})
-		$(".sideM_sm").click(function(){
-			var sub = $(this).parent().parent().css("display");
-			if(sub == "none"){
-				$(this).parent().parent().show();
-			}
-		})
-		/* $(".reSubMenu > li").click(function(){
-			$(this).parent().parent().css("display","block");
-		}) */
-		
-		var fileArr = "${imgFile}";
+		var fileArr = [<c:forEach var = "item" items = "${imgFile}">"${item}",</c:forEach>];
 		var ulWidth = fileArr.length;
 		
-		$("#mb_mainImage > ul").css("width", ulWidth*1100 + "px");
+		$("#mb_mainImage > ul").css("width", ulWidth*1100 + "px"); 
 		
+		var index = 0;
+		
+		$(".next").click(function(){
+			if(index < ulWidth-1){
+				index++;
+				$("#mb_mainImage > ul").animate({"margin-left":-1100*index+"px"},500);
+			}else{
+				return;
+			}
+		})
 		$(".prve").click(function(){
-			
+			if(index > 0){
+				index--;
+				$("#mb_mainImage > ul").animate({"margin-left":-1100*index+"px"},500);
+			}else{
+				return;
+			}
 		})
 	})
 </script>
@@ -188,15 +193,16 @@
 				<c:forEach var = "rt" items = "${rtList }">
 					<li>
 						<a href="#" class  = "sideM_T">
-							${rt.rtName}
+							- ${rt.rtName} -
 						</a> <!-- resort & hotel -->
 						<ul class = "reSubMenu">
 							<c:forEach var = "rn" items = "${rnList }">
 								<c:if test = "${rt.rtNo == rn.roomType.rtNo }">
+								
 									<li>
-
+	
 										<a href="list.do?rnNo=${rn.rnNo }" class = "sideM_sm"><!-- sub_menu -->
-											 ${rn.rnName }
+											${rn.rnName }
 										</a><!-- 한글이름 -->
 										<a href = "list.do?rnNo=${rn.rnNo }" class = "sideM_e_sm">
 											${rn.rnEngName }
