@@ -57,8 +57,9 @@ $(function(){
 }
 #con fieldset{
 	width:530px;
-	height:200px;
+	height:220px;
 	border-color: #D4F4FA;
+	border-radius: 10px;
 }
 #con #login_title{
 	font-weight: bold;
@@ -79,7 +80,9 @@ $(function(){
 	margin-left:224px;
 	height:27px;
 	margin-top:7px;
-	width:70px
+	width:70px;
+	color:white;
+	background: #00B4DB
 }
 #con .show{
 	font-size: 12px;
@@ -108,12 +111,14 @@ $(function(){
 	text-decoration: none;
 	font-size: bold;
 }
-
+img{
+	margin-left:700px;
+}
 
 </style>
 </head>
 <body>
- 
+ <img src = "${pageContext.request.contextPath}/images/login.PNG"><br>
 <p id="title">로그인</p>
  
 <form action = "adminLogin.do" method ="post">
@@ -138,7 +143,7 @@ $(function(){
 
 		<input type ="submit" value = "로그인" id ="submit" >
 		<br>
-		<c:if test = "${login == true }">
+	<c:if test = "${login == true }">
 	<br>
 	<p id = "correct">관리자 아이디와 비밀번호가 일치하지 않습니다</p>
 	<br>
@@ -148,12 +153,6 @@ $(function(){
 	</fieldset>
 	<br>
 	<a href= "login.do" id = "people">일반 회원 로그인</a>
-	
-	<a href = "adminList.do" class="admin_list">관리자 리스트 검색하기</a>
-	<a href = "adminMember.do" class="admin_list">회원 리스트에서 관리자 검색하기</a>	
-	<a href = "list.do" class="admin_list">모든 회원 검색하기</a>
-	<a href = "listWithout.do" class="admin_list">탈퇴한 회원 제외 검색하기</a>
-	<a href = "listWithdraw.do" class="admin_list">탈퇴한 회원만 검색하기</a>
 	
 </div>
 

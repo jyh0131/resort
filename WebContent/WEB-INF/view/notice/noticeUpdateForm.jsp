@@ -58,6 +58,10 @@
 			}
 		})
 		
+		$("#reset").click(function() {
+			history.back();
+		})
+		
 		//체크박스 선택 여부 적용(1일 때만 체크)
 		if("${n.nCheck}" == 1){
 			$("#on").attr("checked", true);
@@ -91,8 +95,8 @@
 	})
 </script>
 <section>
-	<%@ include file="../include/qna/front.jsp" %>
-	<form action="update.do?no=${n.nNo}" method="post" enctype="multipart/form-data">
+	<%@ include file="../include/notice/front.jsp" %>
+	<form action="update.do?no=${n.nNo}&key=${key}" method="post" enctype="multipart/form-data">
 		<p id="check">
 			<label for="on">공지 등록</label>
 			<input type="checkbox" name="check" id="on">
@@ -122,7 +126,7 @@
 		</p>		
 		<p id="btns">
 			<input type="submit" value="수정">
-			<input type="reset" value="취소">
+			<input type="button" value="취소" id="reset">
 		</p>
 	</form>
 	

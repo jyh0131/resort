@@ -138,7 +138,6 @@
 	}
 	.bottom_sub>li{
 		width: 166px;
-		height: 40px;
 		clear: both;
 		text-align: center;
 		line-height: 40px;
@@ -266,6 +265,7 @@
 					<li><a href="${pageContext.request.contextPath}/member/add.do">회원가입</a> | </li>
 				</c:if>
 				<c:if test="${Auth != null}">
+					<li>${Auth }님</li>
 					<li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a> | </li> 
 					<li><a href="${pageContext.request.contextPath}/member/information.do">내 정보보기</a> | </li>
 				</c:if>

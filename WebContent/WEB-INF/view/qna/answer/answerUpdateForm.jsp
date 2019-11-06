@@ -40,6 +40,10 @@
 				return false;
 			}		
 		})
+		
+		$("#reset").click(function() {
+			history.back();
+		})
 	})
 </script>
 <section>
@@ -56,7 +60,7 @@
 		</p>
 		<p id="btns">
 			<input type="submit" value="수정">
-			<input type="reset" value="취소">
+			<input type="button" value="취소" id="reset">
 		</p>
 		<input type="hidden" name="qNo" value="${qNo}">
 		<input type="hidden" name="aNo" value="${a.aNo}">

@@ -86,7 +86,7 @@
 		<button id="list">목록 가기</button>
 		<c:if test="${admin == 1}"> <!-- 관리자일 때만 -->
 			<button id="updateN">공지 수정</button>
-			<button id="deleteN">질문 삭제</button>
+			<button id="deleteN">공지 삭제</button>
 		</c:if>
 	</p>
 	<table>

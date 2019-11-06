@@ -59,17 +59,7 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
-	a#btnPrev, a#btnNext, a#btnPrevD, a#btnNextD{
-		display: inline-block;
-		width: 40px;
-		height: 20px;
-		color: #977F51;
-		text-decoration: none;
-		border: 0.5px solid #977F51;
-		margin: 5px;
-		cursor: pointer;
-	}
-	a.btnNum, a.btnNumD{
+	td#pageBtn>a{
 		display: inline-block;
 		width: 20px;
 		height: 20px;
@@ -79,6 +69,28 @@
 		margin: 5px;
 		cursor: pointer;
 	}
+	a#btnPrev{
+		background: url("${pageContext.request.contextPath}/images/pageBtn/btn_prev.png") center;
+	} 
+	a#btnNext{
+		background: url("${pageContext.request.contextPath}/images/pageBtn/btn_next.png") center;
+	}
+	a#btnFirst{
+		background: url("${pageContext.request.contextPath}/images/pageBtn/btn_first.png") center;
+	}
+	a#btnLast{
+		background: url("${pageContext.request.contextPath}/images/pageBtn/btn_last.png") center;
+	}
+	p#pageNumber{
+		width: 700px;
+		color: #aaa;
+		font-size: 13px;
+		margin: 0 auto;
+	}
+	p#pageNumber>span{
+		color: #977F51;
+		font-weight: bold;
+	}	
 </style>
 <script>
 	$(function() {
@@ -146,8 +158,9 @@
 		<c:if test="${total != 0}">
 			<tr id="pageBtns">
 				<td colspan="5" id="pageBtn">
-					<c:if test="${page.startPage > 5}"><!--  && page.totalPages > 5 -->
-						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.startPage-5}&size=${size}" id="btnPrev">이전</a>
+					<c:if test="${page.startPage > 5}">
+						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=1&size=${size}" id="btnFirst">&nbsp;</a>
+						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.startPage-5}&size=${size}" id="btnPrev">&nbsp;</a>
 					</c:if>
 					
 					<c:forEach var="pNo" begin="${page.startPage}" end="${page.endPage}">
@@ -155,11 +168,13 @@
 					</c:forEach>
 					
 					<c:if test="${page.endPage < page.totalPages && page.totalPages > 5}">
-						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.startPage+5}&size=${size}" id="btnNext">다음</a>
+						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.startPage+5}&size=${size}" id="btnNext">&nbsp;</a>
+						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.totalPages}&size=${size}" id="btnLast">&nbsp;</a>
 					</c:if>
 				</td>
 			</tr>
 		</c:if>
 	</table>
+	<p id="pageNumber">전체 ${page.total} | 페이지 <span>${page.currentPage}</span>/${page.totalPages}</p>
 </section>
 <%@ include file="../include/footer.jsp" %>

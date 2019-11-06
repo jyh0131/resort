@@ -35,8 +35,7 @@ public class MemberListHandler implements CommandHandler {
 			}finally {
 				JDBCUtil.close(conn);
 			}
-			
-						
+									
 			return null;
 		}
 		

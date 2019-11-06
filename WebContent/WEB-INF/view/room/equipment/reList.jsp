@@ -6,7 +6,7 @@
 		margin: 20px auto;
 		border-top:0.5px solid #dfd2d3;
 		border-collapse: collapse;
-		width: 980px;
+		width: 1300px;
 	}
 	th,td{
 		border:0.5px solid #dfd2d3;
@@ -62,7 +62,7 @@
 		background-color:#977f51;
 		padding:5px;
 		font-weight: bold;
-		margin-left:1329px; 
+		margin-left:1496px; 
 	}
 	#insert:hover {
 		background: white;

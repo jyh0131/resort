@@ -20,6 +20,8 @@ public class NoticeUpdateHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			int nNo = Integer.parseInt(req.getParameter("no"));
+			String key = req.getParameter("key");
+			
 			Connection conn = null;
 			try {
 				conn = ConnectionProvider.getConnection();
@@ -29,6 +31,7 @@ public class NoticeUpdateHandler implements CommandHandler {
 				notice.setnContent(nContent);
 				
 				req.setAttribute("n", notice);
+				req.setAttribute("key", key);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -68,6 +71,11 @@ public class NoticeUpdateHandler implements CommandHandler {
 				}
 				Notice notice = new Notice(nNo, nTitle, nContent, nFile, null, 0, nCheck, null);
 				dao.updateNotice(conn, notice);
+				
+				String key = req.getParameter("key");
+				if(key != null && key.equals("admin")) {
+					res.sendRedirect(req.getContextPath()+"/notice/list.do?key=admin");
+				}				
 				res.sendRedirect(req.getContextPath()+"/notice/detail.do?no="+nNo);
 			} catch (Exception e) {
 				e.printStackTrace();

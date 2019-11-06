@@ -25,8 +25,6 @@ public class QuestionListHandler implements CommandHandler {
 		try {
 			conn = ConnectionProvider.getConnection();
 			QuestionDAO dao = QuestionDAO.getInstance();
-//			List<Question> list = dao.selectListQuestion(conn);
-//			req.setAttribute("list", list);
 			
 			//답변 유무 확인
 			AnswerDAO daoA = AnswerDAO.getInstance();

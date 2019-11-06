@@ -48,6 +48,10 @@ public class NoticeListHandler implements CommandHandler {
 			req.setAttribute("page", page);
 			req.setAttribute("size", size);
 			
+			String key = req.getParameter("key");
+			if(key != null && key.equals("admin")) {
+				return "/WEB-INF/view/notice/noticeManager.jsp";
+			}
 			return "/WEB-INF/view/notice/noticeList.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -6,10 +6,19 @@
 		width:1200px;
 		height:800px;
 		margin:0 auto;
+		position:relative;
 	}
-	#rsv_wrapper #no_reserve{
-		margin:200px 0px;
-		text-align:center;
+	#rsv_wrapper #rsv_title{
+		margin:100px 0 50px 240px;
+		font-weight: bold;
+		font-size:20px;
+	}
+	#rsv_wrapper #rsv_img{
+		width:75px;
+		height:75px;
+		position: absolute;
+		top:-23px;
+		left:160px;
 	}
 	#rsv_wrapper #scroll_box{
 		width:100%;
@@ -19,28 +28,25 @@
 	#rsv_wrapper table {
 		border-collapse:collapse;
 		margin:0 auto;
-		margin-top:50px;
 	}
 	#rsv_wrapper tr:first-child th {
-		background:#FFD9EC;
+		border-top:3px solid #918EDB;
+		background:#EAEAEA;
 		font-weight:normal;
 	}
 	#rsv_wrapper td, #rsv_wrapper th {
+		font-size:14px;
 		padding:7px;
 		text-align:center;		
-		border:1px solid black;
-	}
-	#rsv_wrapper td.paydate{
-		font-size:14px;
-		color:gray;
-		text-align: right;
+		border-bottom:1px solid gray;
 	}
 	#rsv_wrapper #btnbox {
 		text-align:center;
 	}
 	#rsv_wrapper a{
-		background:#FFD9EC;
-		font-size:16px;
+		background:#EAEAEA;
+		border:1px solid gray;
+		font-size:13px;
 		padding:4px;
 		color:black;
 		text-decoration: none;
@@ -52,8 +58,20 @@
 	#find_date_box{
 		display:none;
 	}
+	input[type='submit'] {
+		border:1px solid gray;
+		background:white;
+		color:black;
+	}
+	input[type='submit']:hover {
+		border:1px solid gray;
+		background:#EAEAEA;
+		cursor:pointer;
+	}
 </style>
 	<div id="rsv_wrapper">
+		<p id="rsv_title">예약 조회</p>
+		<img id="rsv_img" src="${pageContext.request.contextPath}/images/rsv_find_img.jpg">
 		<div id="scroll_box">
 		<table>
 			<tr>
