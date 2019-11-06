@@ -138,7 +138,7 @@
 					<li>
 						<span>예약 관리</span>
 						<ul id = "reservation" class = "am_subMenu">
-							<li><a href = "">전체 예약 정보 확인</a></li>
+							<li><a href = "${pageContext.request.contextPath }/reservation/list.do">전체 예약 정보 확인</a></li>
 							<li><a href = "">월별 매출액</a></li>
 						</ul>
 					</li>  

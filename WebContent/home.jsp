@@ -65,10 +65,28 @@
 	.hidebox {
 		display:none;
 	}
+	#conv_box {
+		text-align:center;
+		width:1100px;
+		height:500px;
+		overflow:hidden;
+	}
+	#healing1, #healing2 {
+		background: #999;
+	    text-align: center;
+	    text-indent: -9999px;
+	    display: block;
+	    width: 8px;
+	    height: 8px;
+	    margin: 0 7px;
+	    outline: 0;
+	    border-radius: 4px;
+	}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script	src="js/jquery.scrollTo.min.js"></script>
 <script>
 	$(function(){
 		$('.bxslider').bxSlider({
@@ -143,8 +161,20 @@
 				}
 			});
 			
-		});	
-		
+			// conv_box 밑의 동그란 버튼에 마우스를 올렸을 때
+			$("#healing1, #healing2").hover(function() {
+				e.preventDefault();
+				var href = $(this).attr("href");
+				$("#conv_box").scrollTo(href, 800);	
+			});
+			
+			// conv_box 밑의 동그란 버튼을 눌렀을 때
+			$("#healing1, #healing2").click(function(e) {
+				e.preventDefault();
+				var href = $(this).attr("href");
+				$("#conv_box").scrollTo(href, 800);	
+			});
+		});			
 	});
 </script>
 <div id="wrapper_main">
@@ -186,5 +216,20 @@
 	<div style="text-align:center;" style = "width:100%;">
 		<img src="${pageContext.request.contextPath}/images/main_bg_aqua.PNG" style = "width:100%;">
 	</div>
+	<div id="conv_box">
+	
+		<div id="page1" class="page">
+			<div class="content">
+				<img src="${pageContext.request.contextPath}/images/healing_img01.jpg">
+			</div>
+		</div>
+		<div id="page2" class="page">
+			<div class="content">
+				<img src="${pageContext.request.contextPath}/images/healing_img02.jpg">
+			</div>
+		</div>
+	</div>
+	<a href="#page1" id="healing1"></a>
+	<a href="#page2" id="healing2"></a>
 </div>
 <%@ include file="WEB-INF/view/include/footer.jsp" %>
