@@ -118,7 +118,12 @@ $(function(){
 	text-align:center;
 	display: none;
 }
+.img{
+	margin-left:740px;
+}
 </style>
+
+<img src = "${pageContext.request.contextPath}/images/withdraw3.PNG" class = "img">
 <p id="title">회원 탈퇴</p>
 <form action="withdraw.do" method="post">
 <div id="con">

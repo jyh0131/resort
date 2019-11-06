@@ -11,15 +11,19 @@
 	color:black;
 	margin-left:24px;
 }
-
+.img{
+	margin-left:510px;
+}
 </style>
 
 </head>
 <body>
 <br><br>
+
+<img src = "${pageContext.request.contextPath}/images/withdraw2.PNG"class = "img">
+
 <div id ="con">
 	
-	<p>탈퇴하였습니다.</p>
 	<br>
 	<a href = "/resort/home.do" id = "home">홈으로</a>
 </div>

@@ -28,7 +28,7 @@ input {
 }
 
 #con, table {
-	margin-top: 200px;
+	
 	margin-left: 270px;
 }
 
@@ -57,11 +57,16 @@ input {
 .input {
 	display: none;
 }
+.img{
+	margin-left:510px;
+}
+
 </style>
 
 </head>
 <body>
-
+		<img src = "${pageContext.request.contextPath}/images/bb.PNG" class = "img"><br>
+		<img src = "${pageContext.request.contextPath}/images/h5_04.gif"class = "img">
 	<form action="add.do" method="post">
 
 		<div id="con">

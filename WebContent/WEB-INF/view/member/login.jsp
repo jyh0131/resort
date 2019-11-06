@@ -133,6 +133,7 @@ img{
 }
 
 .down{
+	margin-top:7px;
 	color:black;
 	text-decoration: none;
 }

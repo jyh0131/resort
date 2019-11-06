@@ -35,6 +35,12 @@ table{
 #con{
 	margin-left:800px;
 }
+fieldset{
+	width:300px;
+	padding-top:10px;
+	padding-left:10px;
+}
+
 #submit{
 	margin-left: 130px;
 }
@@ -50,6 +56,8 @@ table{
 <body>
 
 <div id = "con">
+<fieldset>
+
 <p>아이디 찾기</p>
 <br>
 <form action = "findCheck.do" method = "post">
@@ -78,7 +86,7 @@ table{
 <p class = "down">이름과 전화번호가 일치하지 않습니다</p>
 
 </c:if>
-
+</fieldset>
 </div>
 
 
