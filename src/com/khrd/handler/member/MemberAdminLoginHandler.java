@@ -39,7 +39,7 @@ public class MemberAdminLoginHandler implements CommandHandler {
 				HttpSession session = request.getSession();
 				session.setAttribute("Auth", memberAdmin.getmId());
 	
-				return "/WEB-INF/view/member/home.jsp";
+				return "/WEB-INF/view/include/headerA.jsp";
 								
 			}catch(Exception e) {
 				e.printStackTrace();

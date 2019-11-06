@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file= "../include/header.jsp" %>
+<%@ include file= "../include/headerA.jsp" %>
 
 <style>
 
@@ -11,17 +11,17 @@ table{
 	border-collapse: collapse;	
 }
 #con{
-	margin-left:444px;
+	margin-left:600px;
 	margin-top:100px;
 }
 
 #id,#out,#password,#date{
 	text-align: center;
 }
-p{
+#list{
 	font-size: 21px;
 	font-weight: bold;
-	margin-left:333px;
+	margin-left:270px;
 }
 
 
@@ -33,7 +33,7 @@ p{
 
 <div id = "con">
 
-<p>탈퇴한 회원 검색</p>
+<p id = "list">탈퇴한 회원 검색</p>
 <br>
 <table>
 
@@ -65,4 +65,4 @@ p{
 </table>
 </div>
 
-<%@ include file= "../include/footer.jsp" %>
+

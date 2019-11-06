@@ -1,6 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file= "../include/header.jsp" %>
+<%@ include file= "../include/headerA.jsp" %>
+
+<script>
+
+$(function(){
+	
+	$.ajax({
+
+		url:"${pageContext.request.contextPath}/member/list.do",
+		type:"get",
+		data:{"id":$("#password").val()},
+		dataType:"json",
+		success:function(res){
+			console.log(res);
+			
+			var star = "*";
+			var password= "${member.mPassword }";
+			
+			for(var i= 0; i >= password.length; i++ ){
+				
+				
+			}
+			
+		}
+		
+	})
+	
+})
+
+</script>
 
 <style>
 
@@ -11,17 +40,17 @@ table{
 	border-collapse: collapse;	
 }
 #con{
-	margin-left:444px;
+	margin-left:600px;
 	margin-top:100px;
 }
 
 #id,#out,#password,#date{
 	text-align: center;
 }
-p{
+#list{
 	font-size: 21px;
 	font-weight: bold;
-	margin-left:333px;
+	margin-left:270px;
 }
 
 
@@ -33,7 +62,7 @@ p{
 
 <div id = "con">
 
-<p>모든 회원 검색</p>
+<p id = "list">모든 회원 검색</p>
 <br>
 <table>
 
@@ -51,7 +80,7 @@ p{
 
 	<tr>
 		<td id = "id">${member.mId }</td>
-		<td id = "password">*******</td>
+		<td id = "password">${member.mPassword }</td>
 		<td>${member.mName }</td>
 		<td>${member.mPhone }</td>
 		<td>${member.mEmail }</td>
@@ -64,6 +93,4 @@ p{
 
 </table>
 </div>
-
-<%@ include file= "../include/footer.jsp" %>
 

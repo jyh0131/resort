@@ -2,56 +2,53 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>resort</display-name>
   <servlet>
-  	<servlet-name>ControllerUsingURI</servlet-name>
-  	<servlet-class>com.khrd.controller.ControllerUsingURI</servlet-class>
-  	<init-param>
-  		<param-name>configFile</param-name>
-  		<param-value>/WEB-INF/commandHandler.properties</param-value>
-  	</init-param>
+    <servlet-name>ControllerUsingURI</servlet-name>
+    <servlet-class>com.khrd.controller.ControllerUsingURI</servlet-class>
+    <init-param>
+      <param-name>configFile</param-name>
+      <param-value>/WEB-INF/commandHandler.properties</param-value>
+    </init-param>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>ControllerUsingURI</servlet-name>
-  	<url-pattern>*.do</url-pattern>
+    <servlet-name>ControllerUsingURI</servlet-name>
+    <url-pattern>*.do</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>DBCPInit</servlet-name>
-  	<servlet-class>com.khrd.jdbc.DBCPInit</servlet-class>
-  	<load-on-startup>1</load-on-startup>  	
+    <servlet-name>DBCPInit</servlet-name>
+    <servlet-class>com.khrd.jdbc.DBCPInit</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
-  
   <filter>
-  	<filter-name>CharacterEncodingFilter</filter-name>
-  	<filter-class>com.khrd.util.CharacterEncodingFilter</filter-class>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>com.khrd.util.CharacterEncodingFilter</filter-class>
   </filter>
   <filter-mapping>
-  	<filter-name>CharacterEncodingFilter</filter-name>
-  	<url-pattern>/*</url-pattern>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
-  
   <filter>
-  	<filter-name>LoginCheckFilter</filter-name>
-  	<filter-class>com.khrd.util.LoginCheckFilter</filter-class>
+    <filter-name>LoginCheckFilter</filter-name>
+    <filter-class>com.khrd.util.LoginCheckFilter</filter-class>
   </filter>
   <filter-mapping>
-  	<filter-name>LoginCheckFilter</filter-name>
-  		<url-pattern>/question/add.do</url-pattern>
-  		<url-pattern>/question/update.do</url-pattern>
-  		<url-pattern>/question/updateFile.do</url-pattern>
-  		<url-pattern>/question/delete.do</url-pattern>
-	  	<url-pattern>/question/myQ.do</url-pattern>
-	  	<url-pattern>/answer/add.do</url-pattern>
-	  	<url-pattern>/answer/update.do</url-pattern>
-	  	<url-pattern>/answer/delete.do</url-pattern>
-	  	<url-pattern>/reservation/insert.do</url-pattern>
-	  	<url-pattern>/reservation/update.do</url-pattern>
-	  	<url-pattern>/reservation/cancel.do</url-pattern>
-	  	<url-pattern>/reservation/list.do</url-pattern>
-	  	<url-pattern>/reservation/listA.do</url-pattern>
-	  	<url-pattern>/reservation/load.do</url-pattern>
-	  	<url-pattern>/reservation/detailA.do</url-pattern>
-	  	<url-pattern>/reservation/findA.do</url-pattern>
+    <filter-name>LoginCheckFilter</filter-name>
+    <url-pattern>/question/add.do</url-pattern>
+    <url-pattern>/question/update.do</url-pattern>
+    <url-pattern>/question/updateFile.do</url-pattern>
+    <url-pattern>/question/delete.do</url-pattern>
+    <url-pattern>/question/myQ.do</url-pattern>
+    <url-pattern>/answer/add.do</url-pattern>
+    <url-pattern>/answer/update.do</url-pattern>
+    <url-pattern>/answer/delete.do</url-pattern>
+    <url-pattern>/reservation/insert.do</url-pattern>
+    <url-pattern>/reservation/update.do</url-pattern>
+    <url-pattern>/reservation/cancel.do</url-pattern>
+    <url-pattern>/reservation/list.do</url-pattern>
+    <url-pattern>/reservation/listA.do</url-pattern>
+    <url-pattern>/reservation/load.do</url-pattern>
+    <url-pattern>/reservation/detailA.do</url-pattern>
+    <url-pattern>/reservation/findA.do</url-pattern>
   </filter-mapping>
-  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

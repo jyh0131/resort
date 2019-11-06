@@ -68,8 +68,9 @@ $(function(){
 }
 #con fieldset{
 	width:530px;
-	height:200px;
+	height:220px;
 	border-color: #D4F4FA;
+	border-radius: 10px;
 }
 #con #login_title{
 	font-weight: bold;
@@ -90,7 +91,9 @@ $(function(){
 	margin-left:224px;
 	height:27px;
 	margin-top:7px;
-	width:70px
+	width:70px;
+	color:white;
+	background: #00B4DB;
 }
 #con .show{
 	font-size: 12px;
@@ -125,6 +128,14 @@ $(function(){
 	margin-left:920px;
 	text-decoration: none;
 }
+img{
+	margin-left:700px;
+}
+
+.down{
+	color:black;
+	text-decoration: none;
+}
 
 </style>
 
@@ -132,8 +143,9 @@ $(function(){
 </head>
 <body>
 
-
+<img src = "${pageContext.request.contextPath}/images/login.PNG"><br>
 <p id="title">로그인</p>
+ 
  
 <form action = "login.do" method ="post">
 
@@ -154,10 +166,11 @@ $(function(){
 				<td><input type ="password" name = "password"><span class="show">비밀번호를 입력하십시오</span></td>
 			</tr>
 			
-		</table>
-		
-		<input type ="submit" value = "로그인" id ="submit" >
+		</table>	
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href = "findId.do" class = "down">아이디 찾기</a> | <a href = "findPassword.do" class = "down">비밀번호 찾기</a>
 		<br>
+		<input type ="submit" value = "로그인" id ="submit" >
 		<a href = "adminLogin.do" id="admin_login">관리자 전용 로그인</a>
 		<br>
 	</fieldset>

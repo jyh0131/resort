@@ -107,7 +107,7 @@ input{
 	 
 	  <tr>
 	 	<td class = "left"><label>생년월일</label></td>
-	 	<td class = "right">${member.mRegdate }</td>
+	 	<td class = "right"><fmt:formatDate value="${member.mRegdate}" pattern="yyyy-MM-dd"/></td>
 	 </tr>
  
  </table>
