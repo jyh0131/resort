@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/headerA.jsp" %>
 <style>
 	section{
 		width: 100%;
+		padding-top: 50px;
+	}
+	h1{
+		text-align: center;
+		color: #977F51;
 	}
 	div#chart_div{
 		width: 1000px;
@@ -53,7 +58,7 @@
 	}
 </script>
 <section>
+	<h1>월별 매출액</h1>
 	<div id="chart_div"></div>
-	<a href="${pageContext.request.contextPath}/home.do" id="home">관리자 홈 가기</a>
 </section>
 <%@ include file="../include/footer.jsp" %>

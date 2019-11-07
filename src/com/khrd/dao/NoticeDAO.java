@@ -231,6 +231,24 @@ public class NoticeDAO {
 		return -1;
 	}//updateNoticeViews
 	
+	/* 공지 등록 및 해제 */
+	public int updateNoticeCheck(Connection conn, int nCheck, int nNo){
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "update notice set n_check=? where n_no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nCheck);
+			pstmt.setInt(2, nNo);
+			return pstmt.executeUpdate();			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//updateNoticeCheck
+	
 	public int deleteNotice(Connection conn, int nNo){
 		PreparedStatement pstmt = null;
 		

@@ -70,7 +70,7 @@
 <script>
 	$(function() {
 		$("#list").click(function() {
-			location.href="${pageContext.request.contextPath}/question/list.do";
+			history.back();
 		})
 		$("#updateQ").click(function() {
 			location.href="${pageContext.request.contextPath}/question/update.do?no=${q.qNo}";

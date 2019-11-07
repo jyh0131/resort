@@ -293,11 +293,11 @@
 				</li>
 				<li><a href="#">테마여행</a>
 					<ul id="#" class="bottom_sub">
-						<li><a href="#">워터파크</a></li>
-						<li><a href="#">골프</a></li>
-						<li><a href="#">승마</a></li>
-						<li><a href="#">스키&amp;보드</a></li>
-						<li><a href="#">테라피&amp;스파</a></li>
+						<li><a href="${pageContext.request.contextPath}/menuViewer/waterpark.jsp">워터파크</a></li>
+						<li><a href="${pageContext.request.contextPath}/menuViewer/vivaldipark.jsp">골프</a></li>
+						<li><a href="${pageContext.request.contextPath}/menuViewer/sonofelice.jsp">승마</a></li>
+						<li><a href="${pageContext.request.contextPath}/menuViewer/skiworld.jsp">스키&amp;보드</a></li>
+						<li><a href="${pageContext.request.contextPath}/menuViewer/therapyspa.jsp">테라피&amp;스파</a></li>
 					</ul>
 				</li>
 				<li><a href="#">이벤트&amp;할인</a>

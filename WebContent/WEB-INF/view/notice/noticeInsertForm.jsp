@@ -52,6 +52,10 @@
 			}
 		})
 		
+		$("#reset").click(function() {
+			history.back();
+		})
+		
 		//체크박스 선택 시 안내문
 		$("#on").click(function() {
 			if($(this).prop('checked')) { 
@@ -63,7 +67,7 @@
 	})
 </script>
 <section>
-	<%@ include file="../include/qna/front.jsp" %>
+	<%@ include file="../include/notice/front.jsp" %>
 	<form action="add.do" method="post" enctype="multipart/form-data">
 		<p id="check">
 			<label for="on">공지 등록</label>
@@ -87,7 +91,7 @@
 		</p>
 		<p id="btns">
 			<input type="submit" value="등록">
-			<input type="reset" value="취소">
+			<input type="button" value="취소" id="reset">
 		</p>
 	</form>
 	

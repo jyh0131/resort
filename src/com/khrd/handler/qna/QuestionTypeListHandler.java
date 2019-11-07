@@ -29,21 +29,25 @@ public class QuestionTypeListHandler implements CommandHandler {
 			conn = ConnectionProvider.getConnection();
 			QuestionDAO dao = QuestionDAO.getInstance();
 			
-			//질문 유형 선택 안 한 경우
-//			if(qType.equals("no")) {
-//				return req.getContextPath() + "question/list.do";
-//			}
-			
 			//페이징
 			String pageNoVal = req.getParameter("pageNo");
 			int pageNo = 1;
 			if(pageNoVal != null) {
 				pageNo = Integer.parseInt(pageNoVal);
 			}
-			int total = dao.selectCountQuestionByQType(conn, qType);
-			List<Question> list = dao.selectDescListQuestionByQType(conn, qType, (pageNo -1)*size, size);
-			PageMaker page = new PageMaker(total, pageNo, size);
+			int total;
 		
+			List<Question> list;
+			if(qType.equals("no")) { //질문 유형 선택 안 한 경우
+				total = dao.selectCountQuestion(conn);
+				list = dao.selectDescListQuestion(conn, (pageNo -1)*size, size);
+			}else{ //질문 유형 선택 한 경우
+				total = dao.selectCountQuestionByQType(conn, qType);
+				list = dao.selectDescListQuestionByQType(conn, qType, (pageNo -1)*size, size);
+			}
+		
+			PageMaker page = new PageMaker(total, pageNo, size);
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("list", list);
 			map.put("page", page);

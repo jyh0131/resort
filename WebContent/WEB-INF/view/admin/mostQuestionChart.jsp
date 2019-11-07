@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/headerA.jsp" %>
 <style>
 	section{
 		width: 100%;
+		padding-top: 50px;
+	}
+	h1{
+		text-align: center;
+		color: #977F51;
 	}
 	div#piechart{
 		width: 1000px;
@@ -44,7 +49,7 @@
 	}
 </script>
 <section>
+	<h1>유형별 질문 빈도</h1>
 	<div id="piechart" style="width: 900px; height: 500px;"></div>
-	<a href="${pageContext.request.contextPath}/home.do" id="home">관리자 홈 가기</a>
 </section>
 <%@ include file="../include/footer.jsp" %>

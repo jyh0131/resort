@@ -139,7 +139,7 @@
 						<span>예약 관리</span>
 						<ul id = "reservation" class = "am_subMenu">
 							<li><a href = "${pageContext.request.contextPath }/reservation/list.do">전체 예약 정보 확인</a></li>
-							<li><a href = "">월별 매출액</a></li>
+							<li><a href = "${pageContext.request.contextPath }/admin/salesChart.do">월별 매출액</a></li>
 						</ul>
 					</li>  
 					<li>
@@ -212,13 +212,13 @@
 								<a href = "">Q&#38;A</a>
 								<ul class = "am_sm_submenu">
 									<li><a href = "">- 질문 관리</a></li>
-									<li><a href = "">- 유형별 질문 빈도</a></li>
+									<li><a href = "${pageContext.request.contextPath }/admin/qTypeChart.do">- 유형별 질문 빈도</a></li>
 								</ul>
 							</li>
 							<li>
 								<a href = "">공지 사항</a>
 								<ul class = "am_sm_submenu">
-									<li><a href = "">- 공지 사항 관리</a></li>
+									<li><a href = "${pageContext.request.contextPath}/notice/list.do?key=admin">- 공지 사항 관리</a></li>
 								</ul>	
 							</li>
 						</ul>

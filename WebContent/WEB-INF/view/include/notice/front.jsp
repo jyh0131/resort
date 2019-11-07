@@ -13,7 +13,7 @@
 		margin-top: 90px;
 		margin-left: 30px;
 		font-weight: bold;
-		color: #6283ab;
+		color: #977F51;
 		cursor: pointer;
 	}
 	#banner>img{

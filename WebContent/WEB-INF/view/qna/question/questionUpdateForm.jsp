@@ -58,6 +58,10 @@
 			}			
 		})
 		
+		$("#reset").click(function() {
+			history.back();
+		})
+		
 		//질문 유형 선택
 		$("#type").val("${q.qType}").prop("selected", true);
 		
@@ -120,7 +124,7 @@
 		</p>		
 		<p id="btns">
 			<input type="submit" value="수정">
-			<input type="reset" value="취소">
+			<input type="button" value="취소" id="reset">
 		</p>
 	</form>
 </section>

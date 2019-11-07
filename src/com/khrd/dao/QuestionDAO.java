@@ -245,6 +245,60 @@ public class QuestionDAO {
 		return null;
 	}//selectDescListQuestionByQType
 	
+	public int selectCountQuestionByMId(Connection conn, String mId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select count(*) from question where m_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			rs = pstmt.executeQuery();		
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return -1;
+	}//selectCountQuestionByMId
+	
+	public List<Question> selectDescListQuestionByMid(Connection conn, String mId, int startRow, int size){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from question where m_id=? order by q_no desc limit ?, ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, size);
+			rs = pstmt.executeQuery();
+			List<Question> list = new ArrayList<>();
+			while (rs.next()) {
+				Question question = new Question(
+									rs.getInt("q_no"),
+									rs.getString("q_title"),
+									rs.getString("q_type"), 
+									rs.getString("q_content"),
+									rs.getString("q_File"), 
+									rs.getDate("q_date"),
+									rs.getString("m_id"));
+				list.add(question);
+			}
+			return list;			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs);
+			JDBCUtil.close(pstmt);
+		}
+		return null;
+	}//selectDescListQuestionByMId
+	
 	public List<Question> selectRankByQTypeCount(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
