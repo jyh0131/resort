@@ -217,12 +217,14 @@
 				var total = $(this).parent().parent().find(".totalCnt").text();
 				total = Number(total);
 				
-				$(".room_detailbox").addClass("hidebox");
+				$(".room_detailbox").css("display", "none");   		
 				
 				if(index == 1) {
-					$(this).parents().find("#boxNum"+total).removeClass("hidebox");
+					$(this).parents().find("#boxNum"+total).fadeIn(1000);
+					
 				} else {
-					$(this).parents().find("#boxNum"+(index-1)).removeClass("hidebox");
+					$(this).parents().find("#boxNum"+(index-1)).fadeIn(1000);
+					
 				}
 			});
 			
@@ -241,12 +243,12 @@
 				var total = $(this).parent().parent().find(".totalCnt").text();
 				total = Number(total);
 				
-				$(".room_detailbox").addClass("hidebox");
+				$(".room_detailbox").css("display", "none");
 				
 				if(index == total) {
-					$(this).parents().find("#boxNum1").removeClass("hidebox");				
+					$(this).parents().find("#boxNum1").fadeIn(1000);		
 				} else {
-					$(this).parents().find("#boxNum"+(index+1)).removeClass("hidebox");
+					$(this).parents().find("#boxNum"+(index+1)).fadeIn(1000);
 				}
 			});
 			
@@ -269,13 +271,19 @@
 				.css("text-indent", "-9999px");
 			});
 			
+			// conv_box에 있는 Read More 버튼 클릭 시
+			$("#conv_box a").click(function(e) {
+				e.preventDefault();
+				alert("준비 중입니다.");
+			})
+			
 			// conv_box 밑의 동그란 버튼을 눌렀을 때
 			$("#healing1, #healing2").click(function(e) {
 				e.preventDefault();
 				var href = $(this).attr("href");
 				$("#conv_box").scrollTo(href, 800);	
-			});
-		});			
+			});			
+		});		
 	});
 </script>
 <div id="wrapper_main">
