@@ -1,41 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/headerA.jsp" %>
 <style>
 	#rsv_wrapper {
 		width:430px;
 		margin:0 auto;
 	}
+	#rsv_wrapper h1{
+		margin:30px 0;
+		font-size:1.5em;
+		color:#977F51;
+		text-align:center;
+	}
 	#rsv_wrapper table {
 		width:430px;
-		border:1px solid black;
 		margin:0 auto;
 		border-collapse: collapse;
 	}	
-	#rsv_wrapper tr td:first-child{
-		background:#FAECC5;
+	#rsv_wrapper tr:first-child td{
+		border-top:2px solid #977F51;
 	}
 	#rsv_wrapper td {
 		padding:5px;
+		font-size:14px;
+		border-bottom:1px solid lightgray;
 	}	
 	#rsv_wrapper td.paydate{
 		font-size:14px;
+		font-style:italic;
 		color:gray;
 	}
 	#rsv_wrapper #btnbox {
 		text-align:center;
 	}
 	#rsv_wrapper button{
-		background:#FAECC5;
+		border:1px solid #977F51;
+		background:white;
 		margin:10px 10px 10px 0;
-		font-size:16px;
+		font-size:14px;
 		padding:4px;
 		color:black;
-		border:none;
 		cursor: pointer;
 	}
 </style>
 	<div id="rsv_wrapper">
+		<h1>예약 상세 정보</h1>
 		<table>
 			<tr>
 			<fmt:formatDate var="paymentDate" value="${rsv.rsvPaymentDate}" pattern="yyyy-MM-dd"/>
