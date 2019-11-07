@@ -49,6 +49,12 @@
 	    color: #666;
 	}
 </style>
+<script>
+	$(function(){
+		$("#bunyang_list > ul > li").removeClass("pic");
+		$("#bunyang_list > ul > li").eq(0).addClass("pic"); 
+	})
+</script>
 		<div id = "tab-1">
 			<ul>
 				<li>

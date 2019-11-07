@@ -125,17 +125,7 @@
 	}
 	
 </style>
-<script>
-	$(function(){
-		$("#bunyang_list > ul > li > a").prop("disabled", true);
-		$("#bunyang_list > ul > li").click(function(){
-			
-			$("#bunyang_list > ul > li").removeClass("pic");
-			$(this).addClass("pic"); 
-		})
-		
-	})
-</script>
+
 	<section class = "bunyang_body">
 		<div id = "top_list">
 			<ul>
@@ -163,7 +153,7 @@
 			<div id = "bunyang_list">
 				<ul>
 					<li class = "pic"><a href = "${pageContext.request.contextPath }/menuBunyang/Procedure.jsp">이용절차</a></li>
-					<li><a href ="">예약방법</a></li>
+					<li><a href ="${pageContext.request.contextPath }/menuBunyang/rway.jsp">예약방법</a></li>
 					<li><a href ="">이용일수</a></li>
 					<li><a href ="">추첨예약일정</a></li>
 					<li><a href ="">추첨배점기준</a></li>

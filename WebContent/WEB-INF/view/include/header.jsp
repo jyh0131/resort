@@ -311,7 +311,7 @@
 				</li>
 				<li><a href="${pageContext.request.contextPath }/menuBunyang/Procedure.jsp">분양회원</a>
 					<ul id="#" class="bottom_sub">
-						<li><a href="#">이용절차</a></li>
+						<li><a href="${pageContext.request.contextPath }/menuBunyang/Procedure.jsp">이용절차</a></li>
 						<li><a href="#">예약방법</a></li>
 						<li><a href="#">이용일수</a></li>
 						<li><a href="#">시설이용약관</a></li>
