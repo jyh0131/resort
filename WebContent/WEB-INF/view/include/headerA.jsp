@@ -199,10 +199,10 @@
 					<li>
 						<span>회원 관리</span>
 						<ul id = "member" class = "am_subMenu">
-							<li><a href = "">관리자 리스트</a></li>
-							<li><a href = "">전체 회원 리스트</a></li>
-							<li><a href = "">회원 리스트(탈퇴제외)</a></li>
-							<li><a href = "">탈퇴 회원 리스트</a></li>
+							<li><a href = "${pageContext.request.contextPath}/member/adminList.do">관리자 리스트</a></li>
+							<li><a href = "${pageContext.request.contextPath}/member/list.do">전체 회원 리스트</a></li>
+							<li><a href = "${pageContext.request.contextPath}/member/listWithout.do">회원 리스트(탈퇴제외)</a></li>
+							<li><a href = "${pageContext.request.contextPath}/member/listWithdraw.do">탈퇴 회원 리스트</a></li>
 						</ul>
 					</li>
 					<li>
