@@ -31,7 +31,7 @@
 		color:#977F51;
 	}
 	.reSubMenu{/* roomType(submenu)안의 submenu(roomName의 ul) */
-		margin: 0 auto;
+		margin: 0 auto; 
 	}
 	.sideM_T{/* submenu의 type name */
 		display: block;
