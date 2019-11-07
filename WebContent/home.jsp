@@ -52,8 +52,9 @@
 	}
 	#room_introbox .room_detailbox .idx_cnt{
 		position:absolute;
-		right:45px;
+		right:42px;
 		bottom:10px;
+		font-size:14px;
 	}
 	#room_introbox .room_detailbox .btn_clickbox {
 		position:absolute;
@@ -312,7 +313,7 @@
 					<p class="room_name">${rn.rnEngName}</p>
 					<p class="room_detail">${rn.rnDetail}</p>
 					<a href="${pageContext.request.contextPath}/room/M/list.do?rnNo=${rn.rnNo}">Read More</a>
-					<p class="idx_cnt"><span class="nowCnt">${rn.rnNo}</span>/<span class="totalCnt">7</span></p>
+					<p class="idx_cnt"><span class="nowCnt">${rn.rnNo}</span> / <span class="totalCnt">7</span></p>
 					
 					<div class="btn_clickbox">
 						<img src="${pageContext.request.contextPath}/images/room_leftbtn.png" class="room_leftbtn">
