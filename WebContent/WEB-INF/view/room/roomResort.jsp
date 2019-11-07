@@ -289,7 +289,11 @@
 						<th>기본 요금</th>
 					</tr>
 					<tr>
-						<td rowspan="7">
+						<td rowspan="<c:forEach var = 'rs' items = '${rsList }'>
+										<c:if test = '${rnList[selectRnNo-1].rnNo == rs.roomName.rnNo }'>
+											${rsList.size() }
+										</c:if>
+									</c:forEach>">
 							${rnList[selectRnNo-1].rnName }
 						</td>
 						<td>
