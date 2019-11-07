@@ -39,7 +39,7 @@ public class MemberAdminLoginHandler implements CommandHandler {
 				HttpSession session = request.getSession();
 				session.setAttribute("Auth", memberAdmin.getmId());
 	
-				response.sendRedirect(request.getContextPath() + "/homeA.do");
+				response.sendRedirect(request.getContextPath()+"/homeA.do");
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {

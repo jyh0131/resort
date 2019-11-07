@@ -52,6 +52,7 @@
 		float:left;
 		margin: 0 auto;
 		text-align: center;
+		width: 1024px;
 	}
 	.title_border{/* 한글 title과 영문 title 사이의  border */
 		display: block;

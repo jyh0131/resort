@@ -8,6 +8,11 @@
 		margin:0 auto;
 		position:relative;
 	}
+	#rsv_wrapper #no_reserve{
+		margin-top:50px;
+		text-align:center;
+		font-size:14px;
+	}
 	#rsv_wrapper #rsv_title{
 		margin:100px 0 50px 240px;
 		font-weight: bold;
@@ -28,6 +33,7 @@
 	#rsv_wrapper table {
 		border-collapse:collapse;
 		margin:0 auto;
+		width:881px;
 	}
 	#rsv_wrapper tr:first-child th {
 		border-top:3px solid #918EDB;
@@ -112,6 +118,7 @@
 		<c:if test="${list.size() == 0 || (list != null && list[0] == null)}">
 			<div id="no_reserve">예약된 내용이 없습니다.</div>
 		</c:if>
+		</div>
 		<div id="findbox">
 			<form action="${pageContext.request.contextPath}/reservation/find.do">
 				<select name="find">
@@ -127,8 +134,7 @@
 				<input type="submit" value="검색">
 			</form>
 		</div>
-		<a href="${pageContext.request.contextPath}/reservation/list.do" style="margin-left:100px;">모든 예약 보기</a>
-		</div>
+		<a href="${pageContext.request.contextPath}/reservation/list.do" style="margin-left:160px;">모든 예약 보기</a>
 	</div>
 <script>
 	// 검색 버튼을 눌렀을 때
@@ -191,6 +197,16 @@
 		}
 		
 		$("input[name='end_date']").val(y+"-"+M+"-"+day);
+	});
+	
+	// 예약 조회 시 데이터가 없을 경우
+	$(document).ready(function() {
+		var no_reserve = $("#no_reserve").css("display");
+		if(no_reserve == "block") {
+			$("#rsv_wrapper #scroll_box").css("width", "100%")
+										.css("height", "300px")
+										.css("overflow", "auto");
+		}
 	});
 </script>
 <%@ include file="../include/footer.jsp" %>

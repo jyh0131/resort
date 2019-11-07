@@ -1,47 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/headerA.jsp" %>
 <style>
 	#rsv_wrapper {
-		width:1200px;
+		width:1300px;
 		height:800px;
 		margin:0 auto;
 	}
-	#rsv_wrapper #no_reserve{
-		margin:200px 0px;
+	#rsv_wrapper h1{
+		margin-top:30px;
+		font-size:1.5em;
+		color:#977F51;
 		text-align:center;
+	}
+	#rsv_wrapper #no_reserve{
+		margin-top:50px;
+		text-align:center;
+		font-size:14px;
 	}
 	#rsv_wrapper #scroll_box{
 		width:100%;
 		height:600px;
+		margin-top:50px;
 		overflow:auto;
 	}
 	#rsv_wrapper table {
 		border-collapse:collapse;
 		margin:0 auto;
+		width:1200px;
 	}
 	#rsv_wrapper table tr:first-child th{
-		background:#FAECC5;
+		border-top:2px solid #977F51;
+		font-weight:normal;
 	}	
-	#rsv_wrapper td, th {
+	#rsv_wrapper td, #rsv_wrapper th {
 		padding:7px;
 		text-align:center;		
-		border:1px solid black;
-	}
-	#rsv_wrapper td.paydate{
 		font-size:14px;
-		color:gray;
-		text-align: right;
+		border-bottom:1px solid lightgray;
 	}
 	#rsv_wrapper #btnbox {
 		text-align:center;
 	}
 	#rsv_wrapper a{
-		background:#FAECC5;
+		border:1px solid #977F51;
+		background:white;
 		font-size:16px;
 		padding:4px;
 		color:black;
 		text-decoration: none;
+		font-size:14px;
 	}
 	#findbox {
 		margin-top:10px;
@@ -53,6 +61,8 @@
 	}
 </style>
 	<div id="rsv_wrapper">
+		<h1>전체 예약 정보 확인</h1>
+		<div id="scroll_box">
 		<table>
 			<tr>
 				<th>예약번호</th>
@@ -94,6 +104,7 @@
 		<c:if test="${list.size() == 0 || (list != null && list[0] == null)}">
 			<div id="no_reserve">예약된 내용이 없습니다.</div>
 		</c:if>
+		</div>
 		<div id="findbox">
 			<form action="${pageContext.request.contextPath}/reservation/findA.do">
 				<select name="find">
@@ -173,6 +184,16 @@
 		}
 		
 		$("input[name='end_date']").val(y+"-"+M+"-"+day);
+	});
+	
+	// 예약 조회 시 데이터가 없을 경우
+	$(document).ready(function() {
+		var no_reserve = $("#no_reserve").css("display");
+		if(no_reserve == "block") {
+			$("#rsv_wrapper #scroll_box").css("width", "100%")
+										.css("height", "300px")
+										.css("overflow", "auto");
+		}
 	});
 </script>
 <%@ include file="../include/footer.jsp" %>
