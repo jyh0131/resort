@@ -67,66 +67,76 @@ function passwordCheckFunction(){
 		$("#pass").text("비밀번호가 일치합니다")
 	}
 }
-
-
-
 </script>
-
-
-
 <style>
-
-table,td{
+#con {
+	width:1024px;
+	margin: 0 auto;
+}
+#con table td{
 	border:0.1px solid gray;
 }
-table{
+#con table {
 	border-collapse: collapse;
+	margin-top :200px;
 }
 
-.left{
+#con .left{
 	background-color:#FFF2E6;
 	width:150px;
 	height:40px;
 	padding-left: 20px;
 }
-.right{
+#con .right{
 	width:700px;
 	height:40px;
 	padding-left: 10px;
 }
-input{
+#con input{
 	height:17px;
 }
 
-#con,table{
-	margin-top :200px;
-	margin-left: 270px;
+#con #bottom #join {
+    height: 27px;
+    background-color: #6CC0FF;
+    color: white;
+    border-radius: 7px 7px 7px;
+    font-weight: bold;
+    text-decoration: none;
+    padding:5px;
+    border:none;
 }
-#bottom{
+
+#con #bottom{
 	margin-top:17px;
-	margin-left:700px;
+	margin-left:400px;
 }
-#Line{
+#con #Line{
 	font-weight: bold;
 	font-size: 16px;
 }
-#join{
-	height:27px;
-	background-color: #6CC0FF;
-	color:white;
-	border-radius: 7px 7px 7px;
-	font-weight: bold;
-}
-#cancel{
+#con #cancel{
 	height:27px;
 }
  
-.input{
+#con .input{
 	display: none;
 }
 
-#withdraw{
+#con #withdraw{
 	margin-left:940px;
+}
+#out {
+	margin-top:10px;
+	margin-left:825px;
+}
+#out a{
+	display:inline-block;
+	border:1px solid black;
+	background:#FFF2E6;
+	color:black;
+	text-decoration: none;
+	padding:5px;
 }
 
 </style>
@@ -179,13 +189,9 @@ input{
 	<br>
 
 </div>
-
- <a href = "withdraw.do" id = "withdraw">회원 탈퇴하기</a>
-
+	<div id="out">
+ 		<a href = "withdraw.do" id = "withdraw">회원 탈퇴하기</a>
+	</div>
 </form>
-
-
-
-
 <%@ include file= "../include/footer.jsp" %>
 

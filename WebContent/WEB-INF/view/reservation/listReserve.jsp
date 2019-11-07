@@ -149,7 +149,7 @@
 		
 		var select = $("select[name='find']").val();
 		if(select == 1) {
-			var textreg = /^[0-9]$/;
+			var textreg = /^[0-9]{0,5}$/;
 			if(textreg.test(text) == false) {
 				alert("예약번호는 숫자만 입력해주세요.");
 				return false;

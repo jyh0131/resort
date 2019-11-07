@@ -2,77 +2,59 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core"%>  
 <%@ include file= "../include/header.jsp" %>
-
-<script>
-
-
-
-</script>
-
-
-
 <style>
-
-table,td{
+#con {
+	width:1024px;
+	margin:0 auto;
+}
+#con table td{
 	border:0.1px solid gray;
 }
-table{
-	border-collapse: collapse;
-}
 
-.left{
+#con .left{
 	background-color:#FFF2E6;
 	width:150px;
 	height:40px;
 	padding-left: 20px;
 }
-.right{
+#con .right{
 	width:700px;
 	height:40px;
 	padding-left: 10px;
 }
-input{
+#con input{
 	height:17px;
 }
 
-#con,table{
+#con table{
 	margin-top :200px;
-	margin-left: 270px;
+	border-collapse: collapse;
 }
-#bottom{
-	margin-top:17px;
-	margin-left:700px;
+#con #bottom{   
+	margin-top:20px;
+	margin-left:400px;
 }
-#Line{
+#con #Line{
 	font-weight: bold;
 	font-size: 16px;
 }
-#join{
-	height:27px;
-	background-color: #6CC0FF;
-	color:white;
-	border-radius: 7px 7px 7px;
-	font-weight: bold;
-}
-#cancel{
-	height:27px;
-}
- 
-.input{
+#con .input{
 	display: none;
 }
-
-#withdraw{
-	margin-left:940px;
+#con #bottom a{
+	height: 27px;
+    background-color: #6CC0FF;
+    color: white;
+    border-radius: 7px 7px 7px;
+    font-weight: bold;
+    text-decoration: none;
+    padding:5px;
 }
 
 </style>
 
 </head>
-<body>
-
-<form action = "update.do" method ="post">
- 
+<body></body>
  <div id = "con">
  
  <table>
@@ -111,18 +93,9 @@ input{
 	 </tr>
  
  </table>
- 
 	 <div id = "bottom"> 
-		<input type = "submit" value = "변경" id = "join">
-		<input type = "reset" value = "취소" id = "cancel">
+		<a href = "update.do">회원 정보 수정</a>
 	</div>
 	<br>
-
 </div>
-
-</form>
-
-<a href = "update.do" id = "withdraw">회원 정보 수정</a>
-
-
 <%@ include file= "../include/footer.jsp" %>
