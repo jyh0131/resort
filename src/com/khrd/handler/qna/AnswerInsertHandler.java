@@ -19,6 +19,11 @@ public class AnswerInsertHandler implements CommandHandler {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			int qNo = Integer.parseInt(req.getParameter("no"));
 			req.setAttribute("no", qNo);
+
+			//관리자 페이지 키 넘기기
+			String key = req.getParameter("key");
+			req.setAttribute("key", key);
+			
 			return "/WEB-INF/view/qna/answer/answerInsertForm.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			int qNo = Integer.parseInt(req.getParameter("no"));
@@ -33,6 +38,12 @@ public class AnswerInsertHandler implements CommandHandler {
 				AnswerDAO dao = AnswerDAO.getInstance();
 				Answer answer =  new Answer(0, aContent, null, qNo, mId);
 				dao.insertAnswer(conn, answer);
+				
+				//관리자 페이지 키 넘기기
+				String key = req.getParameter("key");
+				if(key != null && key.equals("admin")) {
+					res.sendRedirect(req.getContextPath()+"/question/list.do?key=admin");
+				}
 				res.sendRedirect(req.getContextPath()+"/question/detail.do?no="+qNo);
 			} catch (Exception e) {
 				e.printStackTrace();

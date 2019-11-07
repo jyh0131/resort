@@ -20,6 +20,8 @@ public class NoticeDeleteHandler implements CommandHandler {
 			conn = ConnectionProvider.getConnection();
 			NoticeDAO dao = NoticeDAO.getInstance();
 			dao.deleteNotice(conn, nNo);
+			
+			//관리자 페이지
 			String key = req.getParameter("key");
 			if(key != null && key.equals("admin")) {
 				res.sendRedirect(req.getContextPath()+"/notice/list.do?key=admin");

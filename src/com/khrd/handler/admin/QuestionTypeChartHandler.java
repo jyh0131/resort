@@ -23,6 +23,7 @@ public class QuestionTypeChartHandler implements CommandHandler {
 			QuestionDAO dao = QuestionDAO.getInstance();
 			List<Question> list = dao.selectRankByQTypeCount(conn);
 			req.setAttribute("list", list);
+
 			return "/WEB-INF/view/admin/mostQuestionChart.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();

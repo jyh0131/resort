@@ -44,7 +44,7 @@
 		padding-left: 20px;
 	}
 	td>img{
-		width: 30%;
+		width: 100%;
 	}
 	div#answer{
 		width: 660px;
@@ -108,7 +108,7 @@
 			<td>첨부파일 | </td>
 			<td colspan="3">
 				<c:if test="${n.nFile != null}">
-					<img src="${pageContext.request.contextPath}/upload/${n.nFile}">
+					<img src="${pageContext.request.contextPath}/upload/notice/${n.nFile}">
 				</c:if>
 			</td>
 		</tr>

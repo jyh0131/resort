@@ -68,7 +68,7 @@
 </script>
 <section>
 	<%@ include file="../include/notice/front.jsp" %>
-	<form action="add.do" method="post" enctype="multipart/form-data">
+	<form action="add.do?key=${key}" method="post" enctype="multipart/form-data">
 		<p id="check">
 			<label for="on">공지 등록</label>
 			<input type="checkbox" name="check" id="on">

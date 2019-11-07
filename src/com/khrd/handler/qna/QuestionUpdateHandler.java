@@ -20,6 +20,7 @@ public class QuestionUpdateHandler implements CommandHandler {
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
 			int qNo = Integer.parseInt(req.getParameter("no"));
+			
 			Connection conn = null;
 			try {
 				conn = ConnectionProvider.getConnection();
@@ -64,6 +65,7 @@ public class QuestionUpdateHandler implements CommandHandler {
 				}
 				Question question = new Question(qNo, qTitle, qType, qContent, qFile, null, null);
 				dao.updateQuestion(conn, question);
+				
 				res.sendRedirect(req.getContextPath()+"/question/detail.do?no="+qNo);
 			} catch (Exception e) {
 				e.printStackTrace();

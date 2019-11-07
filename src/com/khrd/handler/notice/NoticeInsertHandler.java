@@ -20,6 +20,10 @@ public class NoticeInsertHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
+			//관리자 페이지 키 넘기기
+			String key = req.getParameter("key");
+			req.setAttribute("key", key);
+			
 			return "/WEB-INF/view/notice/noticeInsertForm.jsp";
 		}else if(req.getMethod().equalsIgnoreCase("post")) {
 			String uploadPath = req.getRealPath("upload/notice");
@@ -51,6 +55,12 @@ public class NoticeInsertHandler implements CommandHandler {
 				NoticeDAO dao = NoticeDAO.getInstance();
 				Notice notice = new Notice(0, nTitle, nContent, nFile, null, 0, nCheck, mId);
 				dao.insertNotice(conn, notice);
+				
+				//관리자 페이지 키 넘기기
+				String key = req.getParameter("key");
+				if(key != null && key.equals("admin")) {
+					res.sendRedirect(req.getContextPath()+"/notice/list.do?key=admin");
+				}				
 				res.sendRedirect(req.getContextPath()+"/notice/list.do");
 			} catch (Exception e) {
 				e.printStackTrace();

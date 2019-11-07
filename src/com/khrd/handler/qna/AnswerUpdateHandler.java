@@ -16,7 +16,9 @@ public class AnswerUpdateHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		if(req.getMethod().equalsIgnoreCase("get")) {
-			int qNo = Integer.parseInt(req.getParameter("no"));
+			int qNo = Integer.parseInt(req.getParameter("no"));	
+			String key = req.getParameter("key");
+			
 			Connection conn = null;
 			try {
 				conn = ConnectionProvider.getConnection();
@@ -26,6 +28,7 @@ public class AnswerUpdateHandler implements CommandHandler {
 				answer.setaContent(aContent);
 				req.setAttribute("qNo", qNo);
 				req.setAttribute("a", answer);
+				req.setAttribute("key", key);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -43,6 +46,12 @@ public class AnswerUpdateHandler implements CommandHandler {
 				AnswerDAO dao = AnswerDAO.getInstance();
 				Answer answer = new Answer(aNo, aContent, null, 0, null);
 				dao.updateAnswer(conn, answer);
+				
+				//관리자 페이지
+				String key = req.getParameter("key");
+				if(key != null && key.equals("admin")) {
+					res.sendRedirect(req.getContextPath()+"/question/list.do?key=admin");
+				}				
 				res.sendRedirect(req.getContextPath()+"/question/detail.do?no="+qNo);
 			} catch (Exception e) {
 				e.printStackTrace();

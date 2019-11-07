@@ -6,31 +6,10 @@
 		width: 100%;
 		padding-top: 50px; 
 	}
-	section>h1{
+	h1{
 		text-align: center;
 		color: #977F51;
-		margin-bottom: 30px;
 	}
-	section>p#addBtn{
-		width: 1000px;
-		margin: 0 auto;
-		text-align: right;
-	}
-	section>#addBtn>a{
-		padding: 3px 7px;
-		border: 0.5px solid #977F51;
-		border-radius: 5px;
-		text-decoration: none;
-		font-size: 12px;
-		background: #fff;
-		color: #977F51;
-		outline: none;
-		cursor: pointer;
-	}
-	section>#addBtn>a:hover{
-		background: #DFD2B3;
-		color: #fff;
-	}     
 	table{
 		width: 1000px;
 		margin: 20px auto;
@@ -46,7 +25,7 @@
 	td{
 		padding: 10px;
 	}
-	span.notice, span.delete, span.update{
+	span.question, span.delete, span.answerUpd, span.answerDel, span.answerAdd{
 		background: #DFD2B3;
 		color: #fff;
 		border-radius: 5px;
@@ -68,7 +47,7 @@
 	.selDetail{
 		color: #977F51;
 		font-weight: bold;
-		background:  rgba(223, 210, 179, 0.5);
+		background: rgba(223, 210, 179, 0.5);
 		border: 1px solid #DFD2B3;
 	}
 	.selDetail a{
@@ -93,7 +72,7 @@
 		text-align: left;
 		padding: 0px 30px;
 	}
-	tr.hold>span{
+	tr.hold span{
 		font-size: 12px;
 	}
 	td#pageBtn>a{
@@ -133,54 +112,33 @@
 	$(function() {
 		//제목 클릭 시 내용 보이기
 		$(".detail").click(function() {
-			$(this).closest(".nList").toggleClass("selDetail");
-			$(this).closest(".nList").next().toggle();
-			$(this).closest(".nList").next().next().toggle();
+			$(this).closest(".qList").toggleClass("selDetail");
+			$(this).closest(".qList").next().toggle();
+			$(this).closest(".qList").next().next().toggle();
 		})
 		
-		// 체크 버튼 클릭 시 공지 등록/해제
-		$(".notice").click(function() {
-			var target = $(this);
-			var no = target.attr("data-no");
-			var check = target.attr("data-check");
-			if(check == 1){
-				check = 0;
-				target.attr("data-check", "0");
-				target.css("color", "#fff");
-			}else{
-				check = 1;
-				target.attr("data-check", "1");
-				target.css("color", "#977F51");
-			}
-			
-			$.ajax({
-				url: "${pageContext.request.contextPath}/notice/updateCheck.do",
-				type: "get",
-				data: {"check" : check, "no" : no},
-				success : function(res) {
-					console.log(res);
-				}//success
-			})//ajax
-		})
-		
-		//삭제 버튼 클릭 시 삭제 후 페이지 갱신
+		//질문 삭제 버튼 클릭 시 삭제 후 페이지 갱신
 		$(".delete").click(function() {
 			var no = $(this).attr("data-no");
-			location.href="${pageContext.request.contextPath}/notice/delete.do?key=admin&no=" + no;
+			location.href="${pageContext.request.contextPath}/question/delete.do?key=admin&no=" + no;
 		})
 		
-		//수정 버튼 클릭 시 수정 페이지로 이동
-		$(".update").click(function() {
+		//답변 수정 버튼 클릭 시 수정 페이지로 이동
+		$(".answerUpd").click(function() {
 			var no = $(this).attr("data-no");
-			location.href="${pageContext.request.contextPath}/notice/update.do?key=admin&no=" + no;
+			location.href="${pageContext.request.contextPath}/answer/update.do?key=admin&no=" + no;
 		})
 		
-		//공지 체크 여부에 따라 CSS
-		$(".notice").each(function(i, obj) {
-			var value = $(obj).attr("data-check");
-			if(value == 1){
-				$(obj).css("color", "#977F51");
-			}
+		//답변 삭제 버튼 클릭 시 삭제 후 갱신
+		$(".answerDel").click(function() {
+			var no = $(this).attr("data-no");
+			location.href="${pageContext.request.contextPath}/answer/delete.do?key=admin&no=" + no;
+		})
+		
+		//답변 추가 버튼 클릭 시 해당 질문 detail 페이지로 이동
+		$(".answerAdd").click(function() {
+			var no = $(this).attr("data-no");
+			location.href="${pageContext.request.contextPath}/answer/add.do?key=admin&no=" + no;
 		})
 		
 		//선택된 페이지 번호 CSS
@@ -188,52 +146,59 @@
 	})
 </script>
 <section>
-	<h1>공지사항 관리</h1>
-	<p id="addBtn"><a href="${pageContext.request.contextPath}/notice/add.do?key=admin">공지사항 추가</a><p>
+	<h1>질문 관리</h1>
 	<table>
 		<tr>
 			<td>순번</td>
+			<td>구분</td>
 			<td>제목</td>
+			<td>작성자</td>
 			<td>작성일</td>
-			<td>조회수</td>
-			<td>공지 여부</td>
 			<td>삭제</td>
-			<td>수정</td>
+			<td>답변</td>
 		</tr>
 		<c:if test="${page.total == 0}"><!-- 공지사항이 0개면 -->
 			<tr>
 				<td colspan="5">공지사항이 없습니다.</td>
 			</tr>
 		</c:if>
-		<c:forEach var="n" items="${list}">
-			<tr class="nList">
-				<td>${n.nNo}</td>
+		<c:forEach var="q" items="${list}" varStatus="i">
+			<tr class="qList">
+				<td>${q.qNo}</td>
+				<td>${q.qType}</td>
 				<td class="titleTD">
-					<a class="detail">${n.nTitle}</a>
+					<a class="detail">${q.qTitle}</a>
 				</td>
-				<td>${n.nDate}</td>
-				<td>${n.nViews}</td>
+				<td>${q.mId}</td>
+				<td>${q.qDate}</td>
 				<td>
-					<span class="notice" data-no="${n.nNo}" data-check="${n.nCheck}">✔</span>
-				</td>
-				<td>
-					<span class="delete" data-no="${n.nNo}">&cross;</span>
+					<span class="delete" data-no="${q.qNo}">&cross;</span>
 				</td>
 				<td>
-					<span class="update" data-no="${n.nNo}">&olarr;</span>
+					<c:set var="i" value="0"/> <!-- 구분 변수 선언 -->
+					<c:forEach var="dbQNo" items="${qNoList}">
+						<c:if test="${dbQNo == q.qNo}"><!-- 답변이 있으면  1 -->
+							<c:set var="i" value="1"/>
+							<span class="answerUpd" data-no="${q.qNo}">수정</span>
+							<span class="answerDel" data-no="${0}">삭제</span>
+						</c:if>	
+					</c:forEach>
+					<c:if test="${i == 0}"> <!-- 답변이 없을 경우 -->
+						<span class="answerAdd" data-no="${q.qNo}">추가</span>
+					</c:if>
 				</td>
 			</tr>
 			<tr class="hold">	
 				<td>내용</td>
-				<td colspan="6" class="content">${n.nContent}</td>
+				<td colspan="5" class="content">${q.qContent}</td>
 			</tr>
 			<tr class="hold">	
 				<td>파일</td>
-				<td colspan="6">
-					<c:if test="${n.nFile != null}">
-						<img src="${pageContext.request.contextPath}/upload/notice/${n.nFile}">
+				<td colspan="5">
+					<c:if test="${q.qFile != null}">
+						<img src="${pageContext.request.contextPath}/upload/question/${q.qFile}">
 					</c:if>
-					<c:if test="${n.nFile == null}">
+					<c:if test="${q.qFile == null}">
 						<span>첨부파일이 없습니다.</span>
 					</c:if>
 				</td>
@@ -243,17 +208,17 @@
 			<tr id="pageBtns">
 				<td colspan="6" id="pageBtn">
 					<c:if test="${page.startPage > 5}">
-						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=1&key=admin" id="btnFirst">&nbsp;</a>
-						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.startPage-5}&key=admin" id="btnPrev">&nbsp;</a>
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=1&key=admin" id="btnFirst">&nbsp;</a>
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage-5}&key=admin" id="btnPrev">&nbsp;</a>
 					</c:if>
 					
 					<c:forEach var="pNo" begin="${page.startPage}" end="${page.endPage}">
-						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${pNo}&key=admin" class="btnNum" data-pNo="${pNo}">${pNo}</a>
+						<a  href="${pageContext.request.contextPath}/question/list.do?pageNo=${pNo}&key=admin" class="btnNum" data-pNo="${pNo}">${pNo}</a>
 					</c:forEach>
 					
 					<c:if test="${page.endPage < page.totalPages && page.totalPages > 5}">
-						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.startPage+5}&key=admin" id="btnNext">&nbsp;</a>
-						<a href="${pageContext.request.contextPath}/notice/list.do?pageNo=${page.totalPages}&key=admin" id="btnLast">&nbsp;</a>
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.startPage+5}&key=admin" id="btnNext">&nbsp;</a>
+						<a href="${pageContext.request.contextPath}/question/list.do?pageNo=${page.totalPages}&key=admin" id="btnLast">&nbsp;</a>
 					</c:if>
 				</td>
 			</tr>

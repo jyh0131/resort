@@ -44,7 +44,7 @@
 		padding-left: 20px;
 	}
 	td>img{
-		width: 30%;
+		width: 100%;
 	}
 	div#answer{
 		width: 660px;
@@ -126,7 +126,7 @@
 			<td>첨부파일 | </td>
 			<td colspan="3">
 				<c:if test="${q.qFile != null}">
-					<img src="${pageContext.request.contextPath}/upload/${q.qFile}">
+					<img src="${pageContext.request.contextPath}/upload/question/${q.qFile}">
 				</c:if>
 			</td>
 		</tr>
@@ -139,6 +139,5 @@
 			${a.aContent}
 		</div>
 	</c:if>
-	
 </section>
 <%@ include file="../../include/footer.jsp" %>

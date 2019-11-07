@@ -48,7 +48,7 @@
 </script>
 <section>
 	<%@ include file="../../include/qna/front.jsp" %>
-	<form action="update.do" method="post">
+	<form action="update.do?key=${key}" method="post">
 		<p>
 			<label>제목</label>
 			<input type="text" size="70" id="title" readonly="readonly" value="RE : 대명리조트입니다.">

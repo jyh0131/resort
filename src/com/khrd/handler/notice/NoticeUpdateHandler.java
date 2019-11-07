@@ -72,6 +72,7 @@ public class NoticeUpdateHandler implements CommandHandler {
 				Notice notice = new Notice(nNo, nTitle, nContent, nFile, null, 0, nCheck, null);
 				dao.updateNotice(conn, notice);
 				
+				//관리자 페이지
 				String key = req.getParameter("key");
 				if(key != null && key.equals("admin")) {
 					res.sendRedirect(req.getContextPath()+"/notice/list.do?key=admin");

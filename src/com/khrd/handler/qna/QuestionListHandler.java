@@ -50,6 +50,11 @@ public class QuestionListHandler implements CommandHandler {
 			req.setAttribute("list", list);
 			req.setAttribute("page", page);
 			
+			//관리자 페이지
+			String key = req.getParameter("key");
+			if(key != null && key.equals("admin")) {
+				return "/WEB-INF/view/qna/qnaManager.jsp";
+			}
 			return "/WEB-INF/view/qna/qnaList.jsp";   
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -34,6 +34,11 @@ public class QuestionDeleteHandler implements CommandHandler {
 			
 			conn.commit();
 			
+			//관리자 페이지
+			String key = req.getParameter("key");
+			if(key != null && key.equals("admin")) {
+				res.sendRedirect(req.getContextPath()+"/question/list.do?key=admin");
+			}
 			res.sendRedirect(req.getContextPath()+"/question/list.do");
 		} catch (Exception e) {
 			e.printStackTrace();
