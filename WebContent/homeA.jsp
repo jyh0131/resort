@@ -66,7 +66,7 @@ a.chart {
 		<p class="title">홈</p>
 		<ul>
 			<li><a href="${pageContext.request.contextPath}/home.do">회원용 홈</a><!-- do?home=user --></li>
-			<li><a href="${pageContext.request.contextPath}/home.do">관리자용 홈</a></li>
+			<li><a href="${pageContext.request.contextPath}/homeA.do">관리자용 홈</a></li>
 		</ul>
 	</div>
 
