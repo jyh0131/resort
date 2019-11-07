@@ -90,10 +90,10 @@
 					<td>${startDate} ~ ${endDate}</td>
 					<td>
 						<c:if test="${rsv.rsvCancel == 0}">
-							No
+							-
 						</c:if>
 						<c:if test="${rsv.rsvCancel == 1}">
-							Yes
+							<span style="color:red">취소</span>
 						</c:if>
 					</td>	
 					<td><a href="${pageContext.request.contextPath}/reservation/detailA.do?rsv_no=${rsv.rsvNo}">보기</a></td>
