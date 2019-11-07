@@ -14,6 +14,7 @@ public class AnswerDeleteHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		int qNo = Integer.parseInt(req.getParameter("qNo"));
 		int aNo = Integer.parseInt(req.getParameter("no"));
 		Connection conn = null;
 		try {
@@ -26,7 +27,7 @@ public class AnswerDeleteHandler implements CommandHandler {
 			if(key != null && key.equals("admin")) {
 				res.sendRedirect(req.getContextPath()+"/question/list.do?key=admin");
 			}
-			res.sendRedirect(req.getContextPath()+"/question/list.do");
+			res.sendRedirect(req.getContextPath()+"/question/detail.do?no="+qNo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

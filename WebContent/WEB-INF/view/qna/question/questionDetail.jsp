@@ -70,7 +70,7 @@
 <script>
 	$(function() {
 		$("#list").click(function() {
-			history.back();
+			location.href="${pageContext.request.contextPath}/question/list.do";
 		})
 		$("#updateQ").click(function() {
 			location.href="${pageContext.request.contextPath}/question/update.do?no=${q.qNo}";
@@ -85,7 +85,7 @@
 			location.href="${pageContext.request.contextPath}/answer/update.do?no=${q.qNo}";
 		})
 		$("#deleteA").click(function() {
-			location.href="${pageContext.request.contextPath}/answer/delete.do?no=${a.aNo}";
+			location.href="${pageContext.request.contextPath}/answer/delete.do?qNo=${q.qNo}&no=${a.aNo}";
 		})
 	})
 </script>
