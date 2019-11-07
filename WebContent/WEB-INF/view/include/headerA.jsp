@@ -211,7 +211,7 @@
 							<li>
 								<a href = "">Q&#38;A</a>
 								<ul class = "am_sm_submenu">
-									<li><a href = "">- 질문 관리</a></li>
+									<li><a href = "${pageContext.request.contextPath}/question/list.do?key=admin">- 질문 &amp; 답변 관리</a></li>
 									<li><a href = "${pageContext.request.contextPath }/admin/qTypeChart.do">- 유형별 질문 빈도</a></li>
 								</ul>
 							</li>
