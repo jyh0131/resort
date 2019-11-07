@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../WEB-INF/view/include/header.jsp" %>
 <style>
-	section{
+	.bunyang_body{
 		width:920px;
 		margin:0 auto;
 	}
@@ -34,7 +34,7 @@
 	    font-family: Arial,'돋움', Dotum;
 	}
 	
-	#contents{
+	.contents{
 		overflow: hidden;
 	    width: 100%;
 	    min-height: 770px;
@@ -45,7 +45,7 @@
 		border:1.5px solid #6283ab;
 		border-radius: 10px;
 		margin: 20px 0 30px 0;
-		padding:10px 20px 30px;
+		padding:20px 20px 30px;
 	}
 	.dtail_text{
 		position: relative;
@@ -58,6 +58,7 @@
 	}
 	.dtail_text > p{
 		font-size: 12px;
+		color:#666;
 	}
 	.dtail_text > .dtail_calenderBtn{
 		display: inline-block;
@@ -122,6 +123,7 @@
 	    color: #777;
 	    width: 101px;
 	}
+	
 </style>
 <script>
 	$(function(){
@@ -131,9 +133,10 @@
 			$("#bunyang_list > ul > li").removeClass("pic");
 			$(this).addClass("pic"); 
 		})
+		
 	})
 </script>
-	<section>
+	<section class = "bunyang_body">
 		<div id = "top_list">
 			<ul>
 				<li><span><img src = "${pageContext.request.contextPath }/images/ico_location_home.gif"> &#62;</span></li>
@@ -142,7 +145,7 @@
 			</ul>
 			<h3>분양회원</h3>
 		</div>
-		<div id = "contents">
+		<div class = "contents">
 			<div class = "dtail_box">
 				<div class = "dtail_text">
 					<h4>리조트 분양회원이란?</h4>
@@ -159,19 +162,13 @@
 			</div>
 			<div id = "bunyang_list">
 				<ul>
-					<li class = "pic"><a href = "">이용절차</a></li>
-					<li><a href = "">예약방법</a></li>
-					<li><a href = "">이용일수</a></li>
-					<li><a href = "">추첨예약일정</a></li>
-					<li><a href = "">추첨배점기준</a></li>
-					<li><a href = "">시설이용약관</a></li>
-					<li><a href = "">회원혜택안내</a></li>
-					<li><a href = "">모바일카드</a></li>
+					<li class = "pic"><a href = "${pageContext.request.contextPath }/menuBunyang/Procedure.jsp">이용절차</a></li>
+					<li><a href ="">예약방법</a></li>
+					<li><a href ="">이용일수</a></li>
+					<li><a href ="">추첨예약일정</a></li>
+					<li><a href ="">추첨배점기준</a></li>
+					<li><a href ="">시설이용약관</a></li>
+					<li><a href ="">회원혜택안내</a></li>
+					<li><a href ="">모바일카드</a></li>
 				</ul>
 			</div>
-			<div>
-				
-			</div>
-		</div>
-	</section>
-<%@ include file="../WEB-INF/view/include/footer.jsp" %>
