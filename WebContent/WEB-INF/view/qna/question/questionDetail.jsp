@@ -37,6 +37,7 @@
 	td:nth-child(2n){
 		width: 35%;
 		padding-left: 20px;
+		font-size: 14px;
 	}
 	td#title{
 		font-weight: bold;
@@ -52,19 +53,24 @@
 		background: rgba(223, 210, 179, 0.5);
 		border-radius: 10px;
 		padding: 20px;
-		font-size: 14px;
 	}
-	#answer>p{
+	#answer>p:first-child{
 		text-align: right;
 		color: #666;
+		font-size: 14px;
 	}
 	#answer>p>span{
 		float: left;
 		color: #977F51;
 	}
-	hr{
+	#answer>hr{
 		border: 1px dashed #977F51;
 		margin: 10px 0px;
+	}
+	#answer>p:last-child{
+		text-align: left;
+		font-size: 14px;
+		padding: 0 5px;
 	}
 </style>
 <script>
@@ -136,7 +142,7 @@
 		<div id="answer">
 			<p><span>RE : 대명리조트입니다.</span> 관리자 | ${a.aDate}</p>
 			<hr>
-			${a.aContent}
+			<p>${a.aContent}</p>
 		</div>
 	</c:if>
 </section>

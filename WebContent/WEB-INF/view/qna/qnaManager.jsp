@@ -159,7 +159,7 @@
 		</tr>
 		<c:if test="${page.total == 0}"><!-- 공지사항이 0개면 -->
 			<tr>
-				<td colspan="5">공지사항이 없습니다.</td>
+				<td colspan="5">게시글이 없습니다.</td>
 			</tr>
 		</c:if>
 		<c:forEach var="q" items="${list}" varStatus="i">
@@ -184,17 +184,17 @@
 						</c:if>	
 					</c:forEach>
 					<c:if test="${i == 0}"> <!-- 답변이 없을 경우 -->
-						<span class="answerAdd" data-no="${q.qNo}">추가</span>
+						<span class="answerAdd" data-no="${q.qNo}">추가</span> 
 					</c:if>
 				</td>
 			</tr>
 			<tr class="hold">	
 				<td>내용</td>
-				<td colspan="5" class="content">${q.qContent}</td>
+				<td colspan="6" class="content">${q.qContent}</td>
 			</tr>
 			<tr class="hold">	
 				<td>파일</td>
-				<td colspan="5">
+				<td colspan="6">
 					<c:if test="${q.qFile != null}">
 						<img src="${pageContext.request.contextPath}/upload/question/${q.qFile}">
 					</c:if>
