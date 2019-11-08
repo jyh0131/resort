@@ -139,6 +139,7 @@
 	.bottom_sub>li{
 		width: 166px;
 		clear: both;
+		height: 40px;
 		text-align: center;
 		line-height: 40px;
 	}
